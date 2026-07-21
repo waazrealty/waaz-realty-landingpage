@@ -30,7 +30,7 @@
 }
 
 @font-face {
-  font-family: 'InstrumentSerifFont';
+  font-family: 'InstrumentSerif';
   src: url('/fonts/InstrumentSerif-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
@@ -38,8 +38,8 @@
 }
 
 @font-face {
-  font-family: 'InstrumentSerifFont';
-  src: url('/fonts/InstrumentSerif-italic.ttf') format('truetype');
+  font-family: 'InstrumentSerif';
+  src: url('/fonts/InstrumentSerif-Italic.ttf') format('truetype');
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -52,9 +52,10 @@
   font-style: italic;
   font-display: swap;
 }
+
 :root {
   --font-sans: 'SweetSansFont', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  --font-serif: 'InstrumentSerifFont', Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-serif: 'InstrumentSerif', Georgia, Cambria, "Times New Roman", Times, serif;
   --font-serif-two: 'WillgFont', Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
