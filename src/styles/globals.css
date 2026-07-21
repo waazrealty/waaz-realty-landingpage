@@ -1,0 +1,78 @@
+@import "tailwindcss";
+/* Local TTF fonts - place your .ttf files in public/fonts/ and update names if needed */
+@font-face {
+  font-family: 'SweetSansFont';
+  src: url('/fonts/SweetSansPro-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SweetSansFont';
+  src: url('/fonts/SweetSansPro-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SweetSansFont';
+  src: url('/fonts/SweetSansPro-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SweetSansFont';
+  src: url('/fonts/SweetSansPro-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'InstrumentSerifFont';
+  src: url('/fonts/InstrumentSerif-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'InstrumentSerifFont';
+  src: url('/fonts/InstrumentSerif-italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'WillgFont';
+  src: url('/fonts/WILLG.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+:root {
+  --font-sans: 'SweetSansFont', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  --font-serif: 'InstrumentSerifFont', Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-serif-two: 'WillgFont', Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+html, body, #__next {
+  height: 100%;
+}
+
+body {
+  @apply bg-white text-black antialiased;
+  font-family: var(--font-sans);
+  margin: 0;
+  padding: 0;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-serifTwo {
+  font-family: var(--font-serif-two);
+}
