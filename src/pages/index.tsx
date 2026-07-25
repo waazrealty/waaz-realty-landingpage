@@ -17,7 +17,7 @@ export default function Home() {
       title="Wazz Realty"
       description="A starter Next.js site with TypeScript, Tailwind CSS, reusable components, fonts, and SEO."
     >
-      <section className="flex flex-col w-10/12 lg:mt-10 mb:mb-35 space-y-12">
+      <section className="flex flex-col w-10/12 md:mt-10 md:mb-40 md:space-y-10 space-y-12">
         <div className="md:text-[5rem] text-[4rem] font-serif italic md:leading-24 leading-18">
           Your <span className="text-[#3E452F]">Foundation </span> for Elevated <br /> Living in Lagos.
         </div>
@@ -48,11 +48,11 @@ export default function Home() {
       <PropertyShowcaseSection />
 
       <section
-        className="lg:w-10/12 w-full md:flex hidden items-center justify-between lg:bg-cover bg-center px-20 py-30"
+        className="lg:w-10/12 w-full md:flex hidden items-center justify-between gap-20 lg:bg-cover px-25 py-30"
         style={{ backgroundImage: "url('/assets/images/bg-gradient.png')" }}
         aria-label="Wazz Realty banner"
       >
-        <img src="/assets/images/badge.png" alt="Wazz Realty Logo" className="relative z-10 h-100 w-100" />
+        <img src="/assets/images/badge.png" alt="Wazz Realty Logo" className="relative z-10 h-120 w-120" />
 
         <div className="relative z-10 flex-1 max-w-xl">
           <div className="relative">
@@ -104,7 +104,7 @@ export default function Home() {
       </section>
 
       <section
-        className="w-full flex flex-col items-center justify-between bg-cover md:px-20 px-7 space-y-8"
+        className="w-full flex flex-col items-center justify-between md:px-20 px-7 space-y-8"
       >
         <div className="md:w-lg w-70">
           <div className="text-[3.35rem] text-center leading-16 italic font-serif text-black">The Standard for Premium Rentals</div>
@@ -115,17 +115,17 @@ export default function Home() {
         </div>
 
         <div className="max:w-5xl w-full flex flex-col md:flex-row items-center justify-center gap-3 mt-10">
-          <div className="flex w-100 flex-col gap-5 bg-[#515B3A]">
+          <div className="flex md:w-100 flex-col gap-5 bg-[#515B3A]">
             <img src="/assets/images/card-image1.png" alt="Wazz Realty house" className="h-auto" />
-            <div className="space-y-6 px-8 pb-10 md:w-full w-10/12">
+            <div className="space-y-6 px-8 pb-10 md:w-full w-11/12">
               <div className="text-5xl italic font-serif text-white leading-13">Exceptional Properties for Rent</div>
               <PrimaryButton textColor="[#36394A]" bgColor="white" iconColor="[#36394A]">
                 Discover Rentals
               </PrimaryButton>
             </div> 
           </div>
-          <div className="flex w-100 flex-col gap-5 bg-[#7D8B57]">
-            <div className="space-y-6 px-8 pt-10 md:w-full w-10/12">
+          <div className="flex md:w-100 flex-col gap-5 bg-[#7D8B57]">
+            <div className="space-y-6 px-8 pt-10 md:w-full w-11/12">
               <div className="text-5xl italic font-serif text-white leading-13">From Vision to Keys in Hand</div>
               <PrimaryButton textColor="[#36394A]" bgColor="white" iconColor="[#36394A]">
                 Schedule a Consultation
@@ -178,9 +178,9 @@ export default function Home() {
       </section>
 
       <section className="w-full py-14 mt-28">
-        <div className="mx-auto flex flex-col items-center w-11/12 lg:w-10/12">
+        <div className="mx-auto flex flex-col items-center w-10/12">
           <div className="grid gap-5 bg-white items-center md:justify-between md:p-10">
-            <h2 className="text-[2.5rem] w-100 font-serif italic text-center text-[#1F1F1A] md:text-[3rem]">Receive Curated Market Insights</h2>
+            <h2 className="text-[2.5rem] md:w-100 font-serif italic text-center text-[#1F1F1A] md:text-[3rem]">Receive Curated Market Insights</h2>
 
             <form onSubmit={handleSubscribe} className="grid gap-2">
               <label htmlFor="newsletter-email" className="">

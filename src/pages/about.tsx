@@ -1,4 +1,46 @@
 import { BasicLayout } from '@/components/Layout/BasicLayout'
+import MasonryGallery from '@/components/MasonryGallery'
+import PrimaryButton from '@/components/PrimaryButton'
+import { FiChevronRight } from 'react-icons/fi'
+
+const teamListings = [
+  {
+    id: 1,
+    firstname: 'First Name',
+    role: 'CEO & Founder',
+    image: '/assets/images/gallery/image3.png',
+  },
+  {
+    id: 2,
+    firstname: 'First Name',
+    role: 'CEO & Founder',
+    image: '/assets/images/gallery/image3.png',
+  },
+  {
+    id: 3,
+    firstname: 'First Name',
+    role: 'CEO & Founder',
+    image: '/assets/images/gallery/image3.png',
+  },
+  {
+    id: 3,
+    firstname: 'First Name',
+    role: 'CEO & Founder',
+    image: '/assets/images/gallery/image3.png',
+  },
+  {
+    id: 3,
+    firstname: 'First Name',
+    role: 'CEO & Founder',
+    image: '/assets/images/gallery/image3.png',
+  },
+  {
+    id: 3,
+    firstname: 'First Name',
+    role: 'CEO & Founder',
+    image: '/assets/images/gallery/image3.png',
+  },
+]
 
 export default function About() {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
@@ -8,32 +50,74 @@ export default function About() {
     <BasicLayout title="About Us | Wazz Realty" description="Learn about Wazz Realty and our commitment to premium real estate in Lagos." canonical={canonical} url={canonical} image="/assets/about-preview.png">
       <section className="flex flex-col w-10/12 lg:mt-10 mb:mb-35 space-y-12">
         <div className="md:text-[5rem] text-[4rem] font-serif italic md:leading-24 leading-18">
-          Guiding Your Vision to its <br /> <span className="text-[#3E452F]">Ultimate Address... </span>
+          Guiding Your Vision to its <br /> <span className="text-[#7D8B57]">Ultimate Address... </span>
         </div>
       </section>
-      <section className="bg-slate-50 px-6 py-12">
-        <div className="mx-auto max-w-5xl rounded-3xl bg-white p-10 shadow-md">
-          <h1 className="text-4xl font-bold">About Us</h1>
-          <p className="mt-6 text-lg leading-8 text-slate-700">
-            Wazz Realty is dedicated to delivering premium residential properties that blend elegance, comfort, and strong investment value.
-            We focus on customer service, quality craftsmanship, and modern design.
-          </p>
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6">
-              <h2 className="text-xl font-semibold">Vision</h2>
-              <p className="mt-3 text-slate-600">Create communities that inspire exceptional living experiences.</p>
-            </div>
-            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6">
-              <h2 className="text-xl font-semibold">Mission</h2>
-              <p className="mt-3 text-slate-600">Deliver modern, high-quality real estate with trust and transparency.</p>
-            </div>
-            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6">
-              <h2 className="text-xl font-semibold">Values</h2>
-              <p className="mt-3 text-slate-600">Service, integrity, innovation, and lasting value.</p>
+      <section className="relative md:aspect-10/5 aspect-2/3 w-full overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="hidden md:block h-full w-full bg-contain bg-no-repeat bg-center" style={{ backgroundImage: "url('/assets/images/bg-about.png')" }} aria-hidden="true" />
+          <div className="block md:hidden h-full w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/bg-mobile-about.png')" }} aria-hidden="true" />
+          
+        </div>
+      </section>
+      <section
+        className="w-full flex flex-col items-center justify-between px-0 md:space-y-6"
+      >
+        <div className="flex items-center md:gap-5 gap-3 md:text-[3.35rem] text-[2.5rem] text-center leading-16 md:px-0 px-5 italic font-serif">
+          <span className="text-[#9AA675]">Trust</span> <div className="h-2 w-2 rounded-full bg-[#9AA675] inline-flex">&nbsp;</div> <span className="text-[#7D8B57]">Value</span> <div className="h-2 w-2 rounded-full bg-[#9AA675] inline-flex">&nbsp;</div> <span className="text-[#616D43]">Excellence</span>
+        </div>
+
+        <div className="md:mb-5 mb-10 md:px-0 px-5">
+          <div className="text-[#666D80] max-w-135 md:text-justify text-center text-[1rem] leading-7">
+            At Waaz Realty, our work is defined by three unwavering principles. Trust is our foundation, built through absolute transparency and integrity in every interaction. We deliver enduring Value, not just in transactions, but in the quality of life and long-term growth our properties represent. And we pursue Excellence relentlessly, offering a curated, seamless service that transforms the property journey into a landmark experience.
+          </div>
+        </div>
+
+        <MasonryGallery />
+      </section>
+      <section
+        className="w-full flex flex-col items-center justify-between space-y-15"
+      >
+        <div className="flex md:flex-row flex-col md:items-center md:justify-end justify-center md:space-x-75 md:space-y-0 space-y-5 md:w-11/12 w-11/12">
+          <div className="md:text-[3.5rem] md:w-100 md:px-0 px-5 text-5xl md:text-left text-center md:leading-16 leading-14 italic font-serif text-black">Meet Your Trusted Real Estate Guides.</div>
+  
+          <div className="text-[#666D80] md:text-justify text-center md:w-5/12 md:text-lg text-[1rem] leading-6.5">
+            Our strength isn't just in our portfolio; it's in our people. The Waaz Realty team is a collective of seasoned strategists and dedicated market experts with an intimate understanding of the Lagos property landscape. We are more than agents; we are advisors and advocates for our clients. We listen to your vision and provide the steady guidance needed to ensure your property journey is seamless, informed, and ultimately, successful.
+          </div>
+        </div>
+        <div className="flex flex-col md:items-end md:justify-end space-x-25 md:space-y-0 space-y-5 w-11/12">
+          <div className="md:w-2/3 w-full justify-around">
+            <div className="grid grid-cols-2 md:grid-cols-3 justify-between gap-4 w-full">
+              {teamListings.map((listing) => (
+                <div key={listing.id} className="snap-center shrink-0 md:max-w-75 w-full overflow-hidden">
+                  <div className="md:h-69 h-42 w-full rounded-b-[2.5rem] rounded-tr-[2.5rem] object-cover bg-[#D2D8BE]"></div>
+                  {/* <img src={listing.image} alt={listing.firstname} className="h-72 w-full rounded-b-[2.5rem] rounded-t-[2.5rem] object-cover" /> */}
+                  <div className="md:space-y-1 md:py-6 py-2">
+                      <p className="md:text-[1rem] text-sm text-black font-medium">{listing.firstname}</p>
+                      <h3 className="md:text-sm text-xs text-[#666D80] font-medium">{listing.role}</h3>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
+        </div>
+      </section>
+      <section className="relative md:aspect-10/4 md:-mt-5 aspect-2/3 w-full overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="hidden md:block h-full w-full bg-contain bg-no-repeat bg-center" style={{ backgroundImage: "url('/assets/images/bg-about2.png')" }} aria-hidden="true" />
+          <div className="block md:hidden h-full w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/bg-mobile-about2.png')" }} aria-hidden="true" />
+        </div>
+      </section>
+      <section className="flex md:flex-row flex-col md:items-center md:justify-center w-11/12 mb:mb-35 mb-18 md:space-x-15 md:space-y-0 space-y-8">
+        <div className="max-w-120 md:text-[3.5rem] text-5xl md:leading-[4.38rem] italic font-serif text-[#131313]">Your Journey Starts with a Conversation.</div>
+        <div>
+          <button className="inline-flex items-center gap-2 rounded-full bg-[#616D43] px-6 py-3 text-white transition hover:opacity-90 capitalize">
+            Schedule a Consultation
+            <FiChevronRight size={18} />
+          </button>
         </div>
       </section>
     </BasicLayout>
   )
 }
+``

@@ -1,56 +1,117 @@
 import Link from 'next/link'
 import { useState } from 'react'
-import { FaAlignLeft } from "react-icons/fa6";
+import { useRouter } from 'next/router'
+import { AiOutlineClose } from 'react-icons/ai'
+import { FaAlignLeft } from 'react-icons/fa6'
+import PrimaryButton from './PrimaryButton'
+
+const desktopLinkBase = 'leading-2 font-medium transition hover:text-[#3E452F] inline-flex items-center justify-center pb-1'
+const desktopLinkActive = 'relative text-[#7D8B57] font-semibold inline-flex items-center justify-center pb-1 after:absolute after:rounded-full after:left-1/2 after:-bottom-0 after:block after:h-[4px] after:w-4 after:-translate-x-1/2 after:bg-[#7D8B57]'
+const mobileLinkBase = 'block rounded-2xl py-2 transition hover:bg-[#F5F5F5]'
+const mobileLinkActive = 'relative bg-[#F5F5F5] text-[#3E452F] font-semibold pb-1 after:absolute after:rounded-full after:left-1/2 after:-bottom-1 after:block after:h-[4px] after:w-4 after:-translate-x-1/2 after:bg-[#7D8B57]'
+
+const navItemsLeft = [
+  { label: 'About', href: '/about' },
+  { label: 'Portfolio', href: '/portfolio' },
+  { label: 'Listings', href: '/listings' },
+]
+
+const navItemsRight = [
+  { label: 'For Sale', href: '/' },
+  { label: 'For Rent', href: '/about' },
+  { label: 'Contact', href: '/contact' },
+  { label: 'Blog', href: '/blog' },
+]
 
 export default function SiteNav() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const { pathname } = useRouter()
+  const getDesktopLinkClass = (href: string) => pathname === href ? desktopLinkActive : desktopLinkBase
+  const getMobileLinkClass = (href: string) => `${mobileLinkBase} ${pathname === href ? mobileLinkActive : 'text-white'}`
 
   return (
-    <nav className="w-full px-6 py-10">
+    <nav className="w-full md:px-6 px-3 md:py-10 py-5 relative flex flex-col items-center">
       <div className="mx-auto w-10/12 items-center px-10 py-1 border border-[#ECEFF3] rounded-4xl justify-between text-sm gap-4 md:flex hidden">
         <div className="flex flex-wrap items-center space-x-8 font-medium text-sm text-black">
-          <Link className="hover:text-[#3E452F] leading-2 font-medium" href="/">About</Link>
-          <Link className="hover:text-[#3E452F] leading-2 font-medium" href="/about">Portfolio</Link>
-          <Link className="hover:text-[#3E452F] leading-2 font-medium" href="/contact">Listings</Link>
+          {navItemsLeft.map((item) => (
+            <Link key={`${item.href}-${item.label}`} className={getDesktopLinkClass(item.href)} href={item.href}>
+              {item.label}
+            </Link>
+          ))}
         </div>
-        <img src="/assets/images/logo.png" alt="Wazz Realty Logo" className="h-12 w-12" />
+
+        <Link href="/">
+          <img src="/assets/images/logo.png" alt="Wazz Realty Logo" className="h-12 w-12" />
+        </Link>
+
         <div className="flex flex-wrap items-center space-x-8 font-medium text-sm text-black">
-          <Link className="hover:text-[#3E452F] leading-2 font-medium" href="/">For Sale</Link>
-          <Link className="hover:text-[#3E452F] leading-2 font-medium" href="/about">For Rent</Link>
-          <Link className="hover:text-[#3E452F] leading-2 font-medium" href="/contact">Contact</Link>
-          <Link className="hover:text-[#3E452F] leading-2 font-medium" href="/blog">Blog</Link>
+          {navItemsRight.map((item) => (
+            <Link key={`${item.href}-${item.label}`} className={getDesktopLinkClass(item.href)} href={item.href}>
+              {item.label}
+            </Link>
+          ))}
         </div>
       </div>
 
-      <div className="md:hidden">
+      <div className="md:hidden relative w-full">
         <div className="flex items-center justify-between">
-          <img src="/assets/images/logo.png" alt="Wazz Realty Logo" className="h-15 w-15" />
+          <Link href="/">
+            <img src="/assets/images/logo.png" alt="Wazz Realty Logo" className="h-20 w-20" />
+          </Link>
           <button
             type="button"
             aria-expanded={menuOpen}
             aria-label="Toggle navigation menu"
             onClick={() => setMenuOpen((prev) => !prev)}
-            className="rounded-full border border-[#D9D9D9] p-2 text-black transition hover:bg-[#F5F5F5]"
+            className="text-white transition hover:bg-[#F5F5F5]"
           >
             <FaAlignLeft
-              size={20}
-              className={`transition-transform ${menuOpen ? "rotate-90" : "-scale-y-100"}`}
+              size={25}
+              className={`transition-transform text-black ${menuOpen ? 'rotate-90' : '-scale-y-100'}`}
             />
           </button>
         </div>
-
-        {menuOpen && (
-          <div className="mt-4 flex flex-col gap-3 rounded-3xl border border-[#D9D9D9] bg-white p-4 text-sm text-black shadow-sm">
-            <Link onClick={() => setMenuOpen(false)} className="block rounded-2xl px-4 py-2 hover:bg-[#F5F5F5]" href="/">About</Link>
-            <Link onClick={() => setMenuOpen(false)} className="block rounded-2xl px-4 py-2 hover:bg-[#F5F5F5]" href="/about">Portfolio</Link>
-            <Link onClick={() => setMenuOpen(false)} className="block rounded-2xl px-4 py-2 hover:bg-[#F5F5F5]" href="/contact">Listings</Link>
-            <Link onClick={() => setMenuOpen(false)} className="block rounded-2xl px-4 py-2 hover:bg-[#F5F5F5]" href="/">For Sale</Link>
-            <Link onClick={() => setMenuOpen(false)} className="block rounded-2xl px-4 py-2 hover:bg-[#F5F5F5]" href="/about">For Rent</Link>
-            <Link onClick={() => setMenuOpen(false)} className="block rounded-2xl px-4 py-2 hover:bg-[#F5F5F5]" href="/contact">Contact</Link>
-            <Link onClick={() => setMenuOpen(false)} className="block rounded-2xl px-4 py-2 hover:bg-[#F5F5F5]" href="/blog">Blog</Link>
-          </div>
-        )}
       </div>
+
+      {menuOpen && (
+        <div className="fixed inset-0 w-full z-50">
+          <div className="w-full h-full bg-white/50 p-2">
+            <div className="flex flex-col gap-3 rounded-3xl bg-black/95 p-5 text-sm text-white font-medium shadow-sm max-h-full overflow-auto">
+              <div className="flex items-center justify-between mb-5">
+                <Link href="/" onClick={() => setMenuOpen(false)}>
+                  <img src="/assets/images/logo.png" alt="Wazz Realty Logo" className="h-15 w-15" />
+                </Link>
+                <button
+                  type="button"
+                  aria-expanded={menuOpen}
+                  aria-label="Toggle navigation menu"
+                  onClick={() => setMenuOpen((prev) => !prev)}
+                  className="text-white transition hover:bg-[#F5F5F5]"
+                >
+                  <AiOutlineClose size={20} />
+                </button>
+              </div>
+
+              {[...navItemsLeft, ...navItemsRight].map((item) => (
+                <Link
+                  key={`${item.href}-${item.label}`}
+                  href={item.href}
+                  onClick={() => setMenuOpen(false)}
+                  className={getMobileLinkClass(item.href)}
+                >
+                  {item.label}
+                </Link>
+              ))}
+
+              <div className="mt-10">
+                <PrimaryButton textColor="[#36394A]" bgColor="white" iconColor="#36394A">
+                  Contact Us
+                </PrimaryButton>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   )
 }
