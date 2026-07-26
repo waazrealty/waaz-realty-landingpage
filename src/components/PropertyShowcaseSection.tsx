@@ -152,7 +152,7 @@ export default function PropertyShowcaseSection() {
             <div className="relative overflow-hidden ">
               <div ref={sliderRef} className="flex gap-4 overflow-x-auto scrollbar-none pb-6 pr-20 pl-4 w-full max-w-full snap-x snap-mandatory">
                 {rentalListings.map((listing) => (
-                  <div key={listing.id} className="snap-center shrink-0 min-w-[300px] overflow-hidden bg-white">
+                  <div key={listing.id} className="snap-center shrink-0 max-w-[300px] overflow-hidden bg-white">
                     <img src={listing.image} alt={listing.title} className="h-72 w-full object-cover" />
                     <div className="space-y-2 p-6">
                         <div className="flex items-center justify-between gap-4">
