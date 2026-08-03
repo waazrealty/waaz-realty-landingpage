@@ -1,6 +1,5 @@
 import { useRef } from 'react'
-import { BiBed } from 'react-icons/bi'
-import { FaBath } from 'react-icons/fa'
+import { MdBed, MdBathtub } from 'react-icons/md'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 
 const saleListings = [
@@ -71,7 +70,7 @@ const rentalListings = [
     image: '/assets/images/card-image1.png',
   },
   {
-    id: 3,
+    id: 4,
     title: 'Palm Beach',
     price: '₦250M /YR',
     location: 'Ajao Estate  •  Lagos',
@@ -80,7 +79,7 @@ const rentalListings = [
     image: '/assets/images/card-image1.png',
   },
   {
-    id: 3,
+    id: 5,
     title: 'Palm Beach',
     price: '₦250M /YR',
     location: 'Ajao Estate  •  Lagos',
@@ -126,11 +125,11 @@ export default function PropertyShowcaseSection() {
                 <p className="text-sm text-[#666D80] font-medium">Ajao Estate <span className="px-1">•</span> Lagos</p>
                 <div className="flex items-center gap-4 text-xs text-[#666D80] font-medium">
                   <span className="inline-flex items-center gap-2">
-                    <BiBed className="text-[#36394A]" />
+                    <MdBed  className="text-[#36394A]" />
                     {listing.bedrooms}
                   </span>
                   <span className="inline-flex items-center gap-2">
-                    <FaBath className="text-[#36394A]" />
+                    <MdBathtub className="text-[#36394A]" />
                     {listing.baths}
                   </span>
                 </div>
@@ -162,11 +161,11 @@ export default function PropertyShowcaseSection() {
                         <p className="text-sm text-[#666D80] font-medium">Ajao Estate <span className="px-1">•</span> Lagos</p>
                         <div className="flex items-center gap-4 text-xs text-[#666D80] font-medium">
                             <span className="inline-flex items-center gap-2">
-                                <BiBed className="text-[#36394A]" />
+                                <MdBed  className="text-[#36394A]" />
                                 {listing.bedrooms}
                             </span>
                             <span className="inline-flex items-center gap-2">
-                                <FaBath className="text-[#36394A]" />
+                                <MdBathtub className="text-[#36394A]" />
                                 {listing.baths}
                             </span>
                         </div>
