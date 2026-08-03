@@ -1,0 +1,45 @@
+import { useRef } from 'react'
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
+
+const images = [
+  '/assets/images/bg-home.png',
+  '/assets/images/bg-about.png',
+  '/assets/images/bg-portfolio.png'
+]
+
+export default function Carousel() {
+  const sliderRef = useRef<HTMLDivElement | null>(null)
+
+  const handleScrollLeft = () => {
+    if (!sliderRef.current) return
+    sliderRef.current.scrollBy({ left: -320, behavior: 'smooth' })
+  }
+
+  const handleScrollRight = () => {
+    if (!sliderRef.current) return
+    sliderRef.current.scrollBy({ left: 320, behavior: 'smooth' })
+  }
+
+  return (
+    <section className="w-full md:-mt-10">
+      <div className="grid lg:col-span-2 gap-6 overflow-hidden w-full">
+        <div className="relative overflow-hidden ">
+          <div ref={sliderRef} className="flex gap-1.5 overflow-x-auto scrollbar-none w-full max-w-full snap-x snap-mandatory">
+            {images.map((image, index) => (
+              <div key={index} className="snap-center shrink-0 md:max-w-full max-w-[420px] overflow-hidden bg-white">
+                <img src={image} alt={`Carousel-image-${index}`} className="h-150 w-full object-cover" />
+              </div>
+            ))}
+          </div>
+
+          <button onClick={handleScrollLeft} className="absolute left-3 bottom-15 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-tr-xl rounded-bl-xl bg-black text-white shadow-lg">
+            <FiChevronLeft size={20} />
+          </button>
+          <button onClick={handleScrollRight} className="absolute right-3 bottom-15 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-tl-xl rounded-br-xl bg-black text-white shadow-lg">
+            <FiChevronRight size={20} />
+          </button>
+        </div>
+      </div>
+    </section>
+  )
+}

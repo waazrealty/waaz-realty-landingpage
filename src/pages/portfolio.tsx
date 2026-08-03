@@ -23,19 +23,19 @@ const teamListings = [
     image: '/assets/images/gallery/image3.png',
   },
   {
-    id: 3,
+    id: 4,
     firstname: 'First Name',
     role: 'CEO & Founder',
     image: '/assets/images/gallery/image3.png',
   },
   {
-    id: 3,
+    id: 5,
     firstname: 'First Name',
     role: 'CEO & Founder',
     image: '/assets/images/gallery/image3.png',
   },
   {
-    id: 3,
+    id: 6,
     firstname: 'First Name',
     role: 'CEO & Founder',
     image: '/assets/images/gallery/image3.png',
@@ -56,7 +56,7 @@ export default function portfolio() {
           This portfolio is more than a collection of properties; it's a testament to our philosophy in action. Each sold and rented property represents a unique vision understood, a journey expertly guided, and a foundation successfully laid. Explore the results of our unwavering commitment to excellence.
         </div>
       </section>
-      <section className="relative md:aspect-16/8 aspect-2/3 md:-mt-17 w-full overflow-hidden">
+      <section className="relative md:aspect-16/8 aspect-2/3 md:-mt-12 w-full overflow-hidden">
         <div className="absolute inset-0">
           <div className="hidden md:block h-full w-full bg-contain bg-no-repeat bg-center" style={{ backgroundImage: "url('/assets/images/bg-portfolio.png')" }} aria-hidden="true" />
           <div className="block md:hidden h-full w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/bg-mobile-portfolio.png')" }} aria-hidden="true" />
@@ -68,11 +68,11 @@ export default function portfolio() {
       <section className="relative md:aspect-10/4 md:-mt-5 aspect-2/3 w-full overflow-hidden">
         <div className="absolute inset-0">
           <div className="hidden md:block h-full w-full bg-contain bg-no-repeat bg-center" style={{ backgroundImage: "url('/assets/images/bg-about2.png')" }} aria-hidden="true" />
-          <div className="block md:hidden h-full w-full bg-contain bg-center" style={{ backgroundImage: "url('/assets/images/bg-mobile-about2.png')" }} aria-hidden="true" />
+          <div className="block md:hidden h-full w-full bg-cover bg-no-repeat bg-center" style={{ backgroundImage: "url('/assets/images/bg-mobile-about2.png')" }} aria-hidden="true" />
         </div>
       </section>
       <section className="flex md:flex-row flex-col md:items-center md:justify-center w-11/12 mb:mb-35 mb-18 md:space-x-15 md:space-y-0 space-y-8">
-        <div className="max-w-120 md:text-[3.5rem] text-5xl md:leading-[4.38rem] italic font-serif text-[#131313]">Your Journey Starts with a Conversation.</div>
+        <div className="max-w-120 md:text-[3.5rem] text-5xl md:leading-[4.38rem] italic font-serif text-[#131313]">Your Journey Starts <br/> with a Conversation.</div>
         <div>
           <button className="inline-flex items-center gap-2 rounded-full bg-[#616D43] px-6 py-3 text-white transition hover:opacity-90 capitalize">
             Schedule a Consultation
@@ -83,4 +83,3 @@ export default function portfolio() {
     </BasicLayout>
   )
 }
-``
