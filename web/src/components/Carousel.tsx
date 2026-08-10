@@ -1,14 +1,15 @@
 import { useRef } from 'react'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 
-const images = [
+const defaultImages = [
   '/assets/images/bg-home.png',
   '/assets/images/bg-about.png',
-  '/assets/images/bg-portfolio.png'
+  '/assets/images/bg-portfolio.png',
 ]
 
-export default function Carousel() {
+export default function Carousel({ images }: { images?: string[] }) {
   const sliderRef = useRef<HTMLDivElement | null>(null)
+  const items = images && images.length > 0 ? images : defaultImages
 
   const handleScrollLeft = () => {
     if (!sliderRef.current) return
@@ -25,8 +26,8 @@ export default function Carousel() {
       <div className="grid lg:col-span-2 gap-6 overflow-hidden w-full">
         <div className="relative overflow-hidden ">
           <div ref={sliderRef} className="flex gap-1.5 overflow-x-auto scrollbar-none w-full max-w-full snap-x snap-mandatory">
-            {images.map((image, index) => (
-              <div key={index} className="snap-center shrink-0 md:max-w-full max-w-[420px] overflow-hidden bg-white">
+            {items.map((image, index) => (
+              <div key={index} className="snap-center shrink-0 md:max-w-full max-w-105 overflow-hidden bg-white">
                 <img src={image} alt={`Carousel-image-${index}`} className="h-150 w-full object-cover" />
               </div>
             ))}

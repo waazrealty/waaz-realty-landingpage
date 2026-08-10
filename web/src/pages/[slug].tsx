@@ -5,7 +5,6 @@ import MoreListings from '@/components/MoreListings'
 import Carousel from '@/components/Carousel'
 import { MdBed, MdBathtub, MdBathroom, MdOutlineStar, MdFoodBank, MdLocalMall, MdFolderOpen, MdOutlineGavel, MdAirportShuttle, MdLight, MdSecurity, MdLocalConvenienceStore, MdFitnessCenter, MdNaturePeople, MdChurch, MdMosque, MdError, MdReceipt, MdOutlineCall } from 'react-icons/md'
 import { GiPowerGenerator } from 'react-icons/gi'
-import { FaWhatsapp } from 'react-icons/fa6'
 import { VscChevronRight } from 'react-icons/vsc'
 import { IoLogoWhatsapp } from 'react-icons/io'
 

@@ -1,23 +1,18 @@
 import Link from 'next/link'
+import { GetStaticProps } from 'next'
 import { BasicLayout } from '@/components/Layout/BasicLayout'
 import { FiChevronRight } from 'react-icons/fi'
+import { sanityClient } from '@/lib/sanity'
+import { getFormattedDate } from '@/lib/common'
 
-const posts = [
-  {
-    slug: 'how-to-invest-in-lagos-property',
-    title: 'Unlocking Financial Insights with Finch: Uber’s Conversational AI Data Agent',
-    image: '/assets/images/card-image3.png',
-    excerpt: 'A quick guide to finding the right property investment in Lagos with strong resale potential.',
-  },
-  {
-    slug: 'designing-modern-family-homes',
-    title: 'Unlocking Financial Insights with Finch: Uber’s Conversational AI Data Agent',
-    image: '/assets/images/card-image3.png',
-    excerpt: 'Explore trending design principles for contemporary family homes in Nigeria.',
-  },
-]
+type BlogPost = {
+  title: string
+  slug: { current: string }
+  image?: { asset?: { url?: string } }
+  _updatedAt?: string
+}
 
-export default function Blog() {
+export default function Blog({ posts }: { posts: BlogPost[] }) {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
   const canonical = `${siteUrl}/blog`
 
@@ -33,13 +28,19 @@ export default function Blog() {
       </section>
       <section className="md:w-10/12 w-11/12">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full">
-          {posts.map((post, index) => (
-            <Link href={`/blog/${post.slug}`} key={index} className="space-y-2">
-              <img src={post.image} alt={post.title} className="h-70 w-full object-cover" />
-              <div className="font-medium text-[#666D80] text-sm">July 18, 2025</div>
-              <h3 className="text-sm text-[#0D0D12] font-medium">{post.title}</h3>
-            </Link>
-          ))}
+          {posts.map((post, index) => {
+            const slug = post.slug?.current
+            if (!slug) return null
+            const imageUrl = post.image?.asset?.url || '/assets/images/card-image3.png'
+            const date = post._updatedAt ? new Date(post._updatedAt).toLocaleDateString('en-US') : 'Coming soon'
+            return (
+              <Link href={`/blog/${slug}`} key={slug} className="block space-y-2">
+                <img src={imageUrl} alt={post.title} className="h-70 w-full object-cover" />
+                <div className="font-medium text-[#666D80] text-sm">{getFormattedDate(date)}</div>
+                <h3 className="text-sm text-[#0D0D12] font-medium">{post.title}</h3>
+              </Link>
+            )
+          })}
         </div>
       </section>
       <section className="flex flex-col items-center w-11/12 md:my-38 mb-20 md:space-y-10 space-y-8">
@@ -56,4 +57,15 @@ export default function Blog() {
       </section>
     </BasicLayout>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const posts = await sanityClient.fetch(`*[_type == "blog" && status == "active"] | order(_updatedAt desc){title, slug, image{asset->{url}}, _updatedAt}`)
+
+  return {
+    props: {
+      posts,
+    },
+    revalidate: 60,
+  }
 }
