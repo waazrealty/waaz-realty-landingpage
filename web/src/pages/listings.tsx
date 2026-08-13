@@ -181,20 +181,20 @@ export default function Listings({ listings }: { listings: Listing[] }) {
             </div>
           </div>
 
-          <div className="gap-3 flex flex-row md:flex-nowrap flex-wrap md:justify-between items-end border-2 border-[#F7F7F8] p-3">
-            <div className="md:w-1/5 w-1/2">
+          <div className="md:gap-3 gap-2 flex flex-row md:flex-nowrap flex-wrap justify-between items-end border-2 border-[#F7F7F8] p-3">
+            <div className="md:w-1/5 w-[48%]">
               <div className="text-sm font-semibold mb-2">Rooms:</div>
               <SelectField recordList={roomOptions} value={roomsFilter} onChangeText={(value) => setRoomsFilter(value)} placeholder="Select rooms" />
             </div>
-            <div className="md:w-1/5 w-1/2">
+            <div className="md:w-1/5 w-[48%]">
               <div className="text-sm font-semibold mb-2">Type:</div>
               <SelectField recordList={typeOptions} value={typeFilter} onChangeText={(value) => setTypeFilter(value)} placeholder="Select type" />
             </div>
-            <div className="md:w-1/5 w-1/2">
+            <div className="md:w-1/5 w-[48%]">
               <div className="text-sm font-semibold mb-2">Location:</div>
               <SelectField recordList={locationOptions} value={locationFilter} onChangeText={(value) => setLocationFilter(value)} placeholder="Select location" />
             </div>
-            <div className="md:w-1/5 w-1/2 md:hidden block">
+            <div className="md:w-1/5 w-[48%] md:hidden block">
               <div className="text-sm font-semibold mb-2">Recency:</div>
               <SelectField recordList={recencyOptions} value={recencyFilter} onChangeText={(value) => setRecencyFilter(value)} placeholder="Select recency" />
             </div>
