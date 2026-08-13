@@ -42,17 +42,31 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
             )
           })}
         </div>
-      </section>
-      <section className="flex flex-col items-center w-11/12 md:my-38 mb-20 md:space-y-10 space-y-8">
-        <div className=" md:text-[3.5rem] text-5xl md:leading-[4.38rem] md:w-[30%] italic font-serif text-[#131313] text-center">Ready to find a property of choice</div>
-        <div className="text-[#666D80] md:w-[28%] text-center text-[1rem] leading-7">
-          Having trouble finding a property? We’ve got you covered. Reach out to our team to get it all sorted.
+        <div className="w-full my-10 flex justify-center">
+          <button
+            type="submit"
+            className="rounded-full bg-[#616D43] px-8 py-4 text-base font-medium text-white transition hover:bg-[#2e3223]"
+          >
+            See More
+          </button>
         </div>
-        <div>
-          <Link href="/listings" className="inline-flex items-center gap-2 rounded-full bg-[#616D43] px-6 py-3 text-white transition hover:opacity-90 capitalize">
-            View Listings
-            <FiChevronRight size={18} />
-          </Link>
+      </section>
+      <section className="md:h-20 h-0"></section>
+      <section className="relative md:aspect-video aspect-2/3 md:w-10/12 w-full overflow-hidden md:mb-20 mb-5">
+        <div className="absolute inset-0 z-10">
+          <div className="h-full w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/banner.svg')" }} aria-hidden="true" />
+        </div>
+        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-6 p-5">
+          <div className=" md:text-[3.5rem] text-5xl md:leading-[4.38rem] md:w-[30%] italic font-serif text-[#131313] text-center">Ready to find a property of choice</div>
+          <div className="text-[#666D80] md:w-[28%] text-center text-[1rem] leading-7">
+            Having trouble finding a property? We’ve got you covered. Reach out to our team to get it all sorted.
+          </div>
+          <div>
+            <Link href="/listings" className="inline-flex items-center gap-2 rounded-full bg-[#616D43] px-6 py-3 text-white transition hover:opacity-90 capitalize">
+              View Listings
+              <FiChevronRight size={18} />
+            </Link>
+          </div>
         </div>
       </section>
     </BasicLayout>

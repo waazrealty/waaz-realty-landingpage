@@ -29,7 +29,7 @@ export const BasicLayout = ({
         {/* Top navigation */}
         <SiteNav />
         {/* Main Content */}
-        <main className="flex flex-col w-full items-center md:space-y-20 space-y-10 overflow-auto">{children}</main>
+        <main className="flex flex-col w-full items-center space-y-10 overflow-auto">{children}</main>
 
         {/* Footer */}
         <Footer />

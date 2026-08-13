@@ -6,7 +6,7 @@ import { MdSegment } from 'react-icons/md'
 import PrimaryButton from './PrimaryButton'
 
 const desktopLinkBase = 'leading-2 font-medium transition hover:text-[#3E452F] inline-flex items-center justify-center pb-1'
-const desktopLinkActive = 'relative text-[#7D8B57] font-semibold inline-flex items-center justify-center pb-1 after:absolute after:rounded-full after:left-1/2 after:-bottom-0 after:block after:h-[4px] after:w-4 after:-translate-x-1/2 after:bg-[#7D8B57]'
+const desktopLinkActive = 'relative text-[#7D8B57] font-semibold inline-flex items-center justify-center after:-mb-1 after:absolute after:rounded-full after:left-1/2 after:-bottom-0 after:block after:h-[4px] after:w-3 after:-translate-x-1/3 after:bg-[#7D8B57]'
 const mobileLinkBase = 'block rounded-2xl py-2 transition hover:bg-[#F5F5F5]'
 const mobileLinkActive = 'relative text-[#3E452F] font-semibold pb-1 after:absolute after:rounded-full after:left-0/3 after:-bottom-1 after:block after:h-[4px] after:w-50 after:-translate-x-1/2 after:bg-[#7D8B57]'
 
@@ -14,6 +14,7 @@ const navItemsLeft = [
   { label: 'About', href: '/about' },
   { label: 'Portfolio', href: '/portfolio' },
   { label: 'Listings', href: '/listings' },
+  { label: 'List Your Property', href: '/list-your-property' },
 ]
 
 const navItemsRight = [

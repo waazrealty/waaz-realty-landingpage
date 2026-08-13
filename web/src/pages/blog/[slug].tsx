@@ -50,7 +50,7 @@ export default function BlogDetails({ post }: { post: BlogPost }) {
         </div>
         <div className="text-sm text-[#666D80] md:-mb-6">{post._createdAt && getFormattedDate(post._createdAt)} {post._createdAt !== post._updatedAt && <span><span className="px-1">•</span> <span className="">Updated {getFormattedDate(post._updatedAt)}</span></span>}</div>
       </section>
-      <section className="relative md:aspect-video aspect-2/3 w-full overflow-hidden">
+      <section className="relative md:aspect-video aspect-2/3 md:w-10/12 w-11/12 rounded-2xl overflow-hidden">
         <div className="absolute inset-0">
           <div className="h-full w-full bg-cover bg-center" style={{ backgroundImage: `url('${post.image?.asset?.url}')` }} aria-hidden="true" />
         </div>
@@ -65,16 +65,21 @@ export default function BlogDetails({ post }: { post: BlogPost }) {
           <img src="/assets/images/facebook.svg" alt="social media icon" className="h-10 w-10" />
         </div>
       </section>
-      <section className="flex flex-col items-center w-11/12 md:my-40 mb-20 md:space-y-10 space-y-8">
-        <div className=" md:text-[3.5rem] text-5xl md:leading-[4.38rem] md:w-[30%] italic font-serif text-[#131313] text-center">Ready to find a property of choice</div>
-        <div className="text-[#666D80] md:w-[28%] text-center text-[1rem] leading-7">
-          Having trouble finding a property? We’ve got you covered. Reach out to our team to get it all sorted.
+      <section className="relative md:aspect-video aspect-2/3 md:w-10/12 w-11/12 overflow-hidden mb-25">
+        <div className="absolute inset-0 z-10">
+          <div className="h-full w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/banner.svg')" }} aria-hidden="true" />
         </div>
-        <div>
-          <Link href="/listings" className="inline-flex items-center gap-2 rounded-full bg-[#616D43] px-6 py-3 text-white transition hover:opacity-90 capitalize">
-            View Listings
-            <FiChevronRight size={18} />
-          </Link>
+        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-6">
+          <div className=" md:text-[3.5rem] text-5xl md:leading-[4.38rem] md:w-[30%] italic font-serif text-[#131313] text-center">Ready to find a property of choice</div>
+          <div className="text-[#666D80] md:w-[28%] text-center text-[1rem] leading-7">
+            Having trouble finding a property? We’ve got you covered. Reach out to our team to get it all sorted.
+          </div>
+          <div>
+            <Link href="/listings" className="inline-flex items-center gap-2 rounded-full bg-[#616D43] px-6 py-3 text-white transition hover:opacity-90 capitalize">
+              View Listings
+              <FiChevronRight size={18} />
+            </Link>
+          </div>
         </div>
       </section>
     </BasicLayout>
