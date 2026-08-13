@@ -181,7 +181,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
             </div>
           </div>
 
-          <div className="md:gap-3 flex flex-row md:flex-nowrap flex-wrap md:justify-between items-end border-2 border-[#F7F7F8] p-3">
+          <div className="gap-3 flex flex-row md:flex-nowrap flex-wrap md:justify-between items-end border-2 border-[#F7F7F8] p-3">
             <div className="md:w-1/5 w-1/2">
               <div className="text-sm font-semibold mb-2">Rooms:</div>
               <SelectField recordList={roomOptions} value={roomsFilter} onChangeText={(value) => setRoomsFilter(value)} placeholder="Select rooms" />
