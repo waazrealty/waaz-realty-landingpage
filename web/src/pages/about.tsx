@@ -80,7 +80,6 @@ export default function About() {
       >
         <div className="flex md:flex-row flex-col md:items-center md:justify-end justify-center md:space-x-75 md:space-y-0 space-y-5 md:w-11/12 w-11/12">
           <div className="md:text-[3.5rem] md:w-100 md:px-0 px-5 text-5xl md:text-left text-center md:leading-16 leading-14 italic font-serif text-black">Meet Your Trusted Real Estate Guides.</div>
-  
           <div className="text-[#666D80] md:text-justify text-center md:w-5/12 md:text-lg text-[1rem] leading-6.5">
             Our strength isn't just in our portfolio; it's in our people. The Waaz Realty team is a collective of seasoned strategists and dedicated market experts with an intimate understanding of the Lagos property landscape. We are more than agents; we are advisors and advocates for our clients. We listen to your vision and provide the steady guidance needed to ensure your property journey is seamless, informed, and ultimately, successful.
           </div>

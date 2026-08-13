@@ -28,15 +28,15 @@ export default function Carousel({ images }: { images?: string[] }) {
           <div ref={sliderRef} className="flex gap-1.5 overflow-x-auto scrollbar-none w-full max-w-full snap-x snap-mandatory">
             {items.map((image, index) => (
               <div key={index} className="snap-center shrink-0 md:max-w-full max-w-105 overflow-hidden bg-white">
-                <img src={image} alt={`Carousel-image-${index}`} className="h-150 w-full object-cover" />
+                <img src={image} alt={`Carousel-image-${index}`} className="md:h-150 h-110 w-full object-cover" />
               </div>
             ))}
           </div>
 
-          <button onClick={handleScrollLeft} className="absolute left-3 bottom-15 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-tr-xl rounded-bl-xl bg-black text-white shadow-lg">
+          <button onClick={handleScrollLeft} className="absolute left-7 bottom-2/5 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-tr-xl rounded-bl-xl bg-black text-white shadow-lg">
             <FiChevronLeft size={20} />
           </button>
-          <button onClick={handleScrollRight} className="absolute right-3 bottom-15 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-tl-xl rounded-br-xl bg-black text-white shadow-lg">
+          <button onClick={handleScrollRight} className="absolute right-7 bottom-2/5 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-tl-xl rounded-br-xl bg-black text-white shadow-lg">
             <FiChevronRight size={20} />
           </button>
         </div>

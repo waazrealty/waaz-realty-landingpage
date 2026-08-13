@@ -75,3 +75,36 @@ export const formatCompactNumber = (amount: number): string => {
   // Fallback (should never be reached for absAmount >= 10,000)
   return `${sign}${absAmount}`;
 };
+
+export const getFirstWord = (inputString : string): string => {
+  const words = inputString.split(" ");
+  return words[0];
+}
+
+/**
+ * Sums up the numerical values of a specific key across an array of objects.
+ * 
+ * @param array - The array of objects to process
+ * @param key - The specific key containing numbers to sum
+ */
+export function sumObjectValues<T>(array: T[], key: keyof T): number {
+  return array.reduce((accumulator, currentItem) => {
+    const value = currentItem[key];
+    
+    // Ensure the value is a valid number before adding to prevent NaN errors
+    if (typeof value === 'number' && !isNaN(value)) {
+      return accumulator + value;
+    }
+    
+    return accumulator;
+  }, 0);
+}
+
+
+/**
+ * Converts a raw number into a human-readable string with comma separators.
+ * Example: 25000 -> "25,000"
+ */
+export function formatToHumanNumber(value: number): string {
+  return new Intl.NumberFormat('en-US').format(value);
+}

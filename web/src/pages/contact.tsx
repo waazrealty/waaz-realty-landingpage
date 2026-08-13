@@ -16,16 +16,16 @@ export default function Contact() {
           Whether you have a question about a specific property, wish to discuss selling your home, or need expert advice on the Lagos real estate market, our team is ready to assist. We look forward to connecting with you.
         </div>
       </section>
-      <section className="h-40"></section>
-      <section className="relative w-full">
+      <section className="md:h-40 h-70"></section>
+      <section className="relative md:w-10/12 w-full">
         <div className="absolute inset-0">
-          <div className="hidden md:block h-200 w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/bg-contact.png')" }} aria-hidden="true" />
-          <div className="block md:hidden h-full w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/bg-contact.png')" }} aria-hidden="true" />
+          <div className="hidden md:block h-200 w-full bg-cover bg-center rounded-4xl" style={{ backgroundImage: "url('/assets/images/bg-contact.png')" }} aria-hidden="true" />
+          <div className="block md:hidden h-160 w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/bg-contact.png')" }} aria-hidden="true" />
         </div>
 
-        <div className="relative mx-auto md:p-10 p-5 md:w-[30%] w-10/12 bg-white -mt-50">
+        <div className="relative mx-auto md:p-10 p-5 md:w-[35%] w-10/12 bg-white -mt-50">
           <p className="text-[2rem] italic font-medium font-serif">Get in Touch</p>
-          <form className="mt-6 space-y-4">
+          <form className="mt-6 space-y-4 font-medium">
             <div>
               <label className="mb-2 block text-sm text-slate-700">Name</label>
               <input type="text" placeholder="Enter name" className="w-full bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]" />
@@ -49,16 +49,22 @@ export default function Contact() {
           </form>
         </div>
       </section>
-      <section className="flex flex-col items-center w-11/12 md:my-38 mb-20 md:space-y-10 space-y-8">
-        <div className=" md:text-[3.5rem] text-5xl md:leading-[4.38rem] md:w-[30%] italic font-serif text-[#131313] text-center">Ready to find a property of choice</div>
-        <div className="text-[#666D80] md:w-[28%] text-center text-[1rem] leading-7">
-          Having trouble finding a property? We’ve got you covered. Reach out to our team to get it all sorted.
+      <section className="md:h-100 h-50"></section>
+      <section className="relative md:aspect-video aspect-2/3 md:w-10/12 w-full overflow-hidden mb-20">
+        <div className="absolute inset-0 z-10">
+          <div className="h-full w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/banner.svg')" }} aria-hidden="true" />
         </div>
-        <div>
-          <Link href="/listings" className="inline-flex items-center gap-2 rounded-full bg-[#616D43] px-6 py-3 text-white transition hover:opacity-90 capitalize">
-            View Listings
-            <FiChevronRight size={18} />
-          </Link>
+        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-6 p-5">
+          <div className=" md:text-[3.5rem] text-5xl md:leading-[4.38rem] md:w-[30%] italic font-serif text-[#131313] text-center">Ready to find a property of choice</div>
+          <div className="text-[#666D80] md:w-[28%] text-center text-[1rem] leading-7">
+            Having trouble finding a property? We’ve got you covered. Reach out to our team to get it all sorted.
+          </div>
+          <div>
+            <Link href="/listings" className="inline-flex items-center gap-2 rounded-full bg-[#616D43] px-5 py-2 text-white transition hover:opacity-90 capitalize">
+              View Listings
+              <FiChevronRight size={18} />
+            </Link>
+          </div>
         </div>
       </section>
     </BasicLayout>
