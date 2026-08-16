@@ -3,13 +3,40 @@ import PrimaryButton from '@/components/PrimaryButton'
 import { BasicLayout } from '@/components/Layout/BasicLayout'
 import PropertyShowcaseSection from '@/components/PropertyShowcaseSection'
 import { FaWhatsapp } from 'react-icons/fa6'
+import { useRouter } from 'next/router'
+import { sanityClient } from '@/lib/sanity'
+import { GetStaticProps } from 'next'
 
-export default function Home() {
+type Listing = {
+  title: string
+  slug: { current: string }
+  price: number
+  city?: string
+  state?: string
+  bedrooms?: string
+  baths?: string
+  propertyType?: string
+  category?: string
+  _updatedAt?: string
+  gallery?: { asset?: { url?: string } }
+}
+
+type Testimonals = {
+  author: string
+  quote: string
+  location: string
+}
+
+export default function Home({ listings, rentalListings, testimonals }: { listings: Listing[]; rentalListings: Listing[]; testimonals: Testimonals[] }) {
+  const router = useRouter()
   const [email, setEmail] = useState('')
 
   const handleSubscribe = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setEmail('')
+  }
+  const handleExploreProperties = () => {
+    router.push('/listings')
   }
 
   return (
@@ -22,7 +49,7 @@ export default function Home() {
           Your <span className="text-[#3E452F]">Foundation </span> for Elevated <br /> Living in Lagos.
         </div>
         <div className="">
-          <PrimaryButton textColor="white" bgColor="[#3E452F]" iconColor="white">
+          <PrimaryButton textColor="white" bgColor="[#3E452F]" iconColor="white" onChangeClick={handleExploreProperties}>
             Explore Properties
           </PrimaryButton>
         </div>
@@ -45,7 +72,7 @@ export default function Home() {
         </div>
       </section>
 
-      <PropertyShowcaseSection />
+      <PropertyShowcaseSection listings={listings} rentalListings={rentalListings} />
 
       <section
         className="lg:w-10/12 w-full md:flex hidden items-center justify-between gap-20 lg:bg-cover px-25 py-30"
@@ -72,13 +99,13 @@ export default function Home() {
           <div className="relative">
             <div className="text-[3.5rem] italic font-serif text-white">Excellent Reward</div>
             <div
-              className="absolute -top-10 right-30 w-max bg-cover bg-center px-6 py-4 text-sm"
+              className="absolute -top-10 right-0 w-max bg-cover bg-center px-6 py-4 text-sm"
               style={{ backgroundImage: "url('/assets/images/frame.png')" }}
               aria-label="Wazz Realty frame"
             >
               You Get
             </div>
-            <div className="absolute top-5 right-40">
+            <div className="absolute top-5 right-10">
               <img src="/assets/images/right.png" alt="Wazz Realty icon" className="" />
             </div>
           </div>
@@ -119,7 +146,7 @@ export default function Home() {
             <img src="/assets/images/card-image1.png" alt="Wazz Realty house" className="h-auto" />
             <div className="space-y-6 px-8 pb-10 md:w-full w-11/12">
               <div className="text-5xl italic font-serif text-white leading-13">Exceptional Properties for Rent</div>
-              <PrimaryButton textColor="[#36394A]" bgColor="white" iconColor="[#36394A]">
+              <PrimaryButton textColor="[#36394A]" bgColor="white" iconColor="[#36394A]" onChangeClick={() => router.push('/rent')}>
                 Discover Rentals
               </PrimaryButton>
             </div> 
@@ -127,7 +154,7 @@ export default function Home() {
           <div className="flex md:w-100 flex-col gap-5 bg-[#7D8B57]">
             <div className="space-y-6 px-8 pt-10 md:w-full w-11/12">
               <div className="text-5xl italic font-serif text-white leading-13">From Vision to Keys in Hand</div>
-              <PrimaryButton textColor="[#36394A]" bgColor="white" iconColor="[#36394A]">
+              <PrimaryButton textColor="[#36394A]" bgColor="white" iconColor="[#36394A]" onChangeClick={() => router.push('/contact')}>
                 Schedule a Consultation
               </PrimaryButton>
             </div> 
@@ -152,21 +179,23 @@ export default function Home() {
               </div>
 
               <div className="backdrop-blur-xl">
-                <div className="space-y-8">
-                  <div className="text-sm leading-8 text-white md:text-lg">
-                    "Finding my first apartment felt overwhelming, but Wazz Realty made the entire process seamless and exciting. Their team understood exactly what I was looking for and guided me every step of the way. I'm so happy with my new home!"
+                {testimonals && testimonals.map((listing) => (
+                  <div className="space-y-8">
+                    <div className="text-sm leading-8 text-white md:text-lg">
+                      "{listing.quote}"
+                    </div>
+                    <div>
+                      <div className="text-xl font-semibold text-white">{listing.author}</div>
+                      <div className="text-sm text-[#D9D9CC]">{listing.location}</div>
+                    </div>
                   </div>
-                  <div>
-                    <div className="text-xl font-semibold text-white">Rebecca</div>
-                    <div className="text-sm text-[#D9D9CC]">Tunde A. | New Homeowner, Lekki</div>
-                  </div>
-                </div>
+                ))}
 
                 <div className="md:mt-20 mt-10 flex w-full items-center gap-2">
-                  {[1, 2, 3, 4, 5].map((item) => (
+                  {[testimonals].map((item, index) => (
                     <span
-                      key={item}
-                      className={`h-1.5 flex-1  ${item === 1 ? 'bg-[#9AA675]' : 'bg-white'}`}
+                      key={index}
+                      className={`h-1.5 flex-1  ${index === 1 ? 'bg-[#9AA675]' : 'bg-white'}`}
                       aria-hidden="true"
                     />
                   ))}
@@ -207,4 +236,53 @@ export default function Home() {
       </section>
     </BasicLayout>
   )
+}
+
+
+export const getStaticProps: GetStaticProps = async () => {
+  const listings = await sanityClient.fetch(
+    `*[_type == "listing" && status == "active"]{
+      title,
+      slug,
+      price,
+      city,
+      state,
+      bedrooms,
+      baths,
+      gallery[0]{asset->{url}},
+      _updatedAt
+    } | order(_updatedAt desc)[0...4]`,
+  )
+
+  const rentalListings = await sanityClient.fetch(
+    `*[_type == "listing" && status == "active"  && category == "for-rent"]{
+      title,
+      slug,
+      price,
+      city,
+      state,
+      bedrooms,
+      baths,
+      gallery[0]{asset->{url}},
+      _updatedAt
+    } | order(_updatedAt desc)[0...10]`,
+  )
+  
+  const testimonals = await sanityClient.fetch(
+    `*[_type == "testimonal"]{
+      author,
+      quote,
+      location,
+      _updatedAt
+    } | order(_updatedAt desc)[0...10]`,
+  )
+
+  return {
+    props: {
+      listings,
+      rentalListings,
+      testimonals,
+    },
+    revalidate: 60,
+  }
 }

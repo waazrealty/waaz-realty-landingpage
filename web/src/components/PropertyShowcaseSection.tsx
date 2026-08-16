@@ -1,95 +1,27 @@
 import { useRef } from 'react'
 import { MdBed, MdBathtub } from 'react-icons/md'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
+import { formatCompactNumber } from '@/lib/common'
+import PrimaryButton from './PrimaryButton'
 
-const saleListings = [
-  {
-    id: 1,
-    title: 'Palm Beach',
-    price: '₦250M /YR',
-    location: 'Ajao Estate • Lagos',
-    bedrooms: '3 Bedrooms',
-    baths: '2 Baths',
-    image: '/assets/images/card-image1.png',
-  },
-  {
-    id: 2,
-    title: 'Palm Beach',
-    price: '₦250M /YR',
-    location: 'Ajao Estate • Lagos',
-    bedrooms: '3 Bedrooms',
-    baths: '2 Baths',
-    image: '/assets/images/card-image2.png',
-  },
-  {
-    id: 3,
-    title: 'Palm Beach',
-    price: '₦250M /YR',
-    location: 'Ajao Estate • Lagos',
-    bedrooms: '3 Bedrooms',
-    baths: '2 Baths',
-    image: '/assets/images/card-image1.png',
-  },
-  {
-    id: 4,
-    title: 'Palm Beach',
-    price: '₦250M /YR',
-    location: 'Ajao Estate • Lagos',
-    bedrooms: '3 Bedrooms',
-    baths: '2 Baths',
-    image: '/assets/images/card-image2.png',
-  },
-]
+type Listing = {
+  title: string
+  slug: { current: string }
+  price: number
+  city?: string
+  state?: string
+  bedrooms?: string
+  baths?: string
+  propertyType?: string
+  category?: string
+  _updatedAt?: string
+  gallery?: { asset?: { url?: string } }
+}
 
-const rentalListings = [
-  {
-    id: 1,
-    title: 'Palm Beach',
-    price: '₦250M /YR',
-    location: 'Ajao Estate  •  Lagos',
-    bedrooms: '3 Bedrooms',
-    baths: '2 Baths',
-    image: '/assets/images/card-image1.png',
-  },
-  {
-    id: 2,
-    title: 'Palm Beach',
-    price: '₦250M /YR',
-    location: 'Ajao Estate  •  Lagos',
-    bedrooms: '3 Bedrooms',
-    baths: '2 Baths',
-    image: '/assets/images/card-image2.png',
-  },
-  {
-    id: 3,
-    title: 'Palm Beach',
-    price: '₦250M /YR',
-    location: 'Ajao Estate  •  Lagos',
-    bedrooms: '3 Bedrooms',
-    baths: '2 Baths',
-    image: '/assets/images/card-image1.png',
-  },
-  {
-    id: 4,
-    title: 'Palm Beach',
-    price: '₦250M /YR',
-    location: 'Ajao Estate  •  Lagos',
-    bedrooms: '3 Bedrooms',
-    baths: '2 Baths',
-    image: '/assets/images/card-image1.png',
-  },
-  {
-    id: 5,
-    title: 'Palm Beach',
-    price: '₦250M /YR',
-    location: 'Ajao Estate  •  Lagos',
-    bedrooms: '3 Bedrooms',
-    baths: '2 Baths',
-    image: '/assets/images/card-image1.png',
-  },
-]
-
-export default function PropertyShowcaseSection() {
+export default function PropertyShowcaseSection({ listings, rentalListings }: { listings: Listing[]; rentalListings: Listing[] }) {
+  const router = useRouter()
   const sliderRef = useRef<HTMLDivElement | null>(null)
 
   const handleScrollLeft = () => {
@@ -107,22 +39,26 @@ export default function PropertyShowcaseSection() {
       <div className="mx-auto w-11/12 lg:w-10/12 space-y-2">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <h2 className="text-[3rem] font-serif italic">Premium Sale Listings</h2>
-          <button className="inline-flex items-center gap-2 text-[#36394A] font-medium text-sm hover:text-black underline">
+          <div onClick={() => {router.push('/listings')}} className="inline-flex items-center gap-2 text-[#36394A] font-medium text-sm hover:text-black underline">
             View All Sale Listings
             <FiChevronRight size={18} />
-          </button>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-          {saleListings.map((listing) => (
-            <div key={listing.id} className="overflow-hidden border border-[#E6E8EC] bg-white shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
-              <img src={listing.image} alt={listing.title} className="h-70 w-full object-cover" />
+          {listings && listings.map((listing) => {
+            const slug = listing.slug.current
+            const imageUrl = listing.gallery?.asset?.url
+            const location = [listing.city, listing.state].filter(Boolean).join(' • ')
+            return (
+            <Link href={`/listings/${slug}`} key={slug} className="overflow-hidden border border-[#E6E8EC] bg-white shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
+              <img src={imageUrl} alt={listing.title} className="h-70 w-full object-cover" />
               <div className="space-y-2 p-6">
                 <div className="flex items-center justify-between gap-4">
                   <h3 className="text-sm text-[#36394A] font-medium">{listing.title}</h3>
-                  <span className="text-sm font-medium text-[#36394A]">₦250M /<span className="text-[#666D80] text-xs">YR</span></span>
+                  <span className="text-sm font-medium text-[#36394A]">₦{formatCompactNumber(listing.price)} /<span className="text-[#666D80] text-xs">YR</span></span>
                 </div>
-                <p className="text-sm text-[#666D80] font-medium">Ajao Estate <span className="px-1">•</span> Lagos</p>
+                <p className="text-sm text-[#666D80] font-medium">{location}</p>
                 <div className="flex items-center gap-4 text-xs text-[#666D80] font-medium">
                   <span className="inline-flex items-center gap-2">
                     <MdBed  className="text-[#36394A]" />
@@ -134,44 +70,50 @@ export default function PropertyShowcaseSection() {
                   </span>
                 </div>
               </div>
-            </div>
-          ))}
+            </Link>
+          )})}
         </div>
 
         <div className="grid gap-10 lg:grid-cols-3 items-center mt-20">
           <div className="space-y-8">
             <h2 className="text-[3.5rem] leading-[3.8rem] italic font-serif text-[#131313]">Discover Your Next Rental Home</h2>
-            <button className="inline-flex items-center gap-2 rounded-full bg-[#616D43] px-6 py-3 text-white transition hover:opacity-90">
-              Explore All Rentals
-              <FiChevronRight size={18} />
-            </button>
+            <div className="">
+              <PrimaryButton textColor="white" bgColor="[#3E452F]" iconColor="white" onChangeClick={() => router.push('/rent')}>
+                Explore All Rentals
+              </PrimaryButton>
+            </div>
           </div>
 
           <div className="grid lg:col-span-2 gap-6 overflow-hidden">
             <div className="relative overflow-hidden ">
               <div ref={sliderRef} className="flex gap-4 overflow-x-auto scrollbar-none pb-6 pr-20 pl-4 w-full max-w-full snap-x snap-mandatory">
-                {rentalListings.map((listing) => (
-                  <div key={listing.id} className="snap-center shrink-0 max-w-[300px] overflow-hidden bg-white">
-                    <img src={listing.image} alt={listing.title} className="h-72 w-full object-cover" />
-                    <div className="space-y-2 p-6">
-                        <div className="flex items-center justify-between gap-4">
-                            <h3 className="text-sm text-[#36394A] font-medium">{listing.title}</h3>
-                            <span className="text-sm font-medium text-[#36394A]">₦250M /<span className="text-[#666D80] text-xs">YR</span></span>
-                        </div>
-                        <p className="text-sm text-[#666D80] font-medium">Ajao Estate <span className="px-1">•</span> Lagos</p>
-                        <div className="flex items-center gap-4 text-xs text-[#666D80] font-medium">
-                            <span className="inline-flex items-center gap-2">
-                                <MdBed  className="text-[#36394A]" />
-                                {listing.bedrooms}
-                            </span>
-                            <span className="inline-flex items-center gap-2">
-                                <MdBathtub className="text-[#36394A]" />
-                                {listing.baths}
-                            </span>
-                        </div>
-                    </div>
-                  </div>
-                ))}
+                {rentalListings &&rentalListings.map((listing) => {
+                  const slug = listing.slug.current
+                  const imageUrl = listing.gallery?.asset?.url
+                  const location = [listing.city, listing.state].filter(Boolean).join(' • ')
+                  return (
+                    <Link href={`/listings/${slug}`} key={slug} className="snap-center shrink-0 max-w-75 overflow-hidden bg-white">
+                      <img src={imageUrl} alt={listing.title} className="h-72 w-full object-cover" />
+                      <div className="space-y-2 p-6">
+                          <div className="flex items-center justify-between gap-4">
+                              <h3 className="text-sm text-[#36394A] font-medium">{listing.title}</h3>
+                              <span className="text-sm font-medium text-[#36394A]">₦{formatCompactNumber(listing.price)} /<span className="text-[#666D80] text-xs">YR</span></span>
+                          </div>
+                          <p className="text-sm text-[#666D80] font-medium">{location}</p>
+                          <div className="flex items-center gap-4 text-xs text-[#666D80] font-medium">
+                              <span className="inline-flex items-center gap-2">
+                                  <MdBed  className="text-[#36394A]" />
+                                  {listing.bedrooms} Bedrooms
+                              </span>
+                              <span className="inline-flex items-center gap-2">
+                                  <MdBathtub className="text-[#36394A]" />
+                                  {listing.baths} Baths
+                              </span>
+                          </div>
+                      </div>
+                    </Link>
+                  )
+                })}
               </div>
 
               <button onClick={handleScrollLeft} className="absolute left-3 top-1/2 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-tr-xl rounded-bl-xl bg-[#36394A] text-white shadow-lg">

@@ -30,7 +30,6 @@ export default function MoreListings({ listings }: { listings: Listing[] }) {
               const slug = listing.slug.current
               const imageUrl = listing.gallery?.asset?.url
               const location = [listing.city, listing.state].filter(Boolean).join(' • ')
-              console.log('listing', listing)
               return (
                 <Link href={`/listings/${slug}`} key={slug} className="snap-center shrink-0 w-full overflow-hidden bg-white">
                   <img src={imageUrl} alt={listing.title} className="h-100 w-full object-cover" />

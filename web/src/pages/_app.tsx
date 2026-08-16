@@ -2,6 +2,8 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { AlertProvider } from '@/lib/notification/alertcontext'
+import Alert from '@/lib/notification/alert';
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -23,5 +25,10 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, [router.events])
 
-  return <Component {...pageProps} />
+  return (
+    <AlertProvider>
+      <Alert />
+      <Component {...pageProps} />
+    </AlertProvider>
+  )
 }

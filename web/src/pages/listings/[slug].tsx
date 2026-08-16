@@ -1,9 +1,10 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 import { BasicLayout } from '@/components/Layout/BasicLayout'
 import { PortableText } from '@portabletext/react'
 import { sanityClient } from '@/lib/sanity'
-import { formatToHumanNumber, getFirstWord, getFormattedDate, sumObjectValues } from '@/lib/common'
+import { formatToHumanNumber, getFirstWord, getFormattedDate, sumObjectValues, validateEmail } from '@/lib/common'
 import Link from 'next/link'
 import { FiChevronRight } from 'react-icons/fi'
 import MoreListings from '@/components/MoreListings'
@@ -12,8 +13,11 @@ import { MdBed, MdBathtub, MdBathroom, MdOutlineStar, MdFolderOpen, MdError, MdR
 import { VscChevronRight } from 'react-icons/vsc'
 import { IoLogoWhatsapp } from 'react-icons/io'
 import { getIcon, IconKey } from '@/lib/icons'
+import { useAlert } from '@/lib/notification/alertcontext'
+import { ERROR_EMAIL_INVALID, inspectionErrorMessageMap, InspectionErrorTypes } from '@/lib/errors'
 
 type ListingDetail = {
+  _id: string
   title: string
   slug: { current: string }
   price?: number
@@ -262,6 +266,7 @@ const getPropertyRuleTitle = (ruleKey?: string) => {
 
 export default function ListingDetails({ listing, listings }: { listing: ListingDetail | null; listings?: any[] }) {
   const router = useRouter()
+  const { addAlert } = useAlert();
 
   if (router.isFallback) {
     return (
@@ -301,7 +306,63 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
   )}`
   const telUrl = `tel:${agentPhoneFormatted}`
 
-  const totalPackageCost = formatToHumanNumber(sumObjectValues(listing?.moveInCosts, 'amount')); 
+  const totalPackageCost = formatToHumanNumber(sumObjectValues(listing?.moveInCosts, 'amount'));
+
+  const [inspectionForm, setInspectionForm] = useState({
+    fullname: '',
+    email: '',
+    mobile: '',
+    message: '',
+  });
+
+  const [isSubmittingInspection, setIsSubmittingInspection] = useState(false);
+  const [inspectionSubmitted, setInspectionSubmitted] = useState(false);
+
+  const handleInspectionInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setInspectionForm(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleInspectionSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmittingInspection(true);    
+    const errors: string[] = [];
+
+    Object.entries(inspectionForm).forEach(([key, value]) => {
+      if (!value && key !== 'email') errors.push(inspectionErrorMessageMap[key as InspectionErrorTypes]);
+      if (key === 'email' && value && !validateEmail(value)) errors.push(ERROR_EMAIL_INVALID);
+    });
+
+    if (errors.length > 0) {
+      errors.forEach((msg) => addAlert({ message: msg, type: 'error' }));
+      setIsSubmittingInspection(false);
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/inspection', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...inspectionForm,
+          listing: listing._id,
+        }),
+      });
+
+      if (response.ok) {
+        setInspectionSubmitted(true);
+        setInspectionForm({ fullname: '', email: '', mobile: '', message: '' });
+        addAlert({ message: 'Inspection form submitted successfully', type: 'success' });
+      } else {
+        console.error('Inspection submission failed');
+      }
+    } catch (error) {
+      console.error('Error submitting inspection form:', error);
+      addAlert({ message: error instanceof Error ? error.message : 'error occurred while scheduling inspection form', type: 'error' });
+    } finally {
+      setIsSubmittingInspection(false);
+    }
+  }; 
 
   return (
     <BasicLayout
@@ -587,26 +648,71 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
 
           <div className="md:p-6 p-5">
             <p className="text-[2rem] italic font-medium font-serif">Schedule an Inspection</p>
-            <form className="mt-6 space-y-4">
-              <div>
-                <label className="mb-2 block text-sm text-slate-700">Name</label>
-                <input type="text" placeholder="Enter name" className="w-full bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]" />
+            {inspectionSubmitted ? (
+              <div className="mt-6 rounded-lg bg-green-50 p-4 text-green-800">
+                <p className="font-medium">Inspection request submitted successfully!</p>
+                <p className="mt-1 text-sm">Our team will contact you shortly to arrange the inspection.</p>
               </div>
-              <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700">Phone Number</label>
-                <input type="tel" placeholder="Enter phone number" className="w-full bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]" />
-              </div>
-              <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700">Message</label>
-                <textarea rows={4} placeholder="Hello, I am interested in this property. Please let me know the best time for a viewing." className="w-full bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]" />
-              </div>
-              <div className="flex items-center justify-end">
-                <button className="text-sm inline-flex items-center gap-2 rounded-full bg-[#616D43] px-6 py-3 text-white transition hover:opacity-90 capitalize">
-                  Request Inspection
-                  <FiChevronRight size={14} className="-mb-0.5" />
-                </button>
-              </div>
-            </form>
+            ) : (
+              <form className="mt-6 space-y-4" onSubmit={handleInspectionSubmit}>
+                <input type="hidden" name="listing" value={listing._id} />
+                <div>
+                  <label className="mb-2 block text-sm text-slate-700">Name</label>
+                  <input
+                    type="text"
+                    name="fullname"
+                    value={inspectionForm.fullname}
+                    onChange={handleInspectionInputChange}
+                    required
+                    placeholder="Enter name"
+                    className="w-full bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]"
+                  />
+                </div>
+                <div>
+                  <label className="mb-2 block text-sm font-medium text-slate-700">Phone Number</label>
+                  <input
+                    type="tel"
+                    name="mobile"
+                    value={inspectionForm.mobile}
+                    onChange={handleInspectionInputChange}
+                    placeholder="Enter phone number"
+                    className="w-full bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]"
+                  />
+                </div>
+                <div>
+                  <label className="mb-2 block text-sm font-medium text-slate-700">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={inspectionForm.email}
+                    onChange={handleInspectionInputChange}
+                    placeholder="Enter email"
+                    className="w-full bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]"
+                  />
+                </div>
+                <div>
+                  <label className="mb-2 block text-sm font-medium text-slate-700">Message</label>
+                  <textarea
+                    rows={4}
+                    name="message"
+                    value={inspectionForm.message}
+                    onChange={handleInspectionInputChange}
+                    placeholder="Hello, I am interested in this property. Please let me know the best time for a viewing."
+                    className="w-full bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]"
+                  />
+                </div>
+                <div className="flex items-center justify-end">
+                  <button
+                    type="submit"
+                    disabled={isSubmittingInspection}
+                    className="text-sm inline-flex items-center gap-2 rounded-full bg-[#616D43] px-6 py-3 text-white transition hover:opacity-90 cursor-pointer capitalize disabled:opacity-50"
+                  >
+                    {isSubmittingInspection ? 'Submitting...' : 'Request Inspection'}
+                    <FiChevronRight size={14} className="-mb-0.5" />
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       </section>
@@ -644,6 +750,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const slug = params?.slug
   const listing = await sanityClient.fetch(
     `*[_type == "listing" && status == "active" && slug.current == $slug][0]{
+      _id,
       title,
       slug,
       price,
