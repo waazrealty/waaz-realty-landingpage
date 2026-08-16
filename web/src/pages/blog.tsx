@@ -4,6 +4,7 @@ import { BasicLayout } from '@/components/Layout/BasicLayout'
 import { FiChevronRight } from 'react-icons/fi'
 import { sanityClient } from '@/lib/sanity'
 import { getFormattedDate } from '@/lib/common'
+import { useState } from 'react'
 
 type BlogPost = {
   title: string
@@ -13,9 +14,37 @@ type BlogPost = {
 }
 
 export default function Blog({ posts }: { posts: BlogPost[] }) {
+  const PAGE_SIZE = 12
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
   const canonical = `${siteUrl}/blog`
+  const [page, setPage] = useState(0)
+  const [loadedblogs, setLoadedblogs] = useState<BlogPost[]>(posts)
+  const [loadingMore, setLoadingMore] = useState(false)
 
+  const handleLoadMore = async () => {
+    if (loadingMore) return
+    setLoadingMore(true)
+    try {
+      const start = (page + 1) * PAGE_SIZE
+      const end = start + PAGE_SIZE
+      const more: BlogPost[] = await sanityClient.fetch(`*[_type == "blogPost"] | order(_updatedAt desc)[${start}...${end}]{
+        title,
+        slug,
+        image,
+        _updatedAt,
+        gallery[0]{asset->{url}}
+      }`)
+
+      if (more && more.length > 0) {
+        setLoadedblogs((s) => [...s, ...more])
+        setPage((p) => p + 1)
+      }
+    } catch (err) {
+      // ignore for now
+    } finally {
+      setLoadingMore(false)
+    }
+  }
   return (
     <BasicLayout title="Blog | Wazz Realty" description="Read the latest insights on real estate investment, design, and property trends." canonical={canonical} url={canonical} image="/assets/blog/preview.png" keywords={['blog', 'real estate', 'property trends', 'investment', 'design']}>
       <section className="flex flex-col md:w-10/12 w-11/12 lg:mt-10 space-y-5 items-center">
@@ -28,7 +57,7 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
       </section>
       <section className="md:w-10/12 w-11/12">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full">
-          {posts.map((post, index) => {
+          {loadedblogs.map((post, index) => {
             const slug = post.slug?.current
             if (!slug) return null
             const imageUrl = post.image?.asset?.url || '/assets/images/card-image3.png'
@@ -44,10 +73,12 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
         </div>
         <div className="w-full my-10 flex justify-center">
           <button
-            type="submit"
-            className="rounded-full bg-[#616D43] px-8 py-4 text-base font-medium text-white transition hover:bg-[#2e3223]"
+            type="button"
+            onClick={handleLoadMore}
+            disabled={loadingMore}
+            className="rounded-full bg-[#616D43] px-5 py-2 text-base font-medium text-white transition hover:bg-[#2e3223] disabled:opacity-60"
           >
-            See More
+            {loadingMore ? 'Loading…' : 'See More'}
           </button>
         </div>
       </section>
@@ -74,9 +105,10 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = await sanityClient.fetch(`*[_type == "blog" && status == "active"] | order(_updatedAt desc){title, slug, image{asset->{url}}, _updatedAt}`)
+  const PAGE_SIZE = 12
+  const posts = await sanityClient.fetch(`*[_type == "blog" && status == "active"] | order(_updatedAt desc){title, slug, image{asset->{url}}, _updatedAt}[0...${PAGE_SIZE}]`)
 
-  return {
+  return {  
     props: {
       posts,
     },

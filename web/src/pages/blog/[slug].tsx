@@ -44,11 +44,11 @@ export default function BlogDetails({ post }: { post: BlogPost }) {
       keywords={['blog', 'real estate', 'property', 'Wazz Realty']}
     >
       <section className="flex flex-col md:w-10/12 w-11/12">
-        <div className="md:text-[3rem] text-[2rem] leading-12 font-medium font-serif italic"><span className="px-1 text-[#666D80]">Blog</span>/ {post.tag}</div>
-        <div className="md:text-[5rem] text-[3.5rem] font-serif italic my-10 md:leading-24 leading-14 md:w-2/3">
+        <Link href="/blog" className="md:text-[3rem] text-[2rem] leading-12 font-medium font-serif italic"><span className="px-1 text-[#666D80]">Blog</span>/ {post.tag}</Link>
+        <div className="md:text-[5rem] text-[3.5rem] font-serif italic md:my-10 my-5 md:leading-20 leading-14 md:w-2/3">
           {post.title}
         </div>
-        <div className="text-sm text-[#666D80] md:-mb-6">{post._createdAt && getFormattedDate(post._createdAt)} {post._createdAt !== post._updatedAt && <span><span className="px-1">•</span> <span className="">Updated {getFormattedDate(post._updatedAt)}</span></span>}</div>
+        <div className="text-sm text-[#666D80] -mb-6">{post._createdAt && getFormattedDate(post._createdAt)} {post._createdAt !== post._updatedAt && <span><span className="px-1">•</span> <span className="">Updated {getFormattedDate(post._updatedAt)}</span></span>}</div>
       </section>
       <section className="relative md:aspect-video aspect-2/3 md:w-10/12 w-11/12 rounded-2xl overflow-hidden">
         <div className="absolute inset-0">
@@ -65,11 +65,11 @@ export default function BlogDetails({ post }: { post: BlogPost }) {
           <img src="/assets/images/facebook.svg" alt="social media icon" className="h-10 w-10" />
         </div>
       </section>
-      <section className="relative md:aspect-video aspect-2/3 md:w-10/12 w-11/12 overflow-hidden mb-25">
+      <section className="relative md:aspect-video aspect-2/3 md:w-10/12 w-full overflow-hidden md:mb-20 mb-5">
         <div className="absolute inset-0 z-10">
           <div className="h-full w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/banner.svg')" }} aria-hidden="true" />
         </div>
-        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-6">
+        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-6 p-5">
           <div className=" md:text-[3.5rem] text-5xl md:leading-[4.38rem] md:w-[30%] italic font-serif text-[#131313] text-center">Ready to find a property of choice</div>
           <div className="text-[#666D80] md:w-[28%] text-center text-[1rem] leading-7">
             Having trouble finding a property? We’ve got you covered. Reach out to our team to get it all sorted.
