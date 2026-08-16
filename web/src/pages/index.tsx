@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import PrimaryButton from '@/components/PrimaryButton'
 import { BasicLayout } from '@/components/Layout/BasicLayout'
 import PropertyShowcaseSection from '@/components/PropertyShowcaseSection'
@@ -30,6 +30,21 @@ type Testimonals = {
 export default function Home({ listings, rentalListings, testimonals }: { listings: Listing[]; rentalListings: Listing[]; testimonals: Testimonals[] }) {
   const router = useRouter()
   const [email, setEmail] = useState('')
+  const [activeTestimonial, setActiveTestimonial] = useState(0)
+
+  useEffect(() => {
+    if (!testimonals || testimonals.length <= 1) {
+      return undefined
+    }
+
+    const intervalId = setInterval(() => {
+      setActiveTestimonial((current) => (current + 1) % testimonals.length)
+    }, 5000)
+
+    return () => clearInterval(intervalId)
+  }, [testimonals])
+
+  const activeTestimonialData = testimonals?.[activeTestimonial]
 
   const handleSubscribe = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -179,24 +194,26 @@ export default function Home({ listings, rentalListings, testimonals }: { listin
               </div>
 
               <div className="backdrop-blur-xl">
-                {testimonals && testimonals.map((listing) => (
+                {activeTestimonialData ? (
                   <div className="space-y-8">
                     <div className="text-sm leading-8 text-white md:text-lg">
-                      "{listing.quote}"
+                      "{activeTestimonialData.quote}"
                     </div>
                     <div>
-                      <div className="text-xl font-semibold text-white">{listing.author}</div>
-                      <div className="text-sm text-[#D9D9CC]">{listing.location}</div>
+                      <div className="text-xl font-semibold text-white">{activeTestimonialData.author}</div>
+                      <div className="text-sm text-[#D9D9CC]">{activeTestimonialData.location}</div>
                     </div>
                   </div>
-                ))}
+                ) : null}
 
-                <div className="md:mt-20 mt-10 flex w-full items-center gap-2">
-                  {[testimonals].map((item, index) => (
-                    <span
-                      key={index}
-                      className={`h-1.5 flex-1  ${index === 1 ? 'bg-[#9AA675]' : 'bg-white'}`}
-                      aria-hidden="true"
+                <div className="md:mt-20 mt-10 flex w-full items-center gap-3">
+                  {(testimonals || []).map((item, index) => (
+                    <button
+                      key={`${item.author}-${index}`}
+                      type="button"
+                      onClick={() => setActiveTestimonial(index)}
+                      className={`h-1.5 flex-1 rounded-full transition ${index === activeTestimonial ? 'bg-[#9AA675]' : 'bg-white'}`}
+                      aria-label={`Show testimonial ${index + 1}`}
                     />
                   ))}
                 </div>
