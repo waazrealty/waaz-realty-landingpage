@@ -5,7 +5,6 @@ import { BasicLayout } from '@/components/Layout/BasicLayout'
 import { MdBed, MdBathtub } from "react-icons/md"
 import { FiChevronRight } from 'react-icons/fi'
 import { AiOutlineClose } from 'react-icons/ai'
-import { BsChevronDown } from 'react-icons/bs'
 import { formatCompactNumber } from '@/lib/common'
 import { sanityClient } from '@/lib/sanity'
 import SelectField from '@/components/Select'

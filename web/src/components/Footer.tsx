@@ -1,8 +1,12 @@
 import { FaChevronUp } from "react-icons/fa";
 import PrimaryButton from "./PrimaryButton";
 import SocialButton from "./SocialButton";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Footer() {
+  const router = useRouter()
+
   const scrollToTop = () => {
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -16,19 +20,19 @@ export default function Footer() {
         <div className="space-y-6 lg:w-3/5">
           <div className="text-5xl italic font-serif text-white leading-13 md:block hidden">Begin Your Property <br/> Journey.</div>
           <div className="text-5xl italic font-serif text-white leading-13 md:hidden">Begin Your  <br/>Property Journey.</div>
-          <PrimaryButton textColor="[#36394A]" bgColor="white" iconColor="[#36394A]">
+          <PrimaryButton textColor="[#36394A]" bgColor="white" iconColor="[#36394A]" onChangeClick={() => router.push('/contact')}>
             Speak with an Advisor
           </PrimaryButton>
         </div>
         <div className="flex md:flex-row flex-col gap-5 space-x-14 text-sm lg:w-2/5">
           <div className="space-y-3 text-sm font-medium tracking-tight">
             <div>Quick Links</div>
-            <div className="space-y-3 text-xs text-[#9AA675]">
-              <div>About</div>
-              <div>Portfolio</div>
-              <div>Listings</div>
-              <div>Rent</div>
-              <div>Sale</div>
+            <div className="space-y-3 text-xs text-[#9AA675] flex flex-col">
+              <Link href="/about">About</Link>
+              <Link href="/portfolio">Portfolio</Link>
+              <Link href="/listings">Listings</Link>
+              <Link href="/rent">Rent</Link>
+              <Link href="/sale">Sale</Link>
             </div>
           </div>
           <div className="space-y-3 text-sm font-medium tracking-tight">
@@ -47,10 +51,10 @@ export default function Footer() {
           </div>
           <div className="space-y-3 text-sm font-medium tracking-tight">
             <div>Contact</div>
-            <div className="space-y-3 text-xs text-[#9AA675]">
-              <div>Contact</div>
-              <div>Portfolio</div>
-              <div>Listings</div>
+            <div className="space-y-3 text-xs text-[#9AA675] flex flex-col">
+              <Link href="/contact">Contact</Link>
+              <Link href="/portfolio">Portfolio</Link>
+              <Link href="/listings">Listings</Link>
             </div>
           </div>
         </div>

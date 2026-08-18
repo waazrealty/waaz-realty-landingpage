@@ -16,6 +16,8 @@ import { getIcon, IconKey } from '@/lib/icons'
 import { useAlert } from '@/lib/notification/alertcontext'
 import { ERROR_EMAIL_INVALID, inspectionErrorMessageMap, InspectionErrorTypes } from '@/lib/errors'
 
+type FeatureItem = string | { _key?: string; feature?: string }
+
 type ListingDetail = {
   _id: string
   title: string
@@ -29,18 +31,18 @@ type ListingDetail = {
   category?: string
   gallery?: Array<{ asset?: { url?: string } }>
   description?: any[]
-  propertyFeatures: Array<{ feature?: string }>
-  availableDocuments: Array<{ feature?: string }>
-  communityAmenities: Array<{ feature?: string }>
-  luxuryAmenities: Array<{ feature?: string }>
-  securityFeatures: Array<{ feature?: string }>
-  outdoorAmenities: Array<{ feature?: string }>
-  coreInfrastructure: Array<{ feature?: string }>
-  specializedRooms: Array<{ feature?: string }>
-  ecoFeatures: Array<{ feature?: string }>
-  propertyRules: Array<{ feature?: string }>
-  utilities: Array<{ feature?: string }>
-  moveInCosts: Array<{ item: string; detail: string; amount: number }>
+  propertyFeatures?: FeatureItem[]
+  availableDocuments?: FeatureItem[]
+  communityAmenities?: FeatureItem[]
+  luxuryAmenities?: FeatureItem[]
+  securityFeatures?: FeatureItem[]
+  outdoorAmenities?: FeatureItem[]
+  coreInfrastructure?: FeatureItem[]
+  specializedRooms?: FeatureItem[]
+  ecoFeatures?: FeatureItem[]
+  propertyRules?: FeatureItem[]
+  utilities?: FeatureItem[]
+  moveInCosts?: Array<{ item: string; detail: string; amount: number }>
   agent: { name: string; phone?: string }
   _updatedAt?: string
 }
@@ -58,6 +60,16 @@ const formatLabel = (value: string) =>
   value
     .replace(/[-_]/g, ' ')
     .replace(/\b\w/g, (char) => char.toUpperCase())
+
+const normalizeFeatureKey = (value?: FeatureItem | null) => {
+  if (typeof value === 'string') return value
+  return value?.feature ?? ''
+}
+
+const normalizeFeatureList = (items?: FeatureItem[] | null) =>
+  (items ?? [])
+    .map((item) => normalizeFeatureKey(item))
+    .filter(Boolean)
 
 const featureTitles: Record<string, string> = {
   wc: 'Guest Toilet',
@@ -374,7 +386,7 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
       keywords={['listings', 'real estate', 'property', 'Wazz Realty']}
     >
       <section className="flex flex-col md:w-10/12 w-11/12">
-        <div className="md:text-[3rem] text-[2rem] md:leading-12 leading-10 font-medium font-serif italic md:mb-10">
+        <div className="md:text-[3rem] text-[2rem] md:leading-14 leading-10 font-medium font-serif italic md:mb-10">
           <span className="px-1 text-[#666D80]">Listings</span>/ {listing.title}
         </div>
       </section>
@@ -413,85 +425,78 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
                   <MdBathtub className="text-[#36394A] text-lg" />
                   {listing.baths} Baths
                 </span>
-                {listing.propertyFeatures && listing.propertyFeatures.length > 0 && listing.propertyFeatures.map((feature) => {
-                  const featureKey = feature.feature || ''
+                {normalizeFeatureList(listing.propertyFeatures).map((featureKey) => {
                   const iconName = featureKey as IconKey
                   const FeatureIcon = getIcon(iconName) || MdBed
 
                   return (
-                    <span key={featureKey || JSON.stringify(feature)} className="inline-flex items-center gap-2">
+                    <span key={featureKey} className="inline-flex items-center gap-2">
                       <FeatureIcon className="text-[#36394A] text-lg" />
                       {getFeatureTitle(featureKey)}
                     </span>
                   )
                 })}
-                {listing.luxuryAmenities && listing.luxuryAmenities.length > 0 && listing.luxuryAmenities.map((feature) => {
-                  const featureKey = feature.feature || ''
+                {normalizeFeatureList(listing.luxuryAmenities).map((featureKey) => {
                   const iconName = featureKey as IconKey
                   const FeatureIcon = getIcon(iconName) || MdBed
 
                   return (
-                    <span key={featureKey || JSON.stringify(feature)} className="inline-flex items-center gap-2">
+                    <span key={featureKey} className="inline-flex items-center gap-2">
                       <FeatureIcon className="text-[#36394A] text-lg" />
                       {getFeatureTitle(featureKey)}
                     </span>
                   )
                 })}
-                {listing.specializedRooms && listing.specializedRooms.length > 0 && listing.specializedRooms.map((feature) => {
-                  const featureKey = feature.feature || ''
+                {normalizeFeatureList(listing.specializedRooms).map((featureKey) => {
                   const iconName = featureKey as IconKey
                   const FeatureIcon = getIcon(iconName) || MdBed
 
                   return (
-                    <span key={featureKey || JSON.stringify(feature)} className="inline-flex items-center gap-2">
+                    <span key={featureKey} className="inline-flex items-center gap-2">
                       <FeatureIcon className="text-[#36394A] text-lg" />
                       {getOtherFeatureTitle(featureKey)}
                     </span>
                   )
                 })}
-                {listing.outdoorAmenities && listing.outdoorAmenities.length > 0 && listing.outdoorAmenities.map((feature) => {
-                  const featureKey = feature.feature || ''
+                {normalizeFeatureList(listing.outdoorAmenities).map((featureKey) => {
                   const iconName = featureKey as IconKey
                   const FeatureIcon = getIcon(iconName) || MdBed
 
                   return (
-                    <span key={featureKey || JSON.stringify(feature)} className="inline-flex items-center gap-2">
+                    <span key={featureKey} className="inline-flex items-center gap-2">
                       <FeatureIcon className="text-[#36394A] text-lg" />
                       {getOtherFeatureTitle(featureKey)}
                     </span>
                   )
                 })}
-                {listing.coreInfrastructure && listing.coreInfrastructure.length > 0 && listing.coreInfrastructure.map((feature) => {
-                  const featureKey = feature.feature || ''
+                {normalizeFeatureList(listing.coreInfrastructure).map((featureKey) => {
                   const iconName = featureKey as IconKey
                   const FeatureIcon = getIcon(iconName) || MdBed
 
                   return (
-                    <span key={featureKey || JSON.stringify(feature)} className="inline-flex items-center gap-2">
+                    <span key={featureKey} className="inline-flex items-center gap-2">
                       <FeatureIcon className="text-[#36394A] text-lg" />
                       {getOtherFeatureTitle(featureKey)}
                     </span>
                   )
                 })}
-                {listing.securityFeatures && listing.securityFeatures.length > 0 && listing.securityFeatures.map((feature) => {
-                  const featureKey = feature.feature || ''
+                {normalizeFeatureList(listing.securityFeatures).map((featureKey) => {
                   const iconName = featureKey as IconKey
                   const FeatureIcon = getIcon(iconName) || MdBed
 
                   return (
-                    <span key={featureKey || JSON.stringify(feature)} className="inline-flex items-center gap-2">
+                    <span key={featureKey} className="inline-flex items-center gap-2">
                       <FeatureIcon className="text-[#36394A] text-lg" />
                       {getFeatureTitle(featureKey)}
                     </span>
                   )
                 })}
-                {listing.ecoFeatures && listing.ecoFeatures.length > 0 && listing.ecoFeatures.map((feature) => {
-                  const featureKey = feature.feature || ''
+                {normalizeFeatureList(listing.ecoFeatures).map((featureKey) => {
                   const iconName = featureKey as IconKey
                   const FeatureIcon = getIcon(iconName) || MdBed
 
                   return (
-                    <span key={featureKey || JSON.stringify(feature)} className="inline-flex items-center gap-2">
+                    <span key={featureKey} className="inline-flex items-center gap-2">
                       <FeatureIcon className="text-[#36394A] text-lg" />
                       {getOtherFeatureTitle(featureKey)}
                     </span>
@@ -505,13 +510,12 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
                 <div className="text-sm font-medium">Available Documents</div>
               </div>
               <div className="flex flex-row flex-wrap md:gap-10 gap-5 w-full border border-[#F7F7F8] p-5 text-[#666D80]">
-                {listing.availableDocuments && listing.availableDocuments.length > 0 ? listing.availableDocuments.map((doc) => {
-                  const docKey = doc.feature || ''
+                {normalizeFeatureList(listing.availableDocuments).length > 0 ? normalizeFeatureList(listing.availableDocuments).map((docKey) => {
                   const iconName = docKey as IconKey
                   const DocumentIcon = getIcon(iconName) || MdBed
 
                   return (
-                    <span key={docKey || JSON.stringify(doc)} className="inline-flex items-center gap-2">
+                    <span key={docKey} className="inline-flex items-center gap-2">
                       <DocumentIcon className="text-[#36394A] text-lg" />
                       {getDocumentTitle(docKey)}
                     </span>
@@ -528,13 +532,12 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
                 <div className="text-sm font-medium">Community & Lifestyle Amenities</div>
               </div>
               <div className="flex flex-row flex-wrap md:space-x-10 gap-5 w-full border border-[#F7F7F8] p-5 text-[#666D80]">
-                {listing.communityAmenities && listing.communityAmenities.length > 0 ? listing.communityAmenities.map((amenity) => {
-                  const amenityKey = amenity.feature || ''
+                {normalizeFeatureList(listing.communityAmenities).length > 0 ? normalizeFeatureList(listing.communityAmenities).map((amenityKey) => {
                   const iconName = amenityKey as IconKey
                   const AmenityIcon = getIcon(iconName) || MdBed
 
                   return (
-                    <span key={amenityKey || JSON.stringify(amenity)} className="inline-flex items-center gap-2">
+                    <span key={amenityKey} className="inline-flex items-center gap-2">
                       <AmenityIcon className="text-[#36394A] text-lg" />
                       {getAmenityTitle(amenityKey)}
                     </span>
@@ -549,25 +552,23 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
               </div>
               <div className="flex flex-row flex-wrap gap-10 w-full border border-[#F7F7F8] p-5 text-[#666D80]">
                 {!listing.propertyRules && !listing.utilities && (<span className="text-[#666D80]">No key property details available for this property.</span>)}
-                {listing.propertyRules && listing.propertyRules.length > 0 && listing.propertyRules.map((rule) => {
-                  const ruleKey = rule.feature || ''
+                {normalizeFeatureList(listing.propertyRules).map((ruleKey) => {
                   const iconName = ruleKey as IconKey
                   const RuleIcon = getIcon(iconName) || MdBed
 
                   return (
-                    <span key={ruleKey || JSON.stringify(rule)} className="inline-flex items-center gap-2">
+                    <span key={ruleKey} className="inline-flex items-center gap-2">
                       <RuleIcon className="text-[#36394A] text-lg" />
                       {getPropertyRuleTitle(ruleKey)}
                     </span>
                   )
                 })}
-                {listing.utilities && listing.utilities.length > 0 && listing.utilities.map((utility) => {
-                  const utilityKey = utility.feature || ''
+                {normalizeFeatureList(listing.utilities).map((utilityKey) => {
                   const iconName = utilityKey as IconKey
                   const UtilityIcon = getIcon(iconName) || MdBed
 
                   return (
-                    <span key={utilityKey || JSON.stringify(utility)} className="inline-flex items-center gap-2">
+                    <span key={utilityKey} className="inline-flex items-center gap-2">
                       <UtilityIcon className="text-[#36394A] text-lg" />
                       {getUtilityTitle(utilityKey)}
                     </span>
@@ -762,10 +763,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       category,
       gallery[]{asset->{url}},
       description,
-      propertyFeatures[]{feature},
-      availableDocuments[]{feature},
-      communityAmenities[]{feature},
-      propertyRules[]{feature},
+      propertyFeatures,
+      availableDocuments,
+      communityAmenities,
+      luxuryAmenities,
+      securityFeatures,
+      outdoorAmenities,
+      coreInfrastructure,
+      specializedRooms,
+      ecoFeatures,
+      propertyRules,
+      utilities,
       moveInCosts,
       agent->{name, phone, photo{asset->{url}}, bio},
       _updatedAt

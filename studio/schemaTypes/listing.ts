@@ -258,7 +258,6 @@ export default defineType({
           {title: 'Mezzanine Level', value: 'layers', icon: MdLayers},
           {title: 'Verandah', value: 'deck', icon: MdDeck},
         ],
-        layout: 'tags',
       },
     }),
 
@@ -283,7 +282,6 @@ export default defineType({
           {title: 'Court Judgment', value: 'balance', icon: MdBalance},
           {title: 'Tenancy Agreement', value: 'contract', icon: MdOutlineDocumentScanner },
         ],
-        layout: 'tags',
       },
     }),
 
@@ -309,7 +307,6 @@ export default defineType({
           {title: 'Central Air Conditioning', value: 'ac_unit', icon: MdAcUnit},
           {title: 'Central Heating', value: 'thermostat', icon: MdThermostat},
         ],
-        layout: 'tags',
       },
     }),
 
@@ -338,7 +335,6 @@ export default defineType({
           {title: 'Police Station Nearby', value: 'local_police', icon: MdLocalPolice},
           {title: 'Coworking Space', value: 'co_present', icon: MdCoPresent},
         ],
-        layout: 'tags',
       },
     }),
 
@@ -368,7 +364,6 @@ export default defineType({
           {title: 'Residential Use Only', value: 'home', icon: MdHome},
           {title: 'No Smoking', value: 'smoke_free', icon: MdSmokeFree},
         ],
-        layout: 'tags',
       },
     }),
 
@@ -397,7 +392,6 @@ export default defineType({
           {title: 'Cigar Lounge', value: 'smoking_rooms', icon: MdSmokingRooms},
           {title: 'Indoor Pool', value: 'water', icon: MdWaterDrop},
         ],
-        layout: 'tags',
       },
     }),
 
@@ -426,7 +420,6 @@ export default defineType({
           {title: 'Burglary Proof / Window Guards', value: 'grid_3x3', icon: MdGrid3X3},
           {title: 'Automated Blinds / Curtains', value: 'blinds', icon: MdBlinds},
         ],
-        layout: 'tags',
       },
     }),
 
@@ -452,7 +445,6 @@ export default defineType({
           {title: 'Courtyard / Patio', value: 'deck', icon: MdDeck},
           {title: 'Artificial Turf', value: 'grass', icon: MdEco},
         ],
-        layout: 'tags',
       },
     }),
 
@@ -479,7 +471,6 @@ export default defineType({
           {title: 'Freight Elevator / Service Lift', value: 'unfold_more', icon: MdElevator},
           {title: 'Dumbwaiter', value: 'kitchen', icon: MdKitchen},
         ],
-        layout: 'tags',
       },
     }),
 
@@ -508,7 +499,6 @@ export default defineType({
           {title: 'Workshop / DIY Room', value: 'handyman', icon: MdHandyman},
           {title: 'Home Salon / Spa', value: 'content_cut', icon: MdContentCut},
         ],
-        layout: 'tags',
       },
     }),
 
@@ -531,7 +521,6 @@ export default defineType({
           {title: 'Biodigester', value: 'science', icon: MdEco},
           {title: 'Smart Thermostat', value: 'nest_thermostat', icon: MdThermostatAuto},
         ],
-        layout: 'tags',
       },
     }),
 
