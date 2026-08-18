@@ -32,7 +32,7 @@ export default function SiteNav() {
 
   return (
     <nav className="w-full md:px-6 px-3 md:py-10 py-5 relative flex flex-col items-center">
-      <div className="mx-auto w-10/12 items-center px-10 py-1 border border-[#ECEFF3] rounded-4xl justify-between text-sm gap-4 md:flex hidden">
+      <div className="mx-auto w-10/12 items-center px-10 py-1 border border-[#ECEFF3] rounded-4xl justify-between text-sm gap-4 lg:flex hidden">
         <div className="flex flex-wrap items-center space-x-8 font-medium text-sm text-black">
           {navItemsLeft.map((item) => (
             <Link key={`${item.href}-${item.label}`} className={getDesktopLinkClass(item.href)} href={item.href}>
@@ -54,7 +54,7 @@ export default function SiteNav() {
         </div>
       </div>
 
-      <div className="md:hidden relative w-full">
+      <div className="lg:hidden relative w-full">
         <div className="flex items-center justify-between">
           <Link href="/">
             <img src="/assets/images/logo.png" alt="Wazz Realty Logo" className="h-20 w-20" />

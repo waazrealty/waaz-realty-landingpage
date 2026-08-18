@@ -45,7 +45,7 @@ export default function BlogDetails({ post }: { post: BlogPost }) {
     >
       <section className="flex flex-col md:w-10/12 w-11/12">
         <Link href="/blog" className="md:text-[3rem] text-[2rem] leading-12 font-medium font-serif italic"><span className="px-1 text-[#666D80]">Blog</span>/ {post.tag}</Link>
-        <div className="md:text-[5rem] text-[3.5rem] font-serif italic md:my-10 my-5 md:leading-20 leading-14 md:w-2/3">
+        <div className="md:text-[3rem] text-[2rem] md:leading-14 leading-10 font-serif italic md:my-10 my-5 md:w-2/3">
           {post.title}
         </div>
         <div className="text-sm text-[#666D80] -mb-6">{post._createdAt && getFormattedDate(post._createdAt)} {post._createdAt !== post._updatedAt && <span><span className="px-1">•</span> <span className="">Updated {getFormattedDate(post._updatedAt)}</span></span>}</div>

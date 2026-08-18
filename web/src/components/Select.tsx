@@ -71,7 +71,7 @@ const SelectField: React.FC<SelectProps> = ({
         onClick={() => setShow(!show)}
         className="flex flex-row justify-between items-center py-2 px-3 w-full rounded-full border-4 border-[#F6F8FA] cursor-pointer"
       >
-        <span className="text-sm">{selectedValue || placeholder}</span>
+        <span className="text-sm line-clamp-1 capitalize">{selectedValue || placeholder}</span>
         
         <MdKeyboardArrowDown className={`text-xl ${show ? 'hidden' : 'block'}`} />
         <MdKeyboardArrowUp className={`text-xl ${show ? 'block' : 'hidden'}`} />

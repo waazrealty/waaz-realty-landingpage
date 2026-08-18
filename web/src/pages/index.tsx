@@ -60,11 +60,11 @@ export default function Home({ listings, rentalListings, testimonals }: { listin
       description="A starter Next.js site with TypeScript, Tailwind CSS, reusable components, fonts, and SEO."
     >
       <section className="flex flex-col w-10/12 md:mt-10 md:mb-40 md:space-y-10 space-y-12">
-        <div className="md:text-[5rem] text-[4rem] font-serif italic md:leading-24 leading-18">
-          Your <span className="text-[#3E452F]">Foundation </span> for Elevated <br /> Living in Lagos.
+        <div className="md:text-[5rem] text-[4rem] font-serif italic md:leading-24 leading-18 md:w-[70%]">
+          Your <span className="text-[#3E452F]">Foundation </span> for Elevated Living in Lagos.
         </div>
         <div className="">
-          <PrimaryButton textColor="white" bgColor="[#3E452F]" iconColor="white" onChangeClick={handleExploreProperties}>
+          <PrimaryButton textColor="white" bgColor="[#616D43]" iconColor="white" onChangeClick={handleExploreProperties}>
             Explore Properties
           </PrimaryButton>
         </div>
@@ -90,7 +90,7 @@ export default function Home({ listings, rentalListings, testimonals }: { listin
       <PropertyShowcaseSection listings={listings} rentalListings={rentalListings} />
 
       <section
-        className="lg:w-10/12 w-full md:flex hidden items-center justify-between gap-20 lg:bg-cover px-25 py-30"
+        className="lg:w-10/12 w-full lg:flex hidden items-center justify-between gap-20 lg:bg-cover px-25 py-30"
         style={{ backgroundImage: "url('/assets/images/bg-gradient.png')" }}
         aria-label="Wazz Realty banner"
       >
@@ -132,32 +132,32 @@ export default function Home({ listings, rentalListings, testimonals }: { listin
       </section>
       
       <section
-        className="w-full md:hidden flex flex-col items-center justify-between bg-cover md:px-20 px-6 py-20 space-y-10"
+        className="w-full lg:hidden flex flex-col items-center justify-between bg-cover md:px-20 px-6 py-20 space-y-10"
         style={{ backgroundImage: "url('/assets/images/bg-mobile-gradient.png')" }}
         aria-label="Wazz Realty banner"
       >
         <img src="/assets/images/badge.png" alt="Wazz Realty Logo" className="h-70" />
 
-        <div className="text-[3.50rem] leading-[4.4rem] italic font-serif text-white">Premium Value Excellent Reward</div>
+        <div className="text-5xl italic font-serif text-white">Premium Value Excellent Reward</div>
 
-        <div className="text-white max-w-120 text-[1rem] text-justify leading-6 -mt-5">
+        <div className="text-white text-[1rem] text-justify leading-6 -mt-5">
           At Wazz Realty, we believe your property journey should be seamless and rewarding. We combine trust with a diverse portfolio, offering everything from luxurious estates to truly affordable homes. Our commitment is to exceptional service, ensuring you find the perfect property that meets your dreams and budget.
         </div>
       </section>
 
       <section
-        className="w-full flex flex-col items-center justify-between md:px-20 px-7 space-y-8"
+        className="w-full flex flex-col items-center justify-between md:px-20 px-5 space-y-8"
       >
-        <div className="md:w-lg w-70">
-          <div className="text-[3.35rem] text-center leading-16 italic font-serif text-black">The Standard for Premium Rentals</div>
+        <div className="lg:w-lg w-full">
+          <div className="lg:text-[3.35rem] text-5xl text-center leading-16 italic font-serif text-black">The Standard for Premium Rentals</div>
         </div>
 
         <div className="text-[#666D80] text-center max-w-120 text-[1rem] leading-6">
           Experience a simplified and secure rental process. We connect discerning tenants with high-quality homes in Lagos's most sought-after communities.
         </div>
 
-        <div className="max:w-5xl w-full flex flex-col md:flex-row items-center justify-center gap-3 mt-10">
-          <div className="flex md:w-100 flex-col gap-5 bg-[#515B3A]">
+        <div className="md:max:w-5xl w-full flex flex-col lg:flex-row items-center justify-center gap-3 mt-10">
+          <div className="flex lg:w-100 w-full flex-col gap-5 bg-[#515B3A]">
             <img src="/assets/images/card-image1.png" alt="Wazz Realty house" className="h-auto" />
             <div className="space-y-6 px-8 pb-10 md:w-full w-11/12">
               <div className="text-5xl italic font-serif text-white leading-13">Exceptional Properties for Rent</div>
@@ -166,7 +166,7 @@ export default function Home({ listings, rentalListings, testimonals }: { listin
               </PrimaryButton>
             </div> 
           </div>
-          <div className="flex md:w-100 flex-col gap-5 bg-[#7D8B57]">
+          <div className="flex lg:w-100 w-full flex-col gap-5 bg-[#7D8B57]">
             <div className="space-y-6 px-8 pt-10 md:w-full w-11/12">
               <div className="text-5xl italic font-serif text-white leading-13">From Vision to Keys in Hand</div>
               <PrimaryButton textColor="[#36394A]" bgColor="white" iconColor="[#36394A]" onChangeClick={() => router.push('/contact')}>

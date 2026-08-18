@@ -87,15 +87,19 @@ export const getFirstWord = (inputString : string): string => {
  * @param array - The array of objects to process
  * @param key - The specific key containing numbers to sum
  */
-export function sumObjectValues<T>(array: T[], key: keyof T): number {
+export function sumObjectValues<T>(array: T[] | null | undefined, key: keyof T): number {
+  if (!array || !Array.isArray(array)) {
+    return 0;
+  }
+
   return array.reduce((accumulator, currentItem) => {
     const value = currentItem[key];
-    
+
     // Ensure the value is a valid number before adding to prevent NaN errors
     if (typeof value === 'number' && !isNaN(value)) {
       return accumulator + value;
     }
-    
+
     return accumulator;
   }, 0);
 }
