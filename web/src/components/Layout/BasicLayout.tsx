@@ -25,7 +25,7 @@ export const BasicLayout = ({
   return (
     <>
       <Seo title={title} description={description} image={image} url={url} canonical={canonical} keywords={keywords} />
-      <div className="min-h-screen w-full flex flex-col items-center-safe space-y-10 bg-white">
+      <div className="min-h-screen w-full flex flex-col items-center-safe lg:space-y-10 bg-white">
         {/* Top navigation */}
         <SiteNav />
         {/* Main Content */}

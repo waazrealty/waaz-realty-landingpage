@@ -386,7 +386,7 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
       keywords={['listings', 'real estate', 'property', 'Wazz Realty']}
     >
       <section className="flex flex-col md:w-10/12 w-11/12">
-        <div className="md:text-[3rem] text-[2rem] md:leading-14 leading-10 font-medium font-serif italic md:mb-10">
+        <div className="md:text-[3.5rem] text-4xl md:leading-14 leading-10 font-medium font-serif italic md:mb-10">
           <span className="px-1 text-[#666D80]">Listings</span>/ {listing.title}
         </div>
       </section>
@@ -725,7 +725,7 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
           <div className="block md:hidden h-full w-full bg-cover bg-no-repeat bg-center" style={{ backgroundImage: "url('/assets/images/bg-mobile-about2.png')" }} aria-hidden="true" />
         </div>
       </section>
-      <section className="flex md:flex-row flex-col md:items-center md:justify-center w-11/12 md:mt-20 mt-5 md:mb-35 mb-27 md:space-x-56 md:space-y-0 space-y-8">
+      <section className="flex md:flex-row flex-col md:items-center md:justify-center w-11/12 md:mt-20 mt-5 md:mb-35 mb-27 lg:space-x-56 md:space-y-0 space-y-8">
         <div className="max-w-120 md:text-[3.5rem] text-5xl md:leading-[4.38rem] italic font-serif text-[#131313]">Start your property <br/> journey with us</div>
         <div>
           <Link href="/contact" className="inline-flex items-center gap-2 rounded-full bg-[#616D43] px-5 py-2 text-white transition hover:opacity-90 capitalize">

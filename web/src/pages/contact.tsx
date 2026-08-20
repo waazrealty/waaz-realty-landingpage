@@ -7,15 +7,6 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { FiChevronRight } from 'react-icons/fi'
 
-interface ContactDocument {
-  _type: string;
-  fullname: string;
-  email: string;
-  mobile: string;
-  discussion: string;
-  message: string;
-}
-
 export default function Contact() {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
   const canonical = `${siteUrl}/contact`
@@ -80,7 +71,7 @@ export default function Contact() {
         <div className="md:text-[4.5rem] text-[3rem] md:w-xl font-serif text-center italic md:leading-18 leading-13">
           Your Journey Starts With a Conversation.
         </div>
-        <div className="text-[#666D80] md:w-[45%] text-center text-base leading-7">
+        <div className="text-[#666D80] lg:w-[45%] text-center text-base leading-7">
           Whether you have a question about a specific property, wish to discuss selling your home, or need expert advice on the Lagos real estate market, our team is ready to assist. We look forward to connecting with you.
         </div>
       </section>
@@ -91,28 +82,28 @@ export default function Contact() {
           <div className="block md:hidden h-160 w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/bg-contact.png')" }} aria-hidden="true" />
         </div>
 
-        <div className="relative mx-auto md:p-10 p-5 md:w-[35%] w-10/12 bg-white -mt-50">
+        <div className="relative mx-auto md:p-10 p-5 lg:w-[35%] w-10/12 bg-white -mt-50">
           <p className="text-[2rem] italic font-medium font-serif">Get in Touch</p>
           <form className="mt-6 space-y-4 font-medium">
             <div>
               <label className="mb-2 block text-sm text-slate-700">Full Name</label>
-              <input type="text" placeholder="Enter full name" value={formInfo.fullname} onChange={({ target}) => {setFormInfo({ ...formInfo, fullname: target.value })}} className="w-full bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]" />
+              <input type="text" placeholder="Enter full name" value={formInfo.fullname} onChange={({ target}) => {setFormInfo({ ...formInfo, fullname: target.value })}} className="w-full bg-[#ECEFF3] px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]" />
             </div>
             <div>
               <label className="mb-2 block text-sm font-medium text-slate-700">Email</label>
-              <input type="email" placeholder="Enter email address" value={formInfo.email} onChange={({ target}) => {setFormInfo({ ...formInfo, email: target.value })}} className="w-full bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]" />
+              <input type="email" placeholder="Enter email address" value={formInfo.email} onChange={({ target}) => {setFormInfo({ ...formInfo, email: target.value })}} className="w-full bg-[#ECEFF3] px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]" />
             </div>
             <div>
               <label className="mb-2 block text-sm font-medium text-slate-700">Phone Number</label>
-              <input type="tel" placeholder="Enter phone number" value={formInfo.mobile} onChange={({ target}) => {setFormInfo({ ...formInfo, mobile: target.value })}} className="w-full bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]" />
+              <input type="tel" placeholder="Enter phone number" value={formInfo.mobile} onChange={({ target}) => {setFormInfo({ ...formInfo, mobile: target.value })}} className="w-full bg-[#ECEFF3] px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]" />
             </div>
             <div>
               <label className="mb-2 block text-sm font-medium text-slate-700">Discussion</label>
-              <input type="text" placeholder="Enter discussion details" value={formInfo.discussion} onChange={({ target}) => {setFormInfo({ ...formInfo, discussion: target.value })}} className="w-full bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]" />
+              <input type="text" placeholder="Enter discussion details" value={formInfo.discussion} onChange={({ target}) => {setFormInfo({ ...formInfo, discussion: target.value })}} className="w-full bg-[#ECEFF3] px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]" />
             </div>
             <div>
               <label className="mb-2 block text-sm font-medium text-slate-700">More Information</label>
-              <textarea rows={4} placeholder="Please provide any details that will help us assist you, such as property names or specific questions." value={formInfo.message} onChange={({ target}) => {setFormInfo({ ...formInfo, message: target.value })}} className="w-full bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]" />
+              <textarea rows={4} placeholder="Please provide any details that will help us assist you, such as property names or specific questions." value={formInfo.message} onChange={({ target}) => {setFormInfo({ ...formInfo, message: target.value })}} className="w-full bg-[#ECEFF3] px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]" />
             </div>
             <div onClick={handleSubmit} className="text-sm text-center cursor-pointer flex justify-center items-center gap-2 rounded-full bg-[#616D43] px-6 py-3 text-white transition hover:opacity-90 capitalize w-full">
               {!isSubmitting ? 'Send Message' : 'Sending ....'}
@@ -122,13 +113,13 @@ export default function Contact() {
         </div>
       </section>
       <section className="md:h-100 h-50"></section>
-      <section className="relative md:aspect-video aspect-2/3 md:w-10/12 w-full overflow-hidden mb-20">
+      <section className="relative md:aspect-video aspect-2/3 lg:w-10/12 w-full overflow-hidden mb-20">
         <div className="absolute inset-0 z-10">
           <div className="h-full w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/banner.svg')" }} aria-hidden="true" />
         </div>
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-6 p-5">
-          <div className=" md:text-[3.5rem] text-5xl md:leading-[4.38rem] md:w-[30%] italic font-serif text-[#131313] text-center">Ready to find a property of choice</div>
-          <div className="text-[#666D80] md:w-[28%] text-center text-[1rem] leading-7">
+          <div className=" md:text-[3.5rem] text-5xl md:leading-[4.38rem] lg:w-[30%] italic font-serif text-[#131313] text-center">Ready to find a property of choice</div>
+          <div className="text-[#666D80] lg:w-[28%] text-center text-[1rem] leading-7">
             Having trouble finding a property? We’ve got you covered. Reach out to our team to get it all sorted.
           </div>
           <div>

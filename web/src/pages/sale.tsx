@@ -148,13 +148,13 @@ export default function Sale({ listings }: { listings: Listing[] }) {
         <div className="md:text-[4rem] text-[3rem] font-serif italic md:leading-24 leading-18">
           Properties for <span className="text-[#7D8B57]">Sale</span>
         </div>
-        <div className="text-[#666D80] md:w-5/12 text-center text-[1rem] leading-7">
+        <div className="text-[#666D80] lg:w-5/12 text-center text-[1rem] leading-7">
           Each property in our portfolio is selected for its quality, value, and potential to become the foundation for your future. Whether you are looking to buy or rent, your journey towards an elevated lifestyle begins here. Use the filters below to refine your search.
         </div>
       </section>
       <section className="md:w-10/12 w-11/12 mx-auto mt-15">
         <div className="w-full">
-          <div className="md:gap-3 gap-2 flex flex-row md:flex-nowrap flex-wrap justify-between items-end border-2 border-[#F7F7F8] p-3">
+          <div className="md:gap-3 gap-2 flex flex-row lg:flex-nowrap flex-wrap justify-between items-end border-2 border-[#F7F7F8] p-3">
             <div className="md:w-1/5 w-[48%]">
               <div className="text-sm font-semibold mb-2">Rooms:</div>
               <SelectField recordList={roomOptions} value={roomsFilter} onChangeText={(value) => setRoomsFilter(value)} placeholder="Select rooms" />
@@ -232,7 +232,7 @@ export default function Sale({ listings }: { listings: Listing[] }) {
         </div>
       </section>
       <section className="md:w-10/12 w-11/12 mx-auto">
-        <div className="grid gap-3 lg:grid-cols-4 w-full">
+        <div className="grid gap-3 lg:grid-cols-4 md:grid-cols-2 w-full">
           {filteredListings.map((listing) => {
             const slug = listing.slug.current
             const imageUrl = listing.gallery?.asset?.url
@@ -272,13 +272,13 @@ export default function Sale({ listings }: { listings: Listing[] }) {
           </button>
         </div>
       </section>
-      <section className="relative md:aspect-video aspect-2/3 md:w-10/12 w-full overflow-hidden my-30">
+      <section className="relative md:aspect-video aspect-2/3 lg:w-10/12 w-full overflow-hidden my-30">
         <div className="absolute inset-0 z-10">
           <div className="h-full w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/banner.svg')" }} aria-hidden="true" />
         </div>
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-6 p-5">
           <div className=" md:text-[3.5rem] text-5xl md:leading-[4.38rem] md:w-full italic font-serif text-[#131313] text-center">Let Us Find It For You.</div>
-          <div className="text-[#666D80] md:w-[28%] text-center text-[1rem] leading-7">
+          <div className="text-[#666D80] lg:w-[28%] text-center text-[1rem] leading-7">
             Having trouble finding a property? We’ve got you covered. Reach out to our team to get it all sorted.
           </div>
           <div className="mt-5">
