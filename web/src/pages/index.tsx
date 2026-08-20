@@ -59,8 +59,8 @@ export default function Home({ listings, rentalListings, testimonals }: { listin
       title="Wazz Realty"
       description="A starter Next.js site with TypeScript, Tailwind CSS, reusable components, fonts, and SEO."
     >
-      <section className="flex flex-col w-10/12 md:mt-10 md:mb-40 md:space-y-10 space-y-12">
-        <div className="md:text-[5rem] text-[4rem] font-serif italic md:leading-24 leading-18 md:w-[70%]">
+      <section className="flex flex-col w-10/12 lg:mt-10 lg:mb-40 md:space-y-10 space-y-12">
+        <div className="lg:text-[5rem] text-[4rem] font-serif italic lg:leading-24 leading-18 md:w-[70%]">
           Your <span className="text-[#3E452F]">Foundation </span> for Elevated Living in Lagos.
         </div>
         <div className="">
@@ -156,8 +156,8 @@ export default function Home({ listings, rentalListings, testimonals }: { listin
           Experience a simplified and secure rental process. We connect discerning tenants with high-quality homes in Lagos's most sought-after communities.
         </div>
 
-        <div className="md:max:w-5xl w-full flex flex-col lg:flex-row items-center justify-center gap-3 mt-10">
-          <div className="flex lg:w-100 w-full flex-col gap-5 bg-[#515B3A]">
+        <div className="md:max:w-5xl w-full flex flex-col md:flex-row items-center justify-center gap-3 mt-10">
+          <div className="flex md:w-100 w-full flex-col gap-5 bg-[#515B3A]">
             <img src="/assets/images/card-image1.png" alt="Wazz Realty house" className="h-auto" />
             <div className="space-y-6 px-8 pb-10 md:w-full w-11/12">
               <div className="text-5xl italic font-serif text-white leading-13">Exceptional Properties for Rent</div>
@@ -166,7 +166,7 @@ export default function Home({ listings, rentalListings, testimonals }: { listin
               </PrimaryButton>
             </div> 
           </div>
-          <div className="flex lg:w-100 w-full flex-col gap-5 bg-[#7D8B57]">
+          <div className="flex md:w-100 w-full flex-col gap-5 bg-[#7D8B57]">
             <div className="space-y-6 px-8 pt-10 md:w-full w-11/12">
               <div className="text-5xl italic font-serif text-white leading-13">From Vision to Keys in Hand</div>
               <PrimaryButton textColor="[#36394A]" bgColor="white" iconColor="[#36394A]" onChangeClick={() => router.push('/contact')}>
@@ -184,7 +184,7 @@ export default function Home({ listings, rentalListings, testimonals }: { listin
           <div className="block md:hidden h-full w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/bg-mobile-home2.png')" }} aria-hidden="true" />
         </div>
 
-        <div className="relative mx-auto flex md:w-2/5 w-10/12 pt-50">
+        <div className="relative mx-auto flex lg:w-2/5 w-10/12 pt-50">
           <div className="mx-auto flex w-full flex-col gap-10 px-6 py-12 md:px-12 md:py-20 lg:px-15 bg-[#363C2B] -mb-50 ">
             <div className="grid md:space-y-40 space-y-20">
               <div className="max-w-3xl text-white">

@@ -153,7 +153,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
       keywords={['listings', 'properties', 'sale', 'rent']}
     >
       <section className="flex flex-col md:w-10/12 w-11/12 lg:mt-10">
-        <div className="md:text-[4rem] text-[3rem] md:text-left text-center font-serif italic md:leading-24 leading-14">
+        <div className="lg:text-[4rem] md:text-[3.5rem] text-[3rem] md:text-left text-center font-serif italic lg:leading-24 leading-14">
           Available Properties in Lagos
         </div>
         <div className="text-[#666D80] md:w-155 md:text-left text-center text-[1rem] leading-7">
@@ -181,7 +181,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
             </div>
           </div>
 
-          <div className="md:gap-3 gap-2 flex flex-row md:flex-nowrap flex-wrap justify-between items-end border-2 border-[#F7F7F8] p-3">
+          <div className="md:gap-3 gap-2 flex flex-row lg:flex-nowrap flex-wrap justify-between items-end border-2 border-[#F7F7F8] p-3">
             <div className="md:w-1/5 w-[48%]">
               <div className="text-sm font-semibold mb-2">Rooms:</div>
               <SelectField recordList={roomOptions} value={roomsFilter} onChangeText={(value) => setRoomsFilter(value)} placeholder="Select rooms" />
@@ -259,7 +259,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
         </div>
       </section>
       <section className="md:w-10/12 w-11/12 mx-auto">
-        <div className="grid gap-3 lg:grid-cols-4 w-full">
+        <div className="grid gap-3 lg:grid-cols-4 md:grid-cols-2 w-full">
           {filteredListings.map((listing) => {
             const slug = listing.slug.current
             const imageUrl = listing.gallery?.asset?.url
@@ -299,13 +299,13 @@ export default function Listings({ listings }: { listings: Listing[] }) {
           </button>
         </div>
       </section>
-      <section className="relative md:aspect-video aspect-2/3 md:w-10/12 w-full overflow-hidden my-20">
+      <section className="relative md:aspect-video aspect-2/3 lg:w-10/12 w-full overflow-hidden my-20">
         <div className="absolute inset-0 z-10">
           <div className="h-full w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/banner.svg')" }} aria-hidden="true" />
         </div>
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-6 p-5">
-          <div className=" md:text-[3.5rem] text-5xl md:leading-[4.38rem] md:w-[30%] italic font-serif text-[#131313] text-center">Let Us Find It <br/> For You.</div>
-          <div className="text-[#666D80] md:w-[55%] text-center text-[1rem] leading-7">
+          <div className=" md:text-[3.5rem] text-5xl md:leading-[4.38rem] lg:w-[30%] italic font-serif text-[#131313] text-center">Let Us Find It <br/> For You.</div>
+          <div className="text-[#666D80] lg:w-[55%] text-center text-[1rem] leading-7">
             The Lagos property market is dynamic, and the best opportunities are often not listed publicly. Our advisors have access to exclusive, off-market properties and can alert you the moment a match becomes available. Let us know your requirements, and we will guide you to it.
           </div>
           <div className="mt-5">

@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { AiOutlineClose } from 'react-icons/ai'
 import { MdSegment } from 'react-icons/md'
-import PrimaryButton from './PrimaryButton'
 
 const desktopLinkBase = 'leading-2 font-medium transition hover:text-[#3E452F] inline-flex items-center justify-center pb-1'
 const desktopLinkActive = 'relative text-[#7D8B57] font-medium inline-flex items-center justify-center after:-mb-0.5 after:absolute after:rounded-full after:left-1/2 after:-bottom-0 after:block after:h-[2px] after:w-3 after:-translate-x-1/3 after:bg-[#7D8B57]'

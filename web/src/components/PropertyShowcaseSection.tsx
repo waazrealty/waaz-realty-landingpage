@@ -38,7 +38,7 @@ export default function PropertyShowcaseSection({ listings, rentalListings }: { 
     <section className="w-full">
       <div className="mx-auto w-11/12 lg:w-10/12 space-y-5">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <h2 className="md:text-[3rem] text-4xl font-serif italic">Premium Sale Listings</h2>
+          <h2 className="lg:text-[3rem] text-4xl font-serif italic">Premium Sale Listings</h2>
           <div onClick={() => {router.push('/listings')}} className="inline-flex items-center gap-2 text-[#36394A] font-medium text-sm hover:text-black underline">
             View All Sale Listings
             <FiChevronRight size={18} />
@@ -74,7 +74,7 @@ export default function PropertyShowcaseSection({ listings, rentalListings }: { 
           )})}
         </div>
 
-        <div className="grid gap-10 lg:grid-cols-3 items-center mt-20">
+        <div className="grid gap-10 lg:grid-cols-3 items-center lg:mt-20">
           <div className="space-y-8">
             <h2 className="md:text-[3.5rem] text-5xl md:leading-[3.8rem] italic font-serif text-[#131313]">Discover Your Next Rental Home</h2>
             <div className="">

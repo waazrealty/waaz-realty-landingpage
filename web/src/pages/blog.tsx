@@ -51,12 +51,12 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
         <div className="md:text-[4.5rem] text-[3rem] md:w-xl font-serif text-center italic md:leading-18 leading-13">
           Waaz Realty Blog
         </div>
-        <div className="text-[#666D80] md:w-[45%] text-center text-base leading-7">
+        <div className="text-[#666D80] lg:w-[45%] text-center text-base leading-7">
           Here’s what you’ll find here — thoughts and opinions about financial services, updates from the team, and tips and tricks of the trade (business).
         </div>
       </section>
       <section className="md:w-10/12 w-11/12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
           {loadedblogs.map((post, index) => {
             const slug = post.slug?.current
             if (!slug) return null
@@ -83,13 +83,13 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
         </div>
       </section>
       <section className="md:h-20 h-0"></section>
-      <section className="relative md:aspect-video aspect-2/3 md:w-10/12 w-full overflow-hidden md:mb-20 mb-5">
+      <section className="relative md:aspect-video aspect-2/3 lg:w-10/12 w-full overflow-hidden md:mb-20 mb-5">
         <div className="absolute inset-0 z-10">
           <div className="h-full w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/banner.svg')" }} aria-hidden="true" />
         </div>
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-6 p-5">
-          <div className=" md:text-[3.5rem] text-5xl md:leading-[4.38rem] md:w-[30%] italic font-serif text-[#131313] text-center">Ready to find a property of choice</div>
-          <div className="text-[#666D80] md:w-[28%] text-center text-[1rem] leading-7">
+          <div className=" md:text-[3.5rem] text-5xl md:leading-[4.38rem] lg:w-[30%] italic font-serif text-[#131313] text-center">Ready to find a property of choice</div>
+          <div className="text-[#666D80] lg:w-[28%] text-center text-[1rem] leading-7">
             Having trouble finding a property? We’ve got you covered. Reach out to our team to get it all sorted.
           </div>
           <div>

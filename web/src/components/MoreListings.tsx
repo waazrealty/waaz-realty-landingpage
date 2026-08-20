@@ -25,7 +25,7 @@ export default function MoreListings({ listings }: { listings: Listing[] }) {
       >
         <div className="w-11/12 md:w-10/12 space-y-5 mb-10">
           <div className="w-70 md:w-full md:text-[3.5rem] text-4xl md:leading-[4.38rem] text-left leading-16 italic font-serif text-black">You May Also Like</div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
             {listings &&listings.map((listing) => {
               const slug = listing.slug.current
               const imageUrl = listing.gallery?.asset?.url

@@ -5,6 +5,7 @@ import Carousel from '@/components/Carousel'
 import PrimaryButton from '@/components/PrimaryButton'
 import { sanityClient } from '@/lib/sanity'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import Link from 'next/link'
 
 type PortfolioFeedback = {
   name: string
@@ -80,18 +81,18 @@ export default function PortfolioDetails({portfolio, portfolios}: {portfolio:Por
       url={canonical}
       keywords={['blog', 'real estate', 'property', 'Wazz Realty']}
     >
-      <section className="flex flex-col md:w-10/12 w-11/12 mb-20">
-        <div className="md:text-4xl text-xl font-medium font-serif italic"><span className="px-1 text-[#666D80]">Portfolio</span>/ {portfolio.listing.title}</div>
-        <div className="md:text-[3.5rem] text-[2rem] md:leading-14 leading-10 font-serif italic md:mt-10 md:mb-5 my-10">
+      <section className="flex flex-col md:w-10/12 w-11/12 md:mb-20">
+        <Link href="/portfolio" className="md:text-[2rem] text-[1.5rem] md:leading-12 leading-7 font-medium font-serif italic"><span className="px-1 text-[#666D80]">Portfolio</span>/ {portfolio.listing.title}</Link>
+        <div className="md:text-[3.5rem] text-4xl md:leading-14 leading-10 font-serif italic md:mt-10 md:mb-5 my-5">
           {portfolio.listing.title}
         </div>
         <div className="text-sm text-[#666D80] font-medium">{location}</div>
       </section>
       <Carousel images={portfolio.listing.gallery?.map((item) => item.asset?.url).filter(Boolean) as string[] | undefined}/>
-      <section className="grid grid-cols-1 lg:grid-cols-2 md:gap-5 gap-3 md:w-3/4 w-full text-white">
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:gap-5 gap-3 lg:w-3/4 w-full text-white">
         <div className="bg-[#363C2B] justify-center w-full flex md:flex-row flex-col md:py-20 py-14 md:col-span-2 md:space-x-40 md:space-y-0 space-y-20 items-center ">
           <img src="/assets/images/sold-badge.png" alt="Wazz Realty Logo" className="md:h-auto h-40" />
-          <div className="flex flex-col space-y-10 md:w-1/3">
+          <div className="flex flex-col space-y-10 lg:w-1/3 md:w-1/2">
             <div className="">
               <div className="text-[1rem] text-[#D2D8BE]">List Price</div>
               <div className="text-6xl text-white">{portfolio.openPrice.toLocaleString('en-US')}</div>
@@ -112,7 +113,7 @@ export default function PortfolioDetails({portfolio, portfolios}: {portfolio:Por
             <img src="/assets/images/days.png" alt="Wazz Realty Logo" className="w-full" />
           </div>
         </div>
-        <div className="bg-[#363C2B] justify-center w-full flex flex-col md:p-20 p-10 md:space-y-20 space-y-10 items-center">
+        <div className="bg-[#363C2B] justify-center w-full flex flex-col lg:p-20 p-10 lg:space-y-20 space-y-10 items-center">
           {portfolio.feedbacks.map((feedback)=> (
             <div className="space-y-2">
               <div className="text-[1rem]">{feedback.quote}</div>
