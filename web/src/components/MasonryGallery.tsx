@@ -3,8 +3,6 @@ const galleryItems = [
   { src: '/assets/images/gallery/image2.png', alt: 'Property exterior', classes: 'lg:col-span-1 lg:row-span-2' },
   { src: '/assets/images/gallery/image3.png', alt: 'Dining area', classes: 'lg:col-span-1 lg:row-span-1' },
   { src: '/assets/images/gallery/image4.png', alt: 'Kitchen', classes: 'lg:col-span-1 lg:row-span-1' },
-  { src: '/assets/images/gallery/image5.png', alt: 'Bedroom', classes: 'lg:col-span-1 lg:row-span-2' },
-  { src: '/assets/images/gallery/image6.png', alt: 'Terrace view', classes: 'lg:col-span-2 lg:row-span-1' },
   // { src: '/assets/images/gallery/image6.png', alt: 'Terrace view', classes: 'lg:col-span-2 lg:row-span-1' },
 ]
 const galleryMobileItems = [

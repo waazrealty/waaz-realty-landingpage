@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { useRouter } from 'next/router' // 👈 Added for URL persistence
 import { GetStaticProps } from 'next'
 import Link from 'next/link'
 import { BasicLayout } from '@/components/Layout/BasicLayout'
@@ -32,25 +33,99 @@ const formatLabel = (value: string) =>
     .replace(/\b\w/g, (char) => char.toUpperCase())
 
 export default function Listings({ listings }: { listings: Listing[] }) {
+  const router = useRouter()
   const PAGE_SIZE = 12
-  const [selectedTab, setSelectedTab] = useState('All')
-  const [roomsFilter, setRoomsFilter] = useState('All')
-  const [typeFilter, setTypeFilter] = useState('All')
-  const [locationFilter, setLocationFilter] = useState('All')
-  const [recencyFilter, setRecencyFilter] = useState('All')
-  const [priceMin, setPriceMin] = useState<number>(0)
-  const [priceMax, setPriceMax] = useState<number>(1000000000)
+
+  // Helper to safely get a query param as string (fallback if missing)
+  const getQueryParam = (key: string, fallback: string): string => {
+    const val = router.query[key]
+    return Array.isArray(val) ? val[0] || fallback : val || fallback
+  }
+
+  // --- State initialised from URL query parameters ---
+  const [selectedTab, setSelectedTab] = useState(getQueryParam('tab', 'All'))
+  const [roomsFilter, setRoomsFilter] = useState(getQueryParam('rooms', 'All'))
+  const [typeFilter, setTypeFilter] = useState(getQueryParam('type', 'All'))
+  const [locationFilter, setLocationFilter] = useState(getQueryParam('location', 'All'))
+  const [recencyFilter, setRecencyFilter] = useState(getQueryParam('recency', 'All'))
+
+  // Price range (numbers)
+  const [priceMin, setPriceMin] = useState<number>(() => {
+    const raw = getQueryParam('priceMin', '0')
+    return Number(raw) || 0
+  })
+  const [priceMax, setPriceMax] = useState<number>(() => {
+    const raw = getQueryParam('priceMax', '1000000000')
+    return Number(raw) || 1000000000
+  })
+
   const [page, setPage] = useState(0)
   const [loadedListings, setLoadedListings] = useState<Listing[]>(listings)
   const [loadingMore, setLoadingMore] = useState(false)
 
-  const categoryFilter =
-    selectedTab === 'For Sale'
-      ? 'for-sale'
-      : selectedTab === 'For Rent'
-      ? 'for-rent'
-      : undefined
+  // --- URL update helpers ---
+  const updateQuery = (updates: Record<string, string | null>) => {
+    const newQuery = { ...router.query }
+    Object.entries(updates).forEach(([key, value]) => {
+      if (value && value !== 'All') {
+        newQuery[key] = value
+      } else {
+        delete newQuery[key]
+      }
+    })
+    router.push({ pathname: router.pathname, query: newQuery }, undefined, { shallow: true })
+  }
 
+  const updateFilter = (key: string, value: string) => {
+    updateQuery({ [key]: value })
+  }
+
+  // --- Wrapped setters that also update URL ---
+  const setSelectedTabAndURL = (val: string) => {
+    setSelectedTab(val)
+    updateFilter('tab', val)
+  }
+  const setRoomsFilterAndURL = (val: string) => {
+    setRoomsFilter(val)
+    updateFilter('rooms', val)
+  }
+  const setTypeFilterAndURL = (val: string) => {
+    setTypeFilter(val)
+    updateFilter('type', val)
+  }
+  const setLocationFilterAndURL = (val: string) => {
+    setLocationFilter(val)
+    updateFilter('location', val)
+  }
+  const setRecencyFilterAndURL = (val: string) => {
+    setRecencyFilter(val)
+    updateFilter('recency', val)
+  }
+  const setPriceMinAndURL = (val: number) => {
+    setPriceMin(val)
+    updateQuery({ priceMin: val.toString() })
+  }
+  const setPriceMaxAndURL = (val: number) => {
+    setPriceMax(val)
+    updateQuery({ priceMax: val.toString() })
+  }
+
+  // --- Reset all filters (clear URL params) ---
+  const resetFilters = () => {
+    setSelectedTab('All')
+    setRoomsFilter('All')
+    setTypeFilter('All')
+    setLocationFilter('All')
+    setRecencyFilter('All')
+    setPriceMin(0)
+    setPriceMax(1000000000)
+
+    // Remove all filter query keys
+    const { tab, rooms, type, location, recency, priceMin: _, priceMax: __, ...rest } = router.query
+    router.push({ pathname: router.pathname, query: rest }, undefined, { shallow: true })
+  }
+
+  // --- Derived data (room/type/location options from loaded listings) ---
   const roomOptions = useMemo(
     () => ['All', ...Array.from(new Set(loadedListings.map((listing) => listing.bedrooms).filter(Boolean) as string[]))],
     [loadedListings]
@@ -74,6 +149,14 @@ export default function Listings({ listings }: { listings: Listing[] }) {
       ],
     [loadedListings]
   )
+
+  // --- Filtered listings ---
+  const categoryFilter =
+    selectedTab === 'For Sale'
+      ? 'for-sale'
+      : selectedTab === 'For Rent'
+      ? 'for-rent'
+      : undefined
 
   const filteredListings = useMemo(() => {
     const cutoff = (days: number) => Date.now() - days * 24 * 60 * 60 * 1000
@@ -100,25 +183,16 @@ export default function Listings({ listings }: { listings: Listing[] }) {
         if (recencyFilter === 'Last 30 days') return updatedAt >= cutoff(30)
         return true
       })
-  }, [listings, categoryFilter, roomsFilter, typeFilter, locationFilter, recencyFilter, priceMin, priceMax])
+  }, [loadedListings, categoryFilter, roomsFilter, typeFilter, locationFilter, recencyFilter, priceMin, priceMax])
 
-  const resetFilters = () => {
-    setSelectedTab('All')
-    setRoomsFilter('All')
-    setTypeFilter('All')
-    setLocationFilter('All')
-    setRecencyFilter('All')
-    setPriceMin(0)
-    setPriceMax(1000000000)
-  }
-
+  // --- Load More ---
   const handleLoadMore = async () => {
     if (loadingMore) return
     setLoadingMore(true)
     try {
       const start = (page + 1) * PAGE_SIZE
       const end = start + PAGE_SIZE
-      const more: Listing[] = await sanityClient.fetch(`*[_type == "listing" && category == "for-sale" && status == "active"] | order(_updatedAt desc)[${start}...${end}]{
+      const more: Listing[] = await sanityClient.fetch(`*[_type == "listing" && status == "active"] | order(_updatedAt desc)[${start}...${end}]{
         title,
         slug,
         price,
@@ -137,22 +211,35 @@ export default function Listings({ listings }: { listings: Listing[] }) {
         setPage((p) => p + 1)
       }
     } catch (err) {
-      // ignore for now
+      // ignore
     } finally {
       setLoadingMore(false)
     }
   }
 
+  // --- Active filters & no-results message ---
+  const activeFilters = []
+  if (selectedTab !== 'All') activeFilters.push(selectedTab)
+  if (typeFilter !== 'All') activeFilters.push(formatLabel(typeFilter))
+  if (locationFilter !== 'All') activeFilters.push(`in ${locationFilter}`)
+  if (roomsFilter !== 'All') activeFilters.push(`${roomsFilter} bedrooms`)
+  if (recencyFilter !== 'All') activeFilters.push(recencyFilter)
+
+  const noResultsMessage =
+    activeFilters.length === 0
+      ? "We couldn't find any properties. Try broadening your search criteria."
+      : `We couldn't find any ${activeFilters.join(' ')}. Try broadening your property type or exploring nearby locations.`
+
   return (
     <BasicLayout
-      title="Listings | Wazz Realty"
-      description="Browse available properties for sale and rent with Wazz Realty."
+      title="Listings | Waaz Realty"
+      description="Browse available properties for sale and rent with Waaz Realty."
       image="/assets/portfolio-preview.png"
       url="/listings"
       canonical="/listings"
       keywords={['listings', 'properties', 'sale', 'rent']}
     >
-      <section className="flex flex-col md:w-10/12 w-11/12 lg:mt-10">
+      <section className="flex flex-col md:w-10/12 w-11/12 lg:mt-15 mt-25">
         <div className="lg:text-[4rem] md:text-[3.5rem] text-[3rem] md:text-left text-center font-serif italic lg:leading-24 leading-14">
           Available Properties in Lagos
         </div>
@@ -160,6 +247,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
           Each property in our portfolio is selected for its quality, value, and potential to become the foundation for your future. Whether you are looking to buy or rent, your journey towards an elevated lifestyle begins here. Use the filters below to refine your search.
         </div>
       </section>
+
       <section className="md:w-10/12 w-11/12 mx-auto">
         <div className="w-full">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -168,7 +256,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
                 <button
                   key={option}
                   type="button"
-                  onClick={() => setSelectedTab(option)}
+                  onClick={() => setSelectedTabAndURL(option)}  // 👈 Updated
                   className={`p-2 text-sm font-medium transition ${
                     selectedTab === option
                       ? 'border-b-2 border-[#616D43]'
@@ -184,19 +272,39 @@ export default function Listings({ listings }: { listings: Listing[] }) {
           <div className="md:gap-3 gap-2 flex flex-row lg:flex-nowrap flex-wrap justify-between items-end border-2 border-[#F7F7F8] p-3">
             <div className="md:w-1/5 w-[48%]">
               <div className="text-sm font-semibold mb-2">Rooms:</div>
-              <SelectField recordList={roomOptions} value={roomsFilter} onChangeText={(value) => setRoomsFilter(value)} placeholder="Select rooms" />
+              <SelectField
+                recordList={roomOptions}
+                value={roomsFilter}
+                onChangeText={(value) => setRoomsFilterAndURL(value)}  // 👈 Updated
+                placeholder="Select rooms"
+              />
             </div>
             <div className="md:w-1/5 w-[48%]">
               <div className="text-sm font-semibold mb-2">Type:</div>
-              <SelectField recordList={typeOptions} value={typeFilter} onChangeText={(value) => setTypeFilter(value)} placeholder="Select type" />
+              <SelectField
+                recordList={typeOptions}
+                value={typeFilter}
+                onChangeText={(value) => setTypeFilterAndURL(value)}  // 👈 Updated
+                placeholder="Select type"
+              />
             </div>
             <div className="md:w-1/5 w-[48%]">
               <div className="text-sm font-semibold mb-2">Location:</div>
-              <SelectField recordList={locationOptions} value={locationFilter} onChangeText={(value) => setLocationFilter(value)} placeholder="Select location" />
+              <SelectField
+                recordList={locationOptions}
+                value={locationFilter}
+                onChangeText={(value) => setLocationFilterAndURL(value)}  // 👈 Updated
+                placeholder="Select location"
+              />
             </div>
             <div className="md:w-1/5 w-[48%] md:hidden block">
               <div className="text-sm font-semibold mb-2">Recency:</div>
-              <SelectField recordList={recencyOptions} value={recencyFilter} onChangeText={(value) => setRecencyFilter(value)} placeholder="Select recency" />
+              <SelectField
+                recordList={recencyOptions}
+                value={recencyFilter}
+                onChangeText={(value) => setRecencyFilterAndURL(value)}  // 👈 Updated
+                placeholder="Select recency"
+              />
             </div>
             <div className="md:w-2/6">
               <div className="text-sm font-semibold mb-2">Price Range:</div>
@@ -206,7 +314,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
                   <input
                     type="number"
                     value={priceMin}
-                    onChange={(e) => setPriceMin(Number(e.target.value))}
+                    onChange={(e) => setPriceMinAndURL(Number(e.target.value))}  // 👈 Updated
                     min={0}
                     className="w-full text-sm font-semibold outline-none transition focus:ring-2 focus:ring-[#616D4320]"
                   />
@@ -217,7 +325,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
                   <input
                     type="number"
                     value={priceMax}
-                    onChange={(e) => setPriceMax(Number(e.target.value))}
+                    onChange={(e) => setPriceMaxAndURL(Number(e.target.value))}  // 👈 Updated
                     min={0}
                     className="w-full text-sm font-semibold outline-none transition focus:ring-2 focus:ring-[#616D4320]"
                   />
@@ -226,7 +334,12 @@ export default function Listings({ listings }: { listings: Listing[] }) {
             </div>
             <div className="md:w-1/5 w-1/2 md:block hidden">
               <div className="text-sm font-semibold mb-2">Recency:</div>
-              <SelectField recordList={recencyOptions} value={recencyFilter} onChangeText={(value) => setRecencyFilter(value)} placeholder="Select recency" />
+              <SelectField
+                recordList={recencyOptions}
+                value={recencyFilter}
+                onChangeText={(value) => setRecencyFilterAndURL(value)}  // 👈 Updated
+                placeholder="Select recency"
+              />
             </div>
             <div className="px-4 w-30 justify-end md:flex hidden order-6">
               <button type="button" onClick={resetFilters} className="text-sm underline text-[#7D8B57] cursor-pointer md:mb-3">
@@ -258,6 +371,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
           </div>
         </div>
       </section>
+
       <section className="md:w-10/12 w-11/12 mx-auto">
         <div className="grid gap-3 lg:grid-cols-4 md:grid-cols-2 w-full">
           {filteredListings.map((listing) => {
@@ -265,22 +379,39 @@ export default function Listings({ listings }: { listings: Listing[] }) {
             const imageUrl = listing.gallery?.asset?.url
             const location = [listing.city, listing.state].filter(Boolean).join(' • ')
             return (
-              <Link href={`/listings/${slug}`} key={slug} className="snap-center shrink-0 w-full overflow-hidden bg-white">
-                <img src={imageUrl} alt={listing.title} className="h-100 w-full object-cover" />
-                <div className="space-y-2 py-4">
-                  <div className="flex items-start justify-between">
-                    <div className="text-sm text-[#36394A] font-medium w-[67%] line-clamp-2">{listing.title}</div>
-                    <div className="text-sm font-medium text-[#36394A]">N {formatCompactNumber(listing.price)}<span className="text-[#666D80]">/YR</span></div>
+              <Link href={`/listings/${slug}`} key={slug} className="snap-center group shrink-0 w-full space-y-4 overflow-hidden bg-white">
+                <div className="aspect-5/6 w-full overflow-hidden rounded-[.88rem]">
+                  <div
+                    className="h-full w-full bg-cover bg-center transition-transform duration-300 ease-out group-hover:scale-110"
+                    style={{ backgroundImage: `url(${imageUrl})` }}
+                    aria-hidden="true"
+                  />
+                </div>
+                <div className="space-y-2 rounded-[.88rem] bg-[#F5F6EF]/50 p-4 transition-colors duration-300 group-hover:bg-[#F5F6EF]">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="w-[64%] line-clamp-2 text-sm font-medium text-[#36394A]">
+                      {listing.title}
+                    </div>
+
+                    <div className="text-sm font-medium text-[#36394A]">
+                      ₦{formatCompactNumber(listing.price)}
+                      {listing.category === "for-rent" && <span className="text-[#666D80]">/YR</span>}
+                    </div>
                   </div>
-                  <p className="text-sm text-[#666D80] font-medium">{location}</p>
-                  <div className="flex items-center gap-4 text-xs text-[#666D80] font-medium">
+
+                  <p className="text-sm font-medium text-[#666D80]">
+                    {location}
+                  </p>
+
+                  <div className="flex items-center gap-4 text-xs font-medium text-[#666D80]">
                     <span className="inline-flex items-center gap-2">
-                      <MdBed className="text-[#36394A] -mb-1 text-base" />
-                      {listing.bedrooms} Bedrooms
+                      <MdBed className="text-[#36394A]" />
+                      {listing.bedrooms} bedrooms
                     </span>
+
                     <span className="inline-flex items-center gap-2">
-                      <MdBathtub className="text-[#36394A] -mb-1 text-base" />
-                      {listing.baths} Baths
+                      <MdBathtub className="text-[#36394A]" />
+                      {listing.baths} baths
                     </span>
                   </div>
                 </div>
@@ -288,17 +419,29 @@ export default function Listings({ listings }: { listings: Listing[] }) {
             )
           })}
         </div>
-        <div className="w-full flex justify-center mt-5">
-          <button
-            type="button"
-            onClick={handleLoadMore}
-            disabled={loadingMore}
-            className="rounded-full bg-[#616D43] px-5 py-2 text-base font-medium text-white transition hover:bg-[#2e3223] disabled:opacity-60"
-          >
-            {loadingMore ? 'Loading…' : 'See More'}
-          </button>
-        </div>
+        {filteredListings.length === 0 &&
+          <div className="w-full flex flex-col py-20 items-center space-y-5">
+            <div className="text-3xl italic font-medium font-serif">No exact matches found</div>
+            <div className="text-[#666D80] text-center text-sm lg:w-[40%] md:w-[60%]">
+              {noResultsMessage}
+            </div>
+          </div>
+        }
+        
+        {filteredListings.length > 12 &&
+          <div className="w-full flex justify-center mt-5">
+            <button
+              type="button"
+              onClick={handleLoadMore}
+              disabled={loadingMore}
+              className="rounded-full bg-[#616D43] px-5 py-2 text-base font-medium text-white transition hover:bg-[#2e3223] disabled:opacity-60"
+            >
+              {loadingMore ? 'Loading…' : 'See More'}
+            </button>
+          </div>
+        }
       </section>
+
       <section className="relative md:aspect-video aspect-2/3 lg:w-10/12 w-full overflow-hidden my-20">
         <div className="absolute inset-0 z-10">
           <div className="h-full w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/banner.svg')" }} aria-hidden="true" />

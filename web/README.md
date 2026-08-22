@@ -1,4 +1,4 @@
-# Wazz Realty Web App — Scaffold
+# Waaz Realty Web App — Scaffold
 
 Scaffolded Next.js + TypeScript project with Tailwind CSS and support for local TTF fonts.
 

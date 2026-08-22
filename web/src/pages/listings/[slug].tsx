@@ -294,7 +294,7 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
 
   if (!listing) {
     return (
-      <BasicLayout title="Listing not found | Wazz Realty" description="The listing could not be found.">
+      <BasicLayout title="Listing not found | Waaz Realty" description="The listing could not be found.">
         <div className="flex items-center justify-center px-6 py-12">
           <div className="rounded-3xl bg-white p-10 shadow-md">
             <h1 className="text-2xl font-semibold">Listing not found</h1>
@@ -383,18 +383,18 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
       canonical={canonical}
       image={imageUrl}
       url={canonical}
-      keywords={['listings', 'real estate', 'property', 'Wazz Realty']}
+      keywords={['listings', 'real estate', 'property', 'Waaz Realty']}
     >
-      <section className="flex flex-col md:w-10/12 w-11/12">
+      <section className="flex flex-col md:w-10/12 w-11/12 lg:mt-15 mt-25">
         <div className="md:text-[3.5rem] text-4xl md:leading-14 leading-10 font-medium font-serif italic md:mb-10">
-          <span className="px-1 text-[#666D80]">Listings</span>/ {listing.title}
+          <span onClick={() => router.back()} className="px-1 text-[#666D80] cursor-pointer">Listings</span>/ {listing.title}
         </div>
       </section>
       <Carousel images={listing.gallery?.map((item) => item.asset?.url).filter(Boolean) as string[] | undefined} />
       <section className="md:w-10/12 flex flex-col lg:flex-row md:gap-25 gap-5 md:pt-12 px-4 lg:px-0 md:-mt-10">
         <div className="lg:w-[60%] space-y-8">
           <div className="flex flex-col gap-4">
-            <div className="text-sm text-[#666D80] font-medium">{location}</div>
+            <div className="text-sm text-[#666D80] font-medium">{listing.category === "for-sale" ? "For Sale" : "For Rent" } | {location}</div>
             <div className="flex flex-col gap-2 md:gap-4 font-serif font-medium italic text-4xl">
               <div className="leading-tight">{listing.title}</div>
               <div>
@@ -412,11 +412,11 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
 
           <div className="flex flex-col w-full gap-6 font-medium">
             <div className="w-full">
-              <div className="flex items-center space-x-2 px-5 py-2 bg-[#F6F8FA] max-w-max">
+              <div className="flex items-center space-x-2 px-5 py-2 bg-[#F5F6EF] text-[#3E452F] rounded-t-2xl max-w-max">
                 <MdOutlineStar />
                 <div className="text-sm font-medium">Features</div>
               </div>
-              <div className="flex flex-row flex-wrap md:gap-10 gap-5 w-full border border-[#F7F7F8] p-5 text-[#666D80]">
+              <div className="flex flex-row flex-wrap md:gap-10 gap-5 w-full border border-[#C1C7D0]/50 rounded-b-2xl rounded-tr-2xl p-5 text-[#666D80]">
                 <span className="inline-flex items-center gap-2">
                   <MdBed className="text-[#36394A] text-lg" />
                   {listing.bedrooms} Bedrooms
@@ -505,11 +505,11 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
               </div>
             </div>
             <div className="w-full">
-              <div className="flex items-center space-x-2 px-5 py-2 bg-[#F6F8FA] max-w-max">
+              <div className="flex items-center space-x-2 px-5 py-2 bg-[#F5F6EF] text-[#3E452F] rounded-t-2xl max-w-max">
                 <MdFolderOpen className="text-[#36394A] text-lg" />
                 <div className="text-sm font-medium">Available Documents</div>
               </div>
-              <div className="flex flex-row flex-wrap md:gap-10 gap-5 w-full border border-[#F7F7F8] p-5 text-[#666D80]">
+              <div className="flex flex-row flex-wrap md:gap-10 gap-5 w-full border border-[#C1C7D0]/50 rounded-b-2xl rounded-tr-2xl p-5 text-[#666D80]">
                 {normalizeFeatureList(listing.availableDocuments).length > 0 ? normalizeFeatureList(listing.availableDocuments).map((docKey) => {
                   const iconName = docKey as IconKey
                   const DocumentIcon = getIcon(iconName) || MdBed
@@ -527,11 +527,11 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
           
           <div className="flex flex-col w-full gap-6 font-medium">
             <div className="w-full">
-              <div className="flex items-center space-x-2 px-5 py-2 bg-[#F6F8FA] max-w-max">
+              <div className="flex items-center space-x-2 px-5 py-2 bg-[#F5F6EF] text-[#3E452F] rounded-t-2xl max-w-max">
                 <MdBathroom />
                 <div className="text-sm font-medium">Community & Lifestyle Amenities</div>
               </div>
-              <div className="flex flex-row flex-wrap md:space-x-10 gap-5 w-full border border-[#F7F7F8] p-5 text-[#666D80]">
+              <div className="flex flex-row flex-wrap md:space-x-10 gap-5 w-full border border-[#C1C7D0]/50 rounded-b-2xl rounded-tr-2xl p-5 text-[#666D80]">
                 {normalizeFeatureList(listing.communityAmenities).length > 0 ? normalizeFeatureList(listing.communityAmenities).map((amenityKey) => {
                   const iconName = amenityKey as IconKey
                   const AmenityIcon = getIcon(iconName) || MdBed
@@ -546,11 +546,11 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
               </div>
             </div>
             <div className="w-full">
-              <div className="flex items-center space-x-2 px-5 py-2 bg-[#F6F8FA] max-w-max">
+              <div className="flex items-center space-x-2 px-5 py-2 bg-[#F5F6EF] text-[#3E452F] rounded-t-2xl max-w-max">
                 <MdError className="text-[#36394A] text-lg" />
                 <div className="text-sm font-medium">Key Property Details</div>
               </div>
-              <div className="flex flex-row flex-wrap gap-10 w-full border border-[#F7F7F8] p-5 text-[#666D80]">
+              <div className="flex flex-row flex-wrap gap-10 w-full border border-[#C1C7D0]/50 rounded-b-2xl rounded-tr-2xl p-5 text-[#666D80]">
                 {!listing.propertyRules && !listing.utilities && (<span className="text-[#666D80]">No key property details available for this property.</span>)}
                 {normalizeFeatureList(listing.propertyRules).map((ruleKey) => {
                   const iconName = ruleKey as IconKey
@@ -577,11 +577,11 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
               </div>
             </div>
             <div className="w-full">
-              <div className="flex items-center space-x-2 px-5 py-2 bg-[#F6F8FA] max-w-max">
+              <div className="flex items-center space-x-2 px-5 py-2 bg-[#F5F6EF] text-[#3E452F] rounded-t-2xl max-w-max">
                 <MdReceipt className="text-[#36394A] text-lg" />
                 <div className="text-sm font-medium">Move-In Cost Overview</div>
               </div>
-              <div className="flex flex-col w-full gap-5 border border-[#F7F7F8] p-5 text-sm text-[#36394A]">
+              <div className="flex flex-col w-full gap-5 border border-[#C1C7D0]/50 rounded-b-2xl rounded-tr-2xl p-5 text-sm text-[#36394A]">
                 <div className="flex flex-col w-full gap-2.5">
                   {listing.moveInCosts && listing.moveInCosts.length > 0 && listing.moveInCosts.map((cost) => (
                     <div key={cost.item} className="flex items-center ">
@@ -591,7 +591,7 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
                     </div>
                   ))}
                 </div>
-                <div className="border-t border-slate-300 pt-4 flex items-center justify-between w-full">
+                <div className="border-t border-[#C1C7D0]/50 pt-4 flex items-center justify-between w-full">
                   <div className="text-base font-semibold">Total :</div>
                   <div className="text-base font-semibold text-right">₦ {totalPackageCost}</div>
                 </div>
@@ -601,7 +601,7 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
         </div>
 
         <div className="lg:w-[35%] space-y-6">
-          <div className="bg-[#7D8B57] md:p-10 p-5">
+          <div className="bg-[#7D8B57] md:p-10 p-5 rounded-2xl">
             <div className="flex flex-col gap-7">
               <div className="flex flex-row items-center gap-4">
                 <img src={'/assets/images/caller.png'} alt={agent.name || 'Agent'} className="h-20 w-20 rounded-full object-cover" />
@@ -612,7 +612,7 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
               </div>
               <div>
                 <div className="text-sm text-white text-justify leading-5">
-                  As your dedicated Wazz Realty advisor for this property, I am here to provide detailed information and guide you through every step of the process. My goal is to ensure your experience is seamless and informed.
+                  As your dedicated Waaz Realty advisor for this property, I am here to provide detailed information and guide you through every step of the process. My goal is to ensure your experience is seamless and informed.
                 </div>
               </div>
 
@@ -646,8 +646,7 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
               </div>
             </div>
           </div>
-
-          <div className="md:p-6 p-5">
+          <div className="md:p-6 p-5 bg-[#F6F8FA] border-[#ECEFF3] rounded-2xl">
             <p className="text-[2rem] italic font-medium font-serif">Schedule an Inspection</p>
             {inspectionSubmitted ? (
               <div className="mt-6 rounded-lg bg-green-50 p-4 text-green-800">
@@ -666,7 +665,7 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
                     onChange={handleInspectionInputChange}
                     required
                     placeholder="Enter name"
-                    className="w-full bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]"
+                    className="w-full bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]"
                   />
                 </div>
                 <div>
@@ -677,7 +676,7 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
                     value={inspectionForm.mobile}
                     onChange={handleInspectionInputChange}
                     placeholder="Enter phone number"
-                    className="w-full bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]"
+                    className="w-full bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]"
                   />
                 </div>
                 <div>
@@ -688,7 +687,7 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
                     value={inspectionForm.email}
                     onChange={handleInspectionInputChange}
                     placeholder="Enter email"
-                    className="w-full bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]"
+                    className="w-full bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]"
                   />
                 </div>
                 <div>
@@ -699,7 +698,7 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
                     value={inspectionForm.message}
                     onChange={handleInspectionInputChange}
                     placeholder="Hello, I am interested in this property. Please let me know the best time for a viewing."
-                    className="w-full bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]"
+                    className="w-full bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]"
                   />
                 </div>
                 <div className="flex items-center justify-end">

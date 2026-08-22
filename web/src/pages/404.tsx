@@ -14,7 +14,7 @@ export default function Custom404() {
   }, [router]);
 
   return (
-    <BasicLayout title="Page Not Found — Redirecting... | Wazz Realty" description="Landmarks of Our Clients' Success." canonical={canonical} url={canonical} image="/assets/portfolio-preview.png">
+    <BasicLayout title="Page Not Found — Redirecting... | Waaz Realty" description="Landmarks of Our Clients' Success." canonical={canonical} url={canonical} image="/assets/portfolio-preview.png">
       <div className="max-w-xl text-center">
         <h1 className="text-4xl font-semibold mb-4">404 — Page Not Found</h1>
         <p className="text-lg leading-8 mb-6">

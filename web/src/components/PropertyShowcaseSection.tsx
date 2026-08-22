@@ -45,25 +45,48 @@ export default function PropertyShowcaseSection({ listings, rentalListings }: { 
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
           {listings && listings.map((listing) => {
             const slug = listing.slug.current
             const imageUrl = listing.gallery?.asset?.url
             const location = [listing.city, listing.state].filter(Boolean).join(' • ')
             return (
-            <Link href={`/listings/${slug}`} key={slug} className="overflow-hidden">
-              <img src={imageUrl} alt={listing.title} className="h-70 w-full object-cover" />
-              <div className="space-y-2 py-4">
-                <div className="flex items-center justify-between gap-4">
-                  <div className="text-sm text-[#36394A] font-medium  w-[67%] line-clamp-2">{listing.title}</div>
-                  <div className="text-sm font-medium text-[#36394A]">₦{formatCompactNumber(listing.price)} /<span className="text-[#666D80] text-xs">YR</span></div>
+            <Link
+              href={`/listings/${slug}`}
+              key={slug}
+              className="group space-y-4"
+            >
+              {/* Image */}
+              <div className="aspect-5/6 w-full overflow-hidden rounded-[.88rem]">
+                <div
+                  className="h-full w-full bg-cover bg-center transition-transform duration-300 ease-out group-hover:scale-110"
+                  style={{ backgroundImage: `url(${imageUrl})` }}
+                  aria-hidden="true"
+                />
+              </div>
+
+              {/* Details */}
+              <div className="space-y-2 rounded-[.88rem] bg-[#F5F6EF]/50 p-4 transition-colors duration-300 group-hover:bg-[#F5F6EF]">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="w-[64%] line-clamp-2 text-sm font-medium text-[#36394A]">
+                    {listing.title}
+                  </div>
+
+                  <div className="text-sm font-medium text-[#36394A]">
+                    ₦{formatCompactNumber(listing.price)}
+                  </div>
                 </div>
-                <p className="text-sm text-[#666D80] font-medium">{location}</p>
-                <div className="flex items-center gap-4 text-xs text-[#666D80] font-medium">
+
+                <p className="text-sm font-medium text-[#666D80]">
+                  {location}
+                </p>
+
+                <div className="flex items-center gap-4 text-xs font-medium text-[#666D80]">
                   <span className="inline-flex items-center gap-2">
-                    <MdBed  className="text-[#36394A]" />
+                    <MdBed className="text-[#36394A]" />
                     {listing.bedrooms} bedrooms
                   </span>
+
                   <span className="inline-flex items-center gap-2">
                     <MdBathtub className="text-[#36394A]" />
                     {listing.baths} baths
@@ -74,7 +97,7 @@ export default function PropertyShowcaseSection({ listings, rentalListings }: { 
           )})}
         </div>
 
-        <div className="grid gap-10 lg:grid-cols-3 items-center lg:mt-20">
+        <div className="grid gap-10 lg:grid-cols-3 items-center lg:mt-25 mt-10">
           <div className="space-y-8">
             <h2 className="md:text-[3.5rem] text-5xl md:leading-[3.8rem] italic font-serif text-[#131313]">Discover Your Next Rental Home</h2>
             <div className="">
@@ -84,30 +107,53 @@ export default function PropertyShowcaseSection({ listings, rentalListings }: { 
             </div>
           </div>
 
-          <div className="grid lg:col-span-2 gap-6 overflow-hidden">
+          <div className="grid col-span-2 gap-6 overflow-hidden">
             <div className="relative overflow-hidden ">
-              <div ref={sliderRef} className="flex gap-4 overflow-x-auto scrollbar-none pb-6 md:pr-20 pl-4 w-full max-w-full snap-x snap-mandatory">
+              <div ref={sliderRef} className="flex gap-4 overflow-x-auto scrollbar-none pb-6 md:pr-20 md:pl-4 w-full max-w-full snap-x snap-mandatory">
                 {rentalListings &&rentalListings.map((listing) => {
                   const slug = listing.slug.current
                   const imageUrl = listing.gallery?.asset?.url
                   const location = [listing.city, listing.state].filter(Boolean).join(' • ')
                   return (
-                    <Link href={`/listings/${slug}`} key={slug} className="snap-center shrink-0 md:max-w-75 max-w-80 overflow-hidden bg-white">
-                      <img src={imageUrl} alt={listing.title} className="h-72 w-full object-cover" />
-                      <div className="space-y-2 py-4">
-                        <div className="flex items-center justify-between gap-4">
-                          <div className="text-sm text-[#36394A] font-medium  w-[67%] line-clamp-2">{listing.title}</div>
-                          <div className="text-sm font-medium text-[#36394A]">₦{formatCompactNumber(listing.price)} /<span className="text-[#666D80] text-xs">YR</span></div>
+                    <Link
+                      href={`/listings/${slug}`}
+                      key={slug}
+                      className="group space-y-4 md:max-w-75 max-w-80"
+                    >
+                      {/* Image */}
+                      <div className="aspect-5/6 w-full overflow-hidden rounded-[.88rem]">
+                        <div
+                          className="h-full w-full bg-cover bg-center transition-transform duration-300 ease-out group-hover:scale-110"
+                          style={{ backgroundImage: `url(${imageUrl})` }}
+                          aria-hidden="true"
+                        />
+                      </div>
+
+                      {/* Details */}
+                      <div className="space-y-2 rounded-[.88rem] bg-[#F5F6EF]/50 p-4 transition-colors duration-300 group-hover:bg-[#F5F6EF]">
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="w-[64%] line-clamp-2 text-sm font-medium text-[#36394A]">
+                            {listing.title}
+                          </div>
+
+                          <div className="text-sm font-medium text-[#36394A]">
+                            ₦{formatCompactNumber(listing.price)} /<span className="text-[#666D80] text-xs">YR</span>
+                          </div>
                         </div>
-                        <p className="text-sm text-[#666D80] font-medium">{location}</p>
-                        <div className="flex items-center gap-4 text-xs text-[#666D80] font-medium">
+
+                        <p className="text-sm font-medium text-[#666D80]">
+                          {location}
+                        </p>
+
+                        <div className="flex items-center gap-4 text-xs font-medium text-[#666D80]">
                           <span className="inline-flex items-center gap-2">
-                            <MdBed  className="text-[#36394A]" />
-                            {listing.bedrooms} Bedrooms
+                            <MdBed className="text-[#36394A]" />
+                            {listing.bedrooms} bedrooms
                           </span>
+
                           <span className="inline-flex items-center gap-2">
                             <MdBathtub className="text-[#36394A]" />
-                            {listing.baths} Baths
+                            {listing.baths} baths
                           </span>
                         </div>
                       </div>

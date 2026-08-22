@@ -19,17 +19,26 @@ export default function About({teams}: {teams : Team[]}) {
   const router = useRouter()
 
   return (
-    <BasicLayout title="About Us | Wazz Realty" description="Learn about Wazz Realty and our commitment to premium real estate in Lagos." canonical={canonical} url={canonical} image="/assets/about-preview.png">
-      <section className="flex flex-col w-10/12 lg:mt-10 mb:mb-35 space-y-12">
+    <BasicLayout title="About Us | Waaz Realty" description="Learn about Waaz Realty and our commitment to premium real estate in Lagos." canonical={canonical} url={canonical} image="/assets/about-preview.png">
+      <section className="flex flex-col lg:w-10/12 w-11/12 lg:mt-15 mt-25 mb:mb-35 space-y-12">
         <div className="md:text-[5rem] text-[4rem] font-serif italic md:leading-24 leading-18 md:w-[70%]">
           Guiding Your Vision to its <span className="text-[#7D8B57]">Ultimate Address... </span>
         </div>
       </section>
-      <section className="relative md:aspect-10/5 aspect-2/3 w-full overflow-hidden">
+      <section className="relative md:aspect-video aspect-2/3 lg:w-10/12 w-11/12 rounded-4xl overflow-hidden">
         <div className="absolute inset-0">
-          <div className="hidden md:block h-full w-full bg-contain bg-no-repeat bg-center" style={{ backgroundImage: "url('/assets/images/bg-about.png')" }} aria-hidden="true" />
+          <div className="hidden md:block h-full w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/bg-about.png')" }} aria-hidden="true" />
           <div className="block md:hidden h-full w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/bg-mobile-about.png')" }} aria-hidden="true" />
-          
+          <div className="relative z-10">
+            <button
+              type="button"
+              onClick={() => {}}
+              className="inline-flex absolute top-40 right-8 h-10 w-10 items-center justify-center rounded-full border border-white bg-[#74C56B] text-white transition hover:bg-white hover:text-[#3E452F] focus:outline-none focus:ring-2 focus:ring-white"
+              aria-label="Scroll to top"
+            >
+              {/* <FaWhatsapp size={18} /> */}
+            </button>
+          </div>
         </div>
       </section>
       <section

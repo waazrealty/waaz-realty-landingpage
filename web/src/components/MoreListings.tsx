@@ -31,22 +31,39 @@ export default function MoreListings({ listings }: { listings: Listing[] }) {
               const imageUrl = listing.gallery?.asset?.url
               const location = [listing.city, listing.state].filter(Boolean).join(' • ')
               return (
-                <Link href={`/listings/${slug}`} key={slug} className="snap-center shrink-0 w-full overflow-hidden bg-white">
-                  <img src={imageUrl} alt={listing.title} className="h-100 w-full object-cover" />
-                  <div className="space-y-2 py-4">
-                    <div className="flex items-start justify-between">
-                      <div className="text-sm text-[#36394A] font-medium w-[67%] line-clamp-2">{listing.title}</div>
-                      <div className="text-sm font-medium text-[#36394A]">N {formatCompactNumber(listing.price)}<span className="text-[#666D80]">/YR</span></div>
+                <Link href={`/listings/${slug}`} key={slug} className="snap-center group shrink-0 w-full space-y-4 overflow-hidden bg-white">
+                  <div className="aspect-5/6 w-full overflow-hidden rounded-[.88rem]">
+                    <div
+                      className="h-full w-full bg-cover bg-center transition-transform duration-300 ease-out group-hover:scale-110"
+                      style={{ backgroundImage: `url(${imageUrl})` }}
+                      aria-hidden="true"
+                    />
+                  </div>
+                  <div className="space-y-2 rounded-[.88rem] bg-[#F5F6EF]/50 p-4 transition-colors duration-300 group-hover:bg-[#F5F6EF]">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="w-[64%] line-clamp-2 text-sm font-medium text-[#36394A]">
+                        {listing.title}
+                      </div>
+
+                      <div className="text-sm font-medium text-[#36394A]">
+                        ₦{formatCompactNumber(listing.price)}
+                        {listing.category === "for-rent" && <span className="text-[#666D80]">/YR</span>}
+                      </div>
                     </div>
-                    <p className="text-sm text-[#666D80] font-medium">{location}</p>
-                    <div className="flex items-center gap-4 text-xs text-[#666D80] font-medium">
+
+                    <p className="text-sm font-medium text-[#666D80]">
+                      {location}
+                    </p>
+
+                    <div className="flex items-center gap-4 text-xs font-medium text-[#666D80]">
                       <span className="inline-flex items-center gap-2">
-                        <MdBed className="text-[#36394A] -mb-1 text-base" />
-                        {listing.bedrooms} Bedrooms
+                        <MdBed className="text-[#36394A]" />
+                        {listing.bedrooms} bedrooms
                       </span>
+
                       <span className="inline-flex items-center gap-2">
-                        <MdBathtub className="text-[#36394A] -mb-1 text-base" />
-                        {listing.baths} Baths
+                        <MdBathtub className="text-[#36394A]" />
+                        {listing.baths} baths
                       </span>
                     </div>
                   </div>

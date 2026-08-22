@@ -5,7 +5,7 @@ import {schemaTypes} from './schemaTypes'
 
 export default defineConfig({
   name: 'default',
-  title: 'wazz-realty',
+  title: 'waaz-realty',
 
   projectId: '8f691khx',
   dataset: 'production',

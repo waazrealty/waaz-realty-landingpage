@@ -130,7 +130,29 @@ export default defineType({
   name: 'listing',
   title: 'Listing',
   type: 'document',
+  initialValue: () => {
+    // Use crypto.randomUUID() if available (modern browsers), otherwise fallback
+    const generateId = () => {
+      if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+        return crypto.randomUUID();
+      }
+      // Fallback: timestamp + random hex (still very unlikely to collide)
+      return Date.now().toString(36) + '-' + Math.random().toString(36).substring(2, 8);
+    };
+    const uniqueId = generateId();
+    // You can format it as you like, e.g., "LS-" + first 8 chars of UUID
+    const code = `LS-${uniqueId.slice(0, 8)}`.toUpperCase();
+    return { listingCode: code };
+  },
+  
   fields: [
+    defineField({
+      name: "listingCode",
+      title: "Listing Code",
+      type: "string",
+      readOnly: true,
+      validation: (Rule) => Rule.required(),
+    }),
     defineField({
       name: 'title',
       title: 'Title',
