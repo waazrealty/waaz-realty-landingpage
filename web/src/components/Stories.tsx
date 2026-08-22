@@ -34,7 +34,7 @@ type Portfolio = {
 export default function Stories({portfolios}: {portfolios : Portfolio[]}) {
   return (
     <section
-        className="w-full flex flex-col items-center justify-between md:px-20 px-7 md:space-y-8 space-y-5 mt-10"
+        className="w-full flex flex-col items-center justify-between md:px-20 md:space-y-8 space-y-5 mt-10"
       >
         <div className="lg:w-100 w-full">
           <div className="lg:text-6xl text-5xl text-center italic font-serif text-black">Behind Each Door, A Story of Success.</div>
@@ -44,7 +44,7 @@ export default function Stories({portfolios}: {portfolios : Portfolio[]}) {
           We invite you to browse a selection of our landmark transactions. From securing dream homes for families in Lekki to leasing premium apartments in Ikoyi, these properties showcase our ability to navigate the Lagos market and deliver exceptional results for buyers, sellers, landlords, and tenants alike.
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-10 lg:w-2/3 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-10 lg:w-2/3 w-11/12">
           {portfolios.map((portfolio, index) => {
             const slug = portfolio.listing.slug.current
             return (
@@ -53,7 +53,13 @@ export default function Stories({portfolios}: {portfolios : Portfolio[]}) {
                   <div className="font-medium text-sm">0{index+1}</div>
                   <div className="font-medium text-sm">{portfolio.listing.category === "for-sale" ? "Sale" : "Rent"}</div>
                 </div>
-                <img src={portfolio.listing.gallery.asset?.url} alt={portfolio.listing.title} className="h-auto w-full object-cover" />
+                <div className="aspect-5/6 w-full overflow-hidden rounded-[.88rem]">
+                  <div
+                    className="h-full w-full bg-cover bg-center transition-transform duration-300 ease-out group-hover:scale-110"
+                    style={{ backgroundImage: `url(${portfolio.listing.gallery.asset?.url})` }}
+                    aria-hidden="true"
+                  />
+                </div>
                 <h3 className="text-sm text-[##0D0D12] font-medium line-clamp-2">{portfolio.listing.title}</h3>
               </Link>
             )})}

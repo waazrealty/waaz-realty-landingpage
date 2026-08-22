@@ -19,7 +19,7 @@ type BlogPost = {
 export default function BlogDetails({ post }: { post: BlogPost }) {
   if (!post) {
     return (
-      <BasicLayout title="Post not found | Wazz Realty" description="The post could not be found.">
+      <BasicLayout title="Post not found | Waaz Realty" description="The post could not be found.">
         <div className="flex items-center justify-center px-6 py-12">
           <div className="rounded-3xl bg-white p-10 shadow-md">
             <h1 className="text-2xl font-semibold">Post not found</h1>
@@ -41,9 +41,9 @@ export default function BlogDetails({ post }: { post: BlogPost }) {
       canonical={canonical}
       image={post.image?.asset?.url || '/assets/blog/preview.png'}
       url={canonical}
-      keywords={['blog', 'real estate', 'property', 'Wazz Realty']}
+      keywords={['blog', 'real estate', 'property', 'Waaz Realty']}
     >
-      <section className="flex flex-col md:w-10/12 w-11/12">
+      <section className="flex flex-col md:w-10/12 w-11/12 lg:mt-5 mt-25">
         <Link href="/blog" className="md:text-[2rem] text-[1.5rem] leading-12 font-medium font-serif italic"><span className="px-1 text-[#666D80]">Blog</span>/ {post.tag}</Link>
         <div className="md:text-[3rem] text-[2rem] md:leading-14 leading-10 font-serif italic md:my-10 my-5 md:w-2/3">
           {post.title}

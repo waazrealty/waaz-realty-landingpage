@@ -43,8 +43,8 @@ export default function portfolio({portfolios}: {portfolios : Portfolio[]}) {
   const router = useRouter()
 
   return (
-    <BasicLayout title="Our portfolio | Wazz Realty" description="Landmarks of Our Clients' Success." canonical={canonical} url={canonical} image="/assets/portfolio-preview.png">
-      <section className="flex flex-col md:w-10/12 w-11/12 lg:mt-10 space-y-5">
+    <BasicLayout title="Our portfolio | Waaz Realty" description="Landmarks of Our Clients' Success." canonical={canonical} url={canonical} image="/assets/portfolio-preview.png">
+      <section className="flex flex-col lg:w-10/12 w-11/12 lg:mt-15 mt-25 space-y-5">
         <div className="md:text-[5rem] text-[4rem] font-serif italic md:leading-24 leading-18">
           Landmarks of <br/> <span className="text-[#7D8B57]">Our Clients' Success. </span>
         </div>
@@ -52,9 +52,9 @@ export default function portfolio({portfolios}: {portfolios : Portfolio[]}) {
           This portfolio is more than a collection of properties; it's a testament to our philosophy in action. Each sold and rented property represents a unique vision understood, a journey expertly guided, and a foundation successfully laid. Explore the results of our unwavering commitment to excellence.
         </div>
       </section>
-      <section className="relative md:aspect-16/8 aspect-2/3 w-full overflow-hidden">
+      <section className="relative md:aspect-video aspect-2/3 lg:w-10/12 w-11/12 rounded-4xl overflow-hidden">
         <div className="absolute inset-0">
-          <div className="hidden md:block h-full w-full bg-contain bg-no-repeat bg-center" style={{ backgroundImage: "url('/assets/images/bg-portfolio.png')" }} aria-hidden="true" />
+          <div className="hidden md:block h-full w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/bg-portfolio.png')" }} aria-hidden="true" />
           <div className="block md:hidden h-full w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/bg-mobile-portfolio.png')" }} aria-hidden="true" />
         </div>
       </section>

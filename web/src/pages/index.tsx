@@ -56,10 +56,10 @@ export default function Home({ listings, rentalListings, testimonals }: { listin
 
   return (
     <BasicLayout
-      title="Wazz Realty"
+      title="Waaz Realty"
       description="A starter Next.js site with TypeScript, Tailwind CSS, reusable components, fonts, and SEO."
     >
-      <section className="flex flex-col w-10/12 lg:mt-10 lg:mb-40 md:space-y-10 space-y-12">
+      <section className="flex flex-col lg:w-10/12 w-11/12 lg:mt-15 mt-20 lg:mb-20 md:space-y-10 space-y-12">
         <div className="lg:text-[5rem] text-[4rem] font-serif italic lg:leading-24 leading-18 md:w-[70%]">
           Your <span className="text-[#3E452F]">Foundation </span> for Elevated Living in Lagos.
         </div>
@@ -70,7 +70,7 @@ export default function Home({ listings, rentalListings, testimonals }: { listin
         </div>
       </section>
 
-      <section className="relative md:aspect-video aspect-2/3 w-full overflow-hidden">
+      <section className="relative md:aspect-video aspect-2/3 lg:w-10/12 w-11/12 rounded-4xl overflow-hidden">
         <div className="absolute inset-0">
           <div className="hidden md:block h-full w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/bg-home.png')" }} aria-hidden="true" />
           <div className="block md:hidden h-full w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/bg-mobile-home.png')" }} aria-hidden="true" />
@@ -90,23 +90,23 @@ export default function Home({ listings, rentalListings, testimonals }: { listin
       <PropertyShowcaseSection listings={listings} rentalListings={rentalListings} />
 
       <section
-        className="lg:w-10/12 w-full lg:flex hidden items-center justify-between gap-20 lg:bg-cover px-25 py-30"
+        className="lg:w-10/12 w-full lg:flex hidden items-center justify-between gap-20 lg:bg-cover px-25 py-30 rounded-4xl"
         style={{ backgroundImage: "url('/assets/images/bg-gradient.png')" }}
-        aria-label="Wazz Realty banner"
+        aria-label="Waaz Realty banner"
       >
-        <img src="/assets/images/badge.png" alt="Wazz Realty Logo" className="relative z-10 h-120 w-120" />
+        <img src="/assets/images/badge.png" alt="Waaz Realty Logo" className="relative z-10 h-120 w-120" />
 
         <div className="relative z-10 flex-1 max-w-xl">
           <div className="relative">
             <div
               className="absolute -top-15 -left-25 w-max bg-cover bg-center px-6 py-4 text-sm"
               style={{ backgroundImage: "url('/assets/images/frame.png')" }}
-              aria-label="Wazz Realty frame"
+              aria-label="Waaz Realty frame"
             >
               We Offer
             </div>
             <div className="absolute -left-12">
-              <img src="/assets/images/left.png" alt="Wazz Realty icon" className="" />
+              <img src="/assets/images/left.png" alt="Waaz Realty icon" className="" />
             </div>
             <div className="text-[3.5rem] italic font-serif text-white">Premium Value</div>
           </div>
@@ -116,32 +116,32 @@ export default function Home({ listings, rentalListings, testimonals }: { listin
             <div
               className="absolute -top-10 right-0 w-max bg-cover bg-center px-6 py-4 text-sm"
               style={{ backgroundImage: "url('/assets/images/frame.png')" }}
-              aria-label="Wazz Realty frame"
+              aria-label="Waaz Realty frame"
             >
               You Get
             </div>
             <div className="absolute top-5 right-10">
-              <img src="/assets/images/right.png" alt="Wazz Realty icon" className="" />
+              <img src="/assets/images/right.png" alt="Waaz Realty icon" className="" />
             </div>
           </div>
 
           <div className="text-white max-w-110 text-[1rem] text-justify leading-6 tracking-wider mt-10">
-            At Wazz Realty, we believe your property journey should be seamless and rewarding. We combine trust with a diverse portfolio, offering everything from luxurious estates to truly affordable homes. Our commitment is to exceptional service, ensuring you find the perfect property that meets your dreams and budget.
+            At Waaz Realty, we believe your property journey should be seamless and rewarding. We combine trust with a diverse portfolio, offering everything from luxurious estates to truly affordable homes. Our commitment is to exceptional service, ensuring you find the perfect property that meets your dreams and budget.
           </div>
         </div>
       </section>
       
       <section
-        className="w-full lg:hidden flex flex-col items-center justify-between bg-cover md:px-20 px-6 py-20 space-y-10"
+        className="w-full lg:hidden flex flex-col items-center justify-between bg-cover md:px-20 px-6 py-20 space-y-10 rounded-4xl"
         style={{ backgroundImage: "url('/assets/images/bg-mobile-gradient.png')" }}
-        aria-label="Wazz Realty banner"
+        aria-label="Waaz Realty banner"
       >
-        <img src="/assets/images/badge.png" alt="Wazz Realty Logo" className="h-70" />
+        <img src="/assets/images/badge.png" alt="Waaz Realty Logo" className="h-70" />
 
         <div className="text-5xl italic font-serif text-white">Premium Value Excellent Reward</div>
 
         <div className="text-white text-[1rem] text-justify leading-6 -mt-5">
-          At Wazz Realty, we believe your property journey should be seamless and rewarding. We combine trust with a diverse portfolio, offering everything from luxurious estates to truly affordable homes. Our commitment is to exceptional service, ensuring you find the perfect property that meets your dreams and budget.
+          At Waaz Realty, we believe your property journey should be seamless and rewarding. We combine trust with a diverse portfolio, offering everything from luxurious estates to truly affordable homes. Our commitment is to exceptional service, ensuring you find the perfect property that meets your dreams and budget.
         </div>
       </section>
 
@@ -156,9 +156,9 @@ export default function Home({ listings, rentalListings, testimonals }: { listin
           Experience a simplified and secure rental process. We connect discerning tenants with high-quality homes in Lagos's most sought-after communities.
         </div>
 
-        <div className="md:max:w-5xl w-full flex flex-col md:flex-row items-center justify-center gap-3 mt-10">
-          <div className="flex md:w-100 w-full flex-col gap-5 bg-[#515B3A]">
-            <img src="/assets/images/card-image1.png" alt="Wazz Realty house" className="h-auto" />
+        <div className="md:max:w-5xl w-full flex flex-col md:flex-row items-center justify-center gap-10 mt-10">
+          <div className="flex md:w-100 w-full flex-col gap-5 bg-[#515B3A] rounded-4xl">
+            <img src="/assets/images/card-image1.png" alt="Waaz Realty house" className="h-auto rounded-t-4xl" />
             <div className="space-y-6 px-8 pb-10 md:w-full w-11/12">
               <div className="text-5xl italic font-serif text-white leading-13">Exceptional Properties for Rent</div>
               <PrimaryButton textColor="[#36394A]" bgColor="white" iconColor="[#36394A]" onChangeClick={() => router.push('/rent')}>
@@ -166,14 +166,14 @@ export default function Home({ listings, rentalListings, testimonals }: { listin
               </PrimaryButton>
             </div> 
           </div>
-          <div className="flex md:w-100 w-full flex-col gap-5 bg-[#7D8B57]">
+          <div className="flex md:w-100 w-full flex-col gap-5 bg-[#7D8B57] rounded-4xl">
             <div className="space-y-6 px-8 pt-10 md:w-full w-11/12">
               <div className="text-5xl italic font-serif text-white leading-13">From Vision to Keys in Hand</div>
               <PrimaryButton textColor="[#36394A]" bgColor="white" iconColor="[#36394A]" onChangeClick={() => router.push('/contact')}>
                 Schedule a Consultation
               </PrimaryButton>
             </div> 
-            <img src="/assets/images/card-image2.png" alt="Wazz Realty house" className="h-auto" />
+            <img src="/assets/images/card-image2.png" alt="Waaz Realty house" className="h-auto rounded-b-4xl" />
           </div>
         </div>
       </section>
@@ -184,7 +184,7 @@ export default function Home({ listings, rentalListings, testimonals }: { listin
           <div className="block md:hidden h-full w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/bg-mobile-home2.png')" }} aria-hidden="true" />
         </div>
 
-        <div className="relative mx-auto flex lg:w-2/5 w-10/12 pt-50">
+        <div className="relative mx-auto flex lg:w-2/5 w-11/12 pt-50">
           <div className="mx-auto flex w-full flex-col gap-10 px-6 py-12 md:px-12 md:py-20 lg:px-15 bg-[#363C2B] -mb-50 ">
             <div className="grid md:space-y-40 space-y-20">
               <div className="max-w-3xl text-white">
@@ -223,8 +223,8 @@ export default function Home({ listings, rentalListings, testimonals }: { listin
         </div>
       </section>
 
-      <section className="w-full py-14 mt-28">
-        <div className="mx-auto flex flex-col items-center w-10/12">
+      <section className="w-full py-14 mt-32">
+        <div className="mx-auto flex flex-col items-center lg:w-10/12 w-11/12">
           <div className="grid gap-5 bg-white items-center md:justify-between md:p-10">
             <h2 className="text-[2.5rem] md:w-100 font-serif italic text-center text-[#1F1F1A] md:text-[3rem]">Receive Curated Market Insights</h2>
 

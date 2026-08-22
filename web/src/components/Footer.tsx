@@ -16,7 +16,7 @@ export default function Footer() {
   return (
     <footer className="bg-[#3E452F] md:p-16 py-16 px-7 space-y-9 w-full">
       <div className="mx-auto flex md:w-11/12 flex-col md:gap-6 gap-10 text-white lg:flex-row md:items-start md:justify-between">
-        <img src="/assets/images/logoAlt.png" alt="Wazz Realty Logo" className="h-15 w-15 md:hidden block" />
+        <img src="/assets/images/logoAlt.png" alt="Waaz Realty Logo" className="h-15 w-15 md:hidden block" />
         <div className="space-y-6 lg:w-3/5">
           <div className="text-5xl italic font-serif text-white leading-13 md:block hidden">Begin Your Property <br/> Journey.</div>
           <div className="text-5xl italic font-serif text-white leading-13 md:hidden">Begin Your  <br/>Property Journey.</div>
@@ -71,7 +71,7 @@ export default function Footer() {
 
       </div>
       <div className="md:mx-auto flex w-11/12 flex-col gap-6 text-white md:flex-row md:items-center md:justify-between">
-        <img src="/assets/images/logoAlt.png" alt="Wazz Realty Logo" className="h-15 w-15 md:block hidden" />
+        <img src="/assets/images/logoAlt.png" alt="Waaz Realty Logo" className="h-15 w-15 md:block hidden" />
         <div className="flex flex-row md:space-x-7 justify-between text-xs font-medium tracking-tight">
           <div>Cookies</div>
           <div>Term & Conditions</div>
@@ -80,10 +80,7 @@ export default function Footer() {
       </div>
       <div className="flex items-center justify-between gap-4 w-11/12 md:mx-auto">
         <div className="text-xs text-white font-medium tracking-tight">
-          <div>© {new Date().getFullYear()} Wazz Realty. All rights reserved.</div>
-        </div>
-        <div className="justify-end md:flex hidden">
-          <SocialButton socialType="whatsapp" textColor="white" bgColor="[#74C56B]" />
+          <div>© {new Date().getFullYear()} Waaz Realty. All rights reserved.</div>
         </div>
       </div>
     </footer>

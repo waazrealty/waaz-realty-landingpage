@@ -55,8 +55,8 @@ export default function PortfolioDetails({portfolio, portfolios}: {portfolio:Por
 
   if (!portfolio) {
     return (
-      <BasicLayout title="Post not found | Wazz Realty" description="The post could not be found.">
-        <div className="flex items-center justify-center px-6 py-12">
+      <BasicLayout title="Post not found | Waaz Realty" description="The post could not be found.">
+        <div className="flex items-center justify-center px-6 py-12 mt-20">
           <div className="rounded-3xl bg-white p-10 shadow-md">
             <h1 className="text-2xl font-semibold">Portfolio not found</h1>
             <p className="mt-4 text-slate-600">Please check the portfolio link and try again.</p>
@@ -79,9 +79,9 @@ export default function PortfolioDetails({portfolio, portfolios}: {portfolio:Por
       canonical={canonical}
       image={`${imageUrl}`}
       url={canonical}
-      keywords={['blog', 'real estate', 'property', 'Wazz Realty']}
+      keywords={['blog', 'real estate', 'property', 'Waaz Realty']}
     >
-      <section className="flex flex-col md:w-10/12 w-11/12 md:mb-20">
+      <section className="flex flex-col lg:mt-15 mt-25 md:w-10/12 w-11/12 md:mb-20">
         <Link href="/portfolio" className="md:text-[2rem] text-[1.5rem] md:leading-12 leading-7 font-medium font-serif italic"><span className="px-1 text-[#666D80]">Portfolio</span>/ {portfolio.listing.title}</Link>
         <div className="md:text-[3.5rem] text-4xl md:leading-14 leading-10 font-serif italic md:mt-10 md:mb-5 my-5">
           {portfolio.listing.title}
@@ -89,28 +89,28 @@ export default function PortfolioDetails({portfolio, portfolios}: {portfolio:Por
         <div className="text-sm text-[#666D80] font-medium">{location}</div>
       </section>
       <Carousel images={portfolio.listing.gallery?.map((item) => item.asset?.url).filter(Boolean) as string[] | undefined}/>
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:gap-5 gap-3 lg:w-3/4 w-full text-white">
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:gap-5 gap-3 lg:w-3/4 w-11/12 text-white">
         <div className="bg-[#363C2B] justify-center w-full flex md:flex-row flex-col md:py-20 py-14 md:col-span-2 md:space-x-40 md:space-y-0 space-y-20 items-center ">
-          <img src="/assets/images/sold-badge.png" alt="Wazz Realty Logo" className="md:h-auto h-40" />
+          <img src="/assets/images/sold-badge.png" alt="Waaz Realty Logo" className="md:h-auto h-40" />
           <div className="flex flex-col space-y-10 lg:w-1/3 md:w-1/2">
             <div className="">
               <div className="text-[1rem] text-[#D2D8BE]">List Price</div>
-              <div className="text-6xl text-white">{portfolio.openPrice.toLocaleString('en-US')}</div>
+              <div className="md:text-6xl text-4xl text-white">{portfolio.openPrice.toLocaleString('en-US')}</div>
             </div>
             <div className="">
               <div className="text-[1rem] text-[#D2D8BE]">Sold Price</div>
-              <div className="text-6xl text-white">{portfolio.closePrice.toLocaleString('en-US')}</div>
+              <div className="md:text-6xl text-4xl text-white">{portfolio.closePrice.toLocaleString('en-US')}</div>
             </div>
           </div>
         </div>
         <div className="bg-[#363C2B] justify-center md:items-start items-center w-full flex flex-col md:p-20 py-10 space-y-4 relative">
-          <div className="absolute top-2 opacity-10 text-9xl leading-none text-[#A6FF16] select-none flex items-center justify-center">
+          <div className="absolute md:top-2 opacity-10 text-9xl leading-none text-[#A6FF16] select-none flex items-center justify-center">
             {portfolio.daysInMarket-1}
           </div>
           <div className="relative z-10 text-[1rem] font-medium text-white/70 md:mt-0 mt-25">Days On The Market</div>
           <div className="relative z-10 text-[#A6FF16] text-9xl leading-12 tracking-[-0.8rem]">{portfolio.daysInMarket}</div>
           <div className="md:mt-25 mt-10">
-            <img src="/assets/images/days.png" alt="Wazz Realty Logo" className="w-full" />
+            <img src="/assets/images/days.png" alt="Waaz Realty Logo" className="w-full" />
           </div>
         </div>
         <div className="bg-[#363C2B] justify-center w-full flex flex-col lg:p-20 p-10 lg:space-y-20 space-y-10 items-center">

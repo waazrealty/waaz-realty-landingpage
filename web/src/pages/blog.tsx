@@ -13,7 +13,7 @@ type BlogPost = {
   _updatedAt?: string
 }
 
-export default function Blog({ posts }: { posts: BlogPost[] }) {
+export default function Blog({ posts, totalCount }: { posts: BlogPost[], totalCount: number }) {
   const PAGE_SIZE = 12
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
   const canonical = `${siteUrl}/blog`
@@ -27,12 +27,11 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
     try {
       const start = (page + 1) * PAGE_SIZE
       const end = start + PAGE_SIZE
-      const more: BlogPost[] = await sanityClient.fetch(`*[_type == "blogPost"] | order(_updatedAt desc)[${start}...${end}]{
+      const more: BlogPost[] = await sanityClient.fetch(`*[_type == "blog"] | order(_updatedAt desc)[${start}...${end}]{
         title,
         slug,
         image,
-        _updatedAt,
-        gallery[0]{asset->{url}}
+        _updatedAt
       }`)
 
       if (more && more.length > 0) {
@@ -40,14 +39,22 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
         setPage((p) => p + 1)
       }
     } catch (err) {
-      // ignore for now
+      // ignore
     } finally {
       setLoadingMore(false)
     }
   }
+
   return (
-    <BasicLayout title="Blog | Wazz Realty" description="Read the latest insights on real estate investment, design, and property trends." canonical={canonical} url={canonical} image="/assets/blog/preview.png" keywords={['blog', 'real estate', 'property trends', 'investment', 'design']}>
-      <section className="flex flex-col md:w-10/12 w-11/12 lg:mt-10 space-y-5 items-center">
+    <BasicLayout
+      title="Blog | Waaz Realty"
+      description="Read the latest insights on real estate investment, design, and property trends."
+      canonical={canonical}
+      url={canonical}
+      image="/assets/blog/preview.png"
+      keywords={['blog', 'real estate', 'property trends', 'investment', 'design']}
+    >
+      <section className="flex flex-col md:w-10/12 w-11/12 lg:mt-15 mt-25 space-y-5 items-center">
         <div className="md:text-[4.5rem] text-[3rem] md:w-xl font-serif text-center italic md:leading-18 leading-13">
           Waaz Realty Blog
         </div>
@@ -55,34 +62,49 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
           Here’s what you’ll find here — thoughts and opinions about financial services, updates from the team, and tips and tricks of the trade (business).
         </div>
       </section>
+
       <section className="md:w-10/12 w-11/12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-          {loadedblogs.map((post, index) => {
+          {loadedblogs.map((post) => {
             const slug = post.slug?.current
             if (!slug) return null
             const imageUrl = post.image?.asset?.url || '/assets/images/card-image3.png'
             const date = post._updatedAt ? new Date(post._updatedAt).toLocaleDateString('en-US') : 'Coming soon'
             return (
-              <Link href={`/blog/${slug}`} key={slug} className="block space-y-2">
-                <img src={imageUrl} alt={post.title} className="h-70 w-full object-cover" />
-                <div className="font-medium text-[#666D80] text-sm">{getFormattedDate(date)}</div>
-                <h3 className="text-sm text-[#0D0D12] font-medium">{post.title}</h3>
+              <Link href={`/blog/${slug}`} key={slug} className="block group space-y-4">
+                <div className="aspect-video w-full overflow-hidden rounded-[.88rem]">
+                  <div
+                    className="h-full w-full bg-cover bg-center transition-transform duration-300 ease-out group-hover:scale-110"
+                    style={{ backgroundImage: `url(${imageUrl})` }}
+                    aria-hidden="true"
+                  />
+                </div>
+                <div className="space-y-2 rounded-[.88rem] bg-[#F5F6EF]/50 p-4 transition-colors duration-300 group-hover:bg-[#F5F6EF]">
+                  <div className="font-medium text-[#666D80] text-sm">{getFormattedDate(date)}</div>
+                  <h3 className="text-sm text-[#0D0D12] font-medium">{post.title}</h3>
+                </div>
               </Link>
             )
           })}
         </div>
-        <div className="w-full my-10 flex justify-center">
-          <button
-            type="button"
-            onClick={handleLoadMore}
-            disabled={loadingMore}
-            className="rounded-full bg-[#616D43] px-5 py-2 text-base font-medium text-white transition hover:bg-[#2e3223] disabled:opacity-60"
-          >
-            {loadingMore ? 'Loading…' : 'See More'}
-          </button>
-        </div>
+
+        {/* Show "See More" only if there are more posts to load */}
+        {loadedblogs.length < totalCount && (
+          <div className="w-full my-10 flex justify-center">
+            <button
+              type="button"
+              onClick={handleLoadMore}
+              disabled={loadingMore}
+              className="rounded-full bg-[#616D43] px-5 py-2 text-base font-medium text-white transition hover:bg-[#2e3223] disabled:opacity-60 cursor-pointer"
+            >
+              {loadingMore ? 'Loading…' : 'See More'}
+            </button>
+          </div>
+        )}
       </section>
+
       <section className="md:h-20 h-0"></section>
+
       <section className="relative md:aspect-video aspect-2/3 lg:w-10/12 w-full overflow-hidden md:mb-20 mb-5">
         <div className="absolute inset-0 z-10">
           <div className="h-full w-full bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/banner.svg')" }} aria-hidden="true" />
@@ -106,11 +128,20 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
 
 export const getStaticProps: GetStaticProps = async () => {
   const PAGE_SIZE = 12
-  const posts = await sanityClient.fetch(`*[_type == "blog" && status == "active"] | order(_updatedAt desc){title, slug, image{asset->{url}}, _updatedAt}[0...${PAGE_SIZE}]`)
 
-  return {  
+  const totalCount = await sanityClient.fetch(`count(*[_type == "blog"])`)
+
+  const posts = await sanityClient.fetch(`*[_type == "blog"] | order(_updatedAt desc)[0...${PAGE_SIZE}]{
+    title,
+    slug,
+    image{asset->{url}},
+    _updatedAt
+  }`)
+
+  return {
     props: {
       posts,
+      totalCount,
     },
     revalidate: 60,
   }
