@@ -48,7 +48,7 @@ export default function portfolio({portfolios}: {portfolios : Portfolio[]}) {
         <div className="md:text-[5rem] text-[4rem] font-serif italic md:leading-24 leading-18">
           Landmarks of <br/> <span className="text-[#7D8B57]">Our Clients' Success. </span>
         </div>
-        <div className="text-[#666D80] lg:w-[50%] md:text-justify text-left text-[1rem] leading-7">
+        <div className="text-[#666D80] lg:w-[50%] md:text-justify text-left text-base leading-7">
           This portfolio is more than a collection of properties; it's a testament to our philosophy in action. Each sold and rented property represents a unique vision understood, a journey expertly guided, and a foundation successfully laid. Explore the results of our unwavering commitment to excellence.
         </div>
       </section>

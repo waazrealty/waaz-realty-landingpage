@@ -86,7 +86,7 @@ export default function SiteNav() {
                   aria-expanded={menuOpen}
                   aria-label="Toggle navigation menu"
                   onClick={() => setMenuOpen((prev) => !prev)}
-                  className="text-white transition hover:bg-[#F5F5F5]"
+                  className="text-[#36394A] transition hover:bg-[#F5F5F5]"
                 >
                   <AiOutlineClose size={20} />
                 </button>

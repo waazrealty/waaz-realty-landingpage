@@ -86,7 +86,7 @@ export default function PortfolioDetails({portfolio, portfolios}: {portfolio:Por
         <div className="md:text-[3.5rem] text-4xl md:leading-14 leading-10 font-serif italic md:mt-10 md:mb-5 my-5">
           {portfolio.listing.title}
         </div>
-        <div className="text-sm text-[#666D80] font-medium">{location}</div>
+        <div className="text-base text-[#666D80] font-medium">{location}</div>
       </section>
       <Carousel images={portfolio.listing.gallery?.map((item) => item.asset?.url).filter(Boolean) as string[] | undefined}/>
       <section className="grid grid-cols-1 md:grid-cols-2 lg:gap-5 gap-3 lg:w-3/4 w-11/12 text-white">
@@ -94,21 +94,21 @@ export default function PortfolioDetails({portfolio, portfolios}: {portfolio:Por
           <img src="/assets/images/sold-badge.png" alt="Waaz Realty Logo" className="md:h-auto h-40" />
           <div className="flex flex-col space-y-10 lg:w-1/3 md:w-1/2">
             <div className="">
-              <div className="text-[1rem] text-[#D2D8BE]">List Price</div>
+              <div className="text-base text-[#D2D8BE]">List Price</div>
               <div className="md:text-6xl text-4xl text-white">{portfolio.openPrice.toLocaleString('en-US')}</div>
             </div>
             <div className="">
-              <div className="text-[1rem] text-[#D2D8BE]">Sold Price</div>
+              <div className="text-base text-[#D2D8BE]">Sold Price</div>
               <div className="md:text-6xl text-4xl text-white">{portfolio.closePrice.toLocaleString('en-US')}</div>
             </div>
           </div>
         </div>
         <div className="bg-[#363C2B] justify-center md:items-start items-center w-full flex flex-col md:p-20 py-10 space-y-4 relative">
-          <div className="absolute md:top-2 opacity-10 text-9xl leading-none text-[#A6FF16] select-none flex items-center justify-center">
+          <div className="absolute md:top-2 top-0 opacity-10 text-9xl leading-none tracking-[-0.7rem] text-[#A6FF16] select-none flex items-center justify-center">
             {portfolio.daysInMarket-1}
           </div>
-          <div className="relative z-10 text-[1rem] font-medium text-white/70 md:mt-0 mt-25">Days On The Market</div>
-          <div className="relative z-10 text-[#A6FF16] text-9xl leading-12 tracking-[-0.8rem]">{portfolio.daysInMarket}</div>
+          <div className="relative z-10 text-base font-medium text-white/70 md:mt-0 mt-10">Days On The Market</div>
+          <div className="relative z-10 text-[#A6FF16] text-9xl leading-12 tracking-[-0.7rem]">{portfolio.daysInMarket}</div>
           <div className="md:mt-25 mt-10">
             <img src="/assets/images/days.png" alt="Waaz Realty Logo" className="w-full" />
           </div>
@@ -116,8 +116,8 @@ export default function PortfolioDetails({portfolio, portfolios}: {portfolio:Por
         <div className="bg-[#363C2B] justify-center w-full flex flex-col lg:p-20 p-10 lg:space-y-20 space-y-10 items-center">
           {portfolio.feedbacks.map((feedback)=> (
             <div className="space-y-2">
-              <div className="text-[1rem]">{feedback.quote}</div>
-              <div className="text-[1rem] italic text-[#D2D8BE] capitalize"><span className="font-medium not-italic text-white pr-3">{feedback.name}</span> {feedback.type}</div>
+              <div className="text-base">{feedback.quote}</div>
+              <div className="text-base italic text-[#D2D8BE] capitalize"><span className="font-medium not-italic text-white pr-3">{feedback.name}</span> {feedback.type}</div>
             </div>
           ))}
         </div>

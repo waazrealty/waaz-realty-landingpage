@@ -185,7 +185,7 @@ export default function ListYourProperty() {
         </div>
 
         <div className="relative w-full flex flex-col items-center py-18 space-y-10">
-          <div className="lg:text-[4.5rem] text-[3rem] font-serif text-center text-white italic md:leading-18 leading-13">
+          <div className="lg:text-[4.5rem] text-[3rem] lg:w-full w-11/12 font-serif text-center text-white italic md:leading-18 leading-13">
             List Your Property for Free
           </div>
           <div className="text-white lg:w-[40%] md:w-[70%] w-[90%] text-center text-base leading-7">

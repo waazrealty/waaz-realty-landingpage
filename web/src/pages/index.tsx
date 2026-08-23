@@ -90,7 +90,7 @@ export default function Home({ listings, rentalListings, testimonals }: { listin
       <PropertyShowcaseSection listings={listings} rentalListings={rentalListings} />
 
       <section
-        className="lg:w-10/12 w-full lg:flex hidden items-center justify-between gap-20 lg:bg-cover px-25 py-30 rounded-4xl"
+        className="w-10/12 lg:flex hidden items-center justify-between gap-20 lg:bg-cover px-25 py-30 rounded-4xl"
         style={{ backgroundImage: "url('/assets/images/bg-gradient.png')" }}
         aria-label="Waaz Realty banner"
       >
@@ -125,14 +125,14 @@ export default function Home({ listings, rentalListings, testimonals }: { listin
             </div>
           </div>
 
-          <div className="text-white max-w-110 text-[1rem] text-justify leading-6 tracking-wider mt-10">
+          <div className="text-white max-w-110 md:text-base text-lg text-justify leading-6 tracking-wider mt-10">
             At Waaz Realty, we believe your property journey should be seamless and rewarding. We combine trust with a diverse portfolio, offering everything from luxurious estates to truly affordable homes. Our commitment is to exceptional service, ensuring you find the perfect property that meets your dreams and budget.
           </div>
         </div>
       </section>
       
       <section
-        className="w-full lg:hidden flex flex-col items-center justify-between bg-cover md:px-20 px-6 py-20 space-y-10 rounded-4xl"
+        className="w-11/12 lg:hidden flex flex-col items-center justify-between bg-cover md:px-20 px-6 py-20 space-y-10 rounded-4xl"
         style={{ backgroundImage: "url('/assets/images/bg-mobile-gradient.png')" }}
         aria-label="Waaz Realty banner"
       >
@@ -140,23 +140,23 @@ export default function Home({ listings, rentalListings, testimonals }: { listin
 
         <div className="text-5xl italic font-serif text-white">Premium Value Excellent Reward</div>
 
-        <div className="text-white text-[1rem] text-justify leading-6 -mt-5">
+        <div className="text-white md:text-base text-lg text-justify leading-6 -mt-5">
           At Waaz Realty, we believe your property journey should be seamless and rewarding. We combine trust with a diverse portfolio, offering everything from luxurious estates to truly affordable homes. Our commitment is to exceptional service, ensuring you find the perfect property that meets your dreams and budget.
         </div>
       </section>
 
       <section
-        className="w-full flex flex-col items-center justify-between md:px-20 px-5 space-y-8"
+        className="w-full flex flex-col items-center justify-between md:px-20 space-y-8"
       >
-        <div className="lg:w-lg w-full">
+        <div className="lg:w-lg w-11/12">
           <div className="lg:text-[3.35rem] text-5xl text-center leading-16 italic font-serif text-black">The Standard for Premium Rentals</div>
         </div>
 
-        <div className="text-[#666D80] text-center max-w-120 text-[1rem] leading-6">
+        <div className="text-[#666D80] text-center md:w-120 w-11/12 md:text-base text-lg leading-6">
           Experience a simplified and secure rental process. We connect discerning tenants with high-quality homes in Lagos's most sought-after communities.
         </div>
 
-        <div className="md:max:w-5xl w-full flex flex-col md:flex-row items-center justify-center gap-10 mt-10">
+        <div className="md:w-5xl w-11/12 flex flex-col md:flex-row items-center justify-center gap-10 mt-10">
           <div className="flex md:w-100 w-full flex-col gap-5 bg-[#515B3A] rounded-4xl">
             <img src="/assets/images/card-image1.png" alt="Waaz Realty house" className="h-auto rounded-t-4xl" />
             <div className="space-y-6 px-8 pb-10 md:w-full w-11/12">
@@ -196,12 +196,12 @@ export default function Home({ listings, rentalListings, testimonals }: { listin
               <div className="backdrop-blur-xl">
                 {activeTestimonialData ? (
                   <div className="space-y-8">
-                    <div className="text-sm leading-8 text-white md:text-lg">
+                    <div className="text-base leading-8 text-white md:text-lg">
                       "{activeTestimonialData.quote}"
                     </div>
                     <div>
                       <div className="text-xl font-semibold text-white">{activeTestimonialData.author}</div>
-                      <div className="text-sm text-[#D9D9CC]">{activeTestimonialData.location}</div>
+                      <div className="text-base text-[#D9D9CC]">{activeTestimonialData.location}</div>
                     </div>
                   </div>
                 ) : null}

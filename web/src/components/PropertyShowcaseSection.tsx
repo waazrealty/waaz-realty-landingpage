@@ -39,7 +39,7 @@ export default function PropertyShowcaseSection({ listings, rentalListings }: { 
       <div className="mx-auto w-11/12 lg:w-10/12 space-y-5">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <h2 className="lg:text-[3rem] text-4xl font-serif italic">Premium Sale Listings</h2>
-          <div onClick={() => {router.push('/listings')}} className="inline-flex items-center gap-2 text-[#36394A] font-medium text-sm hover:text-black underline">
+          <div onClick={() => {router.push('/listings')}} className="inline-flex items-center gap-2 text-[#36394A] font-medium text-base hover:text-black underline">
             View All Sale Listings
             <FiChevronRight size={18} />
           </div>
@@ -57,7 +57,7 @@ export default function PropertyShowcaseSection({ listings, rentalListings }: { 
               className="group space-y-4"
             >
               {/* Image */}
-              <div className="aspect-5/6 w-full overflow-hidden rounded-[.88rem]">
+              <div className="md:aspect-5/6 aspect-video  w-full overflow-hidden rounded-[.88rem]">
                 <div
                   className="h-full w-full bg-cover bg-center transition-transform duration-300 ease-out group-hover:scale-110"
                   style={{ backgroundImage: `url(${imageUrl})` }}
@@ -68,27 +68,27 @@ export default function PropertyShowcaseSection({ listings, rentalListings }: { 
               {/* Details */}
               <div className="space-y-2 rounded-[.88rem] bg-[#F5F6EF]/50 p-4 transition-colors duration-300 group-hover:bg-[#F5F6EF]">
                 <div className="flex items-start justify-between gap-4">
-                  <div className="w-[64%] line-clamp-2 text-sm font-medium text-[#36394A]">
+                  <div className="w-[64%] line-clamp-2 text-base font-medium text-[#36394A]">
                     {listing.title}
                   </div>
 
-                  <div className="text-sm font-medium text-[#36394A]">
+                  <div className="text-base font-medium text-[#36394A]">
                     ₦{formatCompactNumber(listing.price)}
                   </div>
                 </div>
 
-                <p className="text-sm font-medium text-[#666D80]">
+                <p className="text-base font-medium text-[#666D80]">
                   {location}
                 </p>
 
-                <div className="flex items-center gap-4 text-xs font-medium text-[#666D80]">
+                <div className="flex items-center gap-4 text-sm font-medium text-[#666D80]">
                   <span className="inline-flex items-center gap-2">
-                    <MdBed className="text-[#36394A]" />
+                    <MdBed className="text-[#36394A] -mb-1" />
                     {listing.bedrooms} bedrooms
                   </span>
 
                   <span className="inline-flex items-center gap-2">
-                    <MdBathtub className="text-[#36394A]" />
+                    <MdBathtub className="text-[#36394A] -mb-1" />
                     {listing.baths} baths
                   </span>
                 </div>
@@ -118,10 +118,10 @@ export default function PropertyShowcaseSection({ listings, rentalListings }: { 
                     <Link
                       href={`/listings/${slug}`}
                       key={slug}
-                      className="group space-y-4 md:max-w-75 max-w-80"
+                      className="group w-80 min-w-80 space-y-4 md:w-full md:min-w-0 md:max-w-75"
                     >
                       {/* Image */}
-                      <div className="aspect-5/6 w-full overflow-hidden rounded-[.88rem]">
+                      <div className="md:aspect-5/6 aspect-video  w-full overflow-hidden rounded-[.88rem]">
                         <div
                           className="h-full w-full bg-cover bg-center transition-transform duration-300 ease-out group-hover:scale-110"
                           style={{ backgroundImage: `url(${imageUrl})` }}
@@ -132,27 +132,27 @@ export default function PropertyShowcaseSection({ listings, rentalListings }: { 
                       {/* Details */}
                       <div className="space-y-2 rounded-[.88rem] bg-[#F5F6EF]/50 p-4 transition-colors duration-300 group-hover:bg-[#F5F6EF]">
                         <div className="flex items-start justify-between gap-4">
-                          <div className="w-[64%] line-clamp-2 text-sm font-medium text-[#36394A]">
+                          <div className="w-[64%] line-clamp-2 text-base font-medium text-[#36394A]">
                             {listing.title}
                           </div>
 
-                          <div className="text-sm font-medium text-[#36394A]">
-                            ₦{formatCompactNumber(listing.price)} /<span className="text-[#666D80] text-xs">YR</span>
+                          <div className="text-base font-medium text-[#36394A]">
+                            ₦{formatCompactNumber(listing.price)} /<span className="text-[#666D80] text-sm">YR</span>
                           </div>
                         </div>
 
-                        <p className="text-sm font-medium text-[#666D80]">
+                        <p className="text-base font-medium text-[#666D80]">
                           {location}
                         </p>
 
-                        <div className="flex items-center gap-4 text-xs font-medium text-[#666D80]">
+                        <div className="flex items-center gap-4 text-sm font-medium text-[#666D80]">
                           <span className="inline-flex items-center gap-2">
-                            <MdBed className="text-[#36394A]" />
+                            <MdBed className="text-[#36394A] -mb-1" />
                             {listing.bedrooms} bedrooms
                           </span>
 
                           <span className="inline-flex items-center gap-2">
-                            <MdBathtub className="text-[#36394A]" />
+                            <MdBathtub className="text-[#36394A] -mb-1" />
                             {listing.baths} baths
                           </span>
                         </div>
