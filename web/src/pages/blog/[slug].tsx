@@ -50,7 +50,7 @@ export default function BlogDetails({ post }: { post: BlogPost }) {
         </div>
         <div className="text-sm text-[#666D80] -mb-6">{post._createdAt && getFormattedDate(post._createdAt)} {post._createdAt !== post._updatedAt && <span><span className="px-1">•</span> <span className="">Updated {getFormattedDate(post._updatedAt)}</span></span>}</div>
       </section>
-      <section className="relative md:aspect-video aspect-2/3 md:w-10/12 w-11/12 rounded-2xl overflow-hidden">
+      <section className="relative aspect-video md:w-10/12 w-11/12 rounded-2xl overflow-hidden">
         <div className="absolute inset-0">
           <div className="h-full w-full bg-cover bg-center" style={{ backgroundImage: `url('${post.image?.asset?.url}')` }} aria-hidden="true" />
         </div>

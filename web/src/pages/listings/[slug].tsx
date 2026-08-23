@@ -394,7 +394,7 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
       <section className="md:w-10/12 flex flex-col lg:flex-row md:gap-25 gap-5 md:pt-12 px-4 lg:px-0 md:-mt-10">
         <div className="lg:w-[60%] space-y-8">
           <div className="flex flex-col gap-4">
-            <div className="text-sm text-[#666D80] font-medium">{listing.category === "for-sale" ? "For Sale" : "For Rent" } | {location}</div>
+            <div className="text-base text-[#666D80] font-medium">{listing.category === "for-sale" ? "For Sale" : "For Rent" } | {location}</div>
             <div className="flex flex-col gap-2 md:gap-4 font-serif font-medium italic text-4xl">
               <div className="leading-tight">{listing.title}</div>
               <div>
@@ -414,9 +414,9 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
             <div className="w-full">
               <div className="flex items-center space-x-2 px-5 py-2 bg-[#F5F6EF] text-[#3E452F] rounded-t-2xl max-w-max">
                 <MdOutlineStar />
-                <div className="text-sm font-medium">Features</div>
+                <div className="text-base font-medium">Features</div>
               </div>
-              <div className="flex flex-row flex-wrap md:gap-10 gap-5 w-full border border-[#C1C7D0]/50 rounded-b-2xl rounded-tr-2xl p-5 text-[#666D80]">
+              <div className="flex flex-row flex-wrap md:gap-7 gap-5 w-full border border-[#C1C7D0]/50 rounded-b-2xl rounded-tr-2xl p-5 text-[#666D80]">
                 <span className="inline-flex items-center gap-2">
                   <MdBed className="text-[#36394A] text-lg" />
                   {listing.bedrooms} Bedrooms
@@ -507,9 +507,9 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
             <div className="w-full">
               <div className="flex items-center space-x-2 px-5 py-2 bg-[#F5F6EF] text-[#3E452F] rounded-t-2xl max-w-max">
                 <MdFolderOpen className="text-[#36394A] text-lg" />
-                <div className="text-sm font-medium">Available Documents</div>
+                <div className="text-base font-medium">Available Documents</div>
               </div>
-              <div className="flex flex-row flex-wrap md:gap-10 gap-5 w-full border border-[#C1C7D0]/50 rounded-b-2xl rounded-tr-2xl p-5 text-[#666D80]">
+              <div className="flex flex-row flex-wrap md:gap-7 gap-5 w-full border border-[#C1C7D0]/50 rounded-b-2xl rounded-tr-2xl p-5 text-[#666D80]">
                 {normalizeFeatureList(listing.availableDocuments).length > 0 ? normalizeFeatureList(listing.availableDocuments).map((docKey) => {
                   const iconName = docKey as IconKey
                   const DocumentIcon = getIcon(iconName) || MdBed
@@ -529,7 +529,7 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
             <div className="w-full">
               <div className="flex items-center space-x-2 px-5 py-2 bg-[#F5F6EF] text-[#3E452F] rounded-t-2xl max-w-max">
                 <MdBathroom />
-                <div className="text-sm font-medium">Community & Lifestyle Amenities</div>
+                <div className="text-base font-medium">Community & Lifestyle Amenities</div>
               </div>
               <div className="flex flex-row flex-wrap md:space-x-10 gap-5 w-full border border-[#C1C7D0]/50 rounded-b-2xl rounded-tr-2xl p-5 text-[#666D80]">
                 {normalizeFeatureList(listing.communityAmenities).length > 0 ? normalizeFeatureList(listing.communityAmenities).map((amenityKey) => {
@@ -548,9 +548,9 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
             <div className="w-full">
               <div className="flex items-center space-x-2 px-5 py-2 bg-[#F5F6EF] text-[#3E452F] rounded-t-2xl max-w-max">
                 <MdError className="text-[#36394A] text-lg" />
-                <div className="text-sm font-medium">Key Property Details</div>
+                <div className="text-base font-medium">Key Property Details</div>
               </div>
-              <div className="flex flex-row flex-wrap gap-10 w-full border border-[#C1C7D0]/50 rounded-b-2xl rounded-tr-2xl p-5 text-[#666D80]">
+              <div className="flex flex-row flex-wrap md:gap-7 gap-5 w-full border border-[#C1C7D0]/50 rounded-b-2xl rounded-tr-2xl p-5 text-[#666D80]">
                 {!listing.propertyRules && !listing.utilities && (<span className="text-[#666D80]">No key property details available for this property.</span>)}
                 {normalizeFeatureList(listing.propertyRules).map((ruleKey) => {
                   const iconName = ruleKey as IconKey
@@ -579,12 +579,12 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
             <div className="w-full">
               <div className="flex items-center space-x-2 px-5 py-2 bg-[#F5F6EF] text-[#3E452F] rounded-t-2xl max-w-max">
                 <MdReceipt className="text-[#36394A] text-lg" />
-                <div className="text-sm font-medium">Move-In Cost Overview</div>
+                <div className="text-base font-medium">Move-In Cost Overview</div>
               </div>
-              <div className="flex flex-col w-full gap-5 border border-[#C1C7D0]/50 rounded-b-2xl rounded-tr-2xl p-5 text-sm text-[#36394A]">
+              <div className="flex flex-col w-full gap-5 border border-[#C1C7D0]/50 rounded-b-2xl rounded-tr-2xl p-5 text-base text-[#36394A]">
                 <div className="flex flex-col w-full gap-2.5">
                   {listing.moveInCosts && listing.moveInCosts.length > 0 && listing.moveInCosts.map((cost) => (
-                    <div key={cost.item} className="flex items-center ">
+                    <div key={cost.item} className="flex items-start ">
                       <div className="w-1/3">{cost.item}</div>
                       <div className="w-1/3 text-center">{cost.detail || '-'}</div>
                       <div className="w-1/3 text-right">{cost.amount ? new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(cost.amount) : '-'}</div>
@@ -607,11 +607,11 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
                 <img src={'/assets/images/caller.png'} alt={agent.name || 'Agent'} className="h-20 w-20 rounded-full object-cover" />
                 <div className="text-white">
                   <p className="text-base">{agent.name || 'Dami'}</p>
-                  <p className="text-sm">Agent in charge</p>
+                  <p className="text-base">Agent in charge</p>
                 </div>
               </div>
               <div>
-                <div className="text-sm text-white text-justify leading-5">
+                <div className="text-base text-white text-justify leading-5">
                   As your dedicated Waaz Realty advisor for this property, I am here to provide detailed information and guide you through every step of the process. My goal is to ensure your experience is seamless and informed.
                 </div>
               </div>
@@ -622,9 +622,9 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
                   className="flex items-center gap-[.2rem] outline-0"
                 >
                   <div className="flex items-center gap-[.2rem] font-medium capitalize p-3 bg-white">
-                    <MdOutlineCall size={22} className="mb-[-0.1rem]" />
+                    <MdOutlineCall size={26} className="mb-[-0.1rem]" />
                   </div>
-                  <div className="flex flex-1 items-center gap-2 capitalize px-6 py-[.77rem] text-sm bg-white justify-between font-medium">
+                  <div className="flex flex-1 items-center gap-2 capitalize px-6 py-[.77rem] text-base bg-white justify-between font-medium">
                     {agent.phone || '+234 807 909 7547'}
                     <VscChevronRight size={14} />
                   </div>
@@ -636,9 +636,9 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
                   className="flex items-center gap-[.2rem] outline-0"
                 >
                   <div className="flex items-center gap-1 font-medium capitalize p-3 bg-white">
-                    <IoLogoWhatsapp size={22} className="mb-[-0.1rem] text-[#58B04E]" />
+                    <IoLogoWhatsapp size={26} className="mb-[-0.1rem] text-[#58B04E]" />
                   </div>
-                  <div className="flex flex-1 items-center gap-2 capitalize px-6 py-[.77rem] text-sm bg-white justify-between font-medium">
+                  <div className="flex flex-1 items-center gap-2 capitalize px-6 py-[.77rem] text-base bg-white justify-between font-medium">
                     Send {getFirstWord(agent.name) || 'Agent'} a Message
                     <VscChevronRight size={14} />
                   </div>
@@ -651,13 +651,13 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
             {inspectionSubmitted ? (
               <div className="mt-6 rounded-lg bg-green-50 p-4 text-green-800">
                 <p className="font-medium">Inspection request submitted successfully!</p>
-                <p className="mt-1 text-sm">Our team will contact you shortly to arrange the inspection.</p>
+                <p className="mt-1 text-base">Our team will contact you shortly to arrange the inspection.</p>
               </div>
             ) : (
               <form className="mt-6 space-y-4" onSubmit={handleInspectionSubmit}>
                 <input type="hidden" name="listing" value={listing._id} />
                 <div>
-                  <label className="mb-2 block text-sm text-slate-700">Name</label>
+                  <label className="mb-2 block text-base text-slate-700">Name</label>
                   <input
                     type="text"
                     name="fullname"
@@ -665,47 +665,47 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
                     onChange={handleInspectionInputChange}
                     required
                     placeholder="Enter name"
-                    className="w-full bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]"
+                    className="w-full bg-white px-4 py-3 text-base text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]"
                   />
                 </div>
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-slate-700">Phone Number</label>
+                  <label className="mb-2 block text-base font-medium text-slate-700">Phone Number</label>
                   <input
                     type="tel"
                     name="mobile"
                     value={inspectionForm.mobile}
                     onChange={handleInspectionInputChange}
                     placeholder="Enter phone number"
-                    className="w-full bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]"
+                    className="w-full bg-white px-4 py-3 text-base text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]"
                   />
                 </div>
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-slate-700">Email</label>
+                  <label className="mb-2 block text-base font-medium text-slate-700">Email</label>
                   <input
                     type="email"
                     name="email"
                     value={inspectionForm.email}
                     onChange={handleInspectionInputChange}
                     placeholder="Enter email"
-                    className="w-full bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]"
+                    className="w-full bg-white px-4 py-3 text-base text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]"
                   />
                 </div>
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-slate-700">Message</label>
+                  <label className="mb-2 block text-base font-medium text-slate-700">Message</label>
                   <textarea
                     rows={4}
                     name="message"
                     value={inspectionForm.message}
                     onChange={handleInspectionInputChange}
                     placeholder="Hello, I am interested in this property. Please let me know the best time for a viewing."
-                    className="w-full bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]"
+                    className="w-full bg-white px-4 py-3 text-base text-slate-900 outline-none transition focus:border-[#506437] focus:ring-2 focus:ring-[#E6ECD9]"
                   />
                 </div>
                 <div className="flex items-center justify-end">
                   <button
                     type="submit"
                     disabled={isSubmittingInspection}
-                    className="text-sm inline-flex items-center gap-2 rounded-full bg-[#616D43] px-6 py-3 text-white transition hover:opacity-90 cursor-pointer capitalize disabled:opacity-50"
+                    className="text-base inline-flex items-center gap-2 rounded-full bg-[#616D43] px-6 py-3 text-white transition hover:opacity-90 cursor-pointer capitalize disabled:opacity-50"
                   >
                     {isSubmittingInspection ? 'Submitting...' : 'Request Inspection'}
                     <FiChevronRight size={14} className="-mb-0.5" />

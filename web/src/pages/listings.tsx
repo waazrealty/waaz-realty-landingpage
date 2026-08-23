@@ -257,7 +257,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
                   key={option}
                   type="button"
                   onClick={() => setSelectedTabAndURL(option)}  // 👈 Updated
-                  className={`p-2 text-sm font-medium transition ${
+                  className={`p-2 text-base font-medium transition ${
                     selectedTab === option
                       ? 'border-b-2 border-[#616D43]'
                       : 'text-[#666D80] hover:bg-white hover:text-[#36394A]'
@@ -271,7 +271,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
 
           <div className="md:gap-3 gap-2 flex flex-row lg:flex-nowrap flex-wrap justify-between items-end border-2 border-[#F7F7F8] p-3">
             <div className="md:w-1/5 w-[48%]">
-              <div className="text-sm font-semibold mb-2">Rooms:</div>
+              <div className="text-base font-semibold mb-2">Rooms:</div>
               <SelectField
                 recordList={roomOptions}
                 value={roomsFilter}
@@ -280,7 +280,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
               />
             </div>
             <div className="md:w-1/5 w-[48%]">
-              <div className="text-sm font-semibold mb-2">Type:</div>
+              <div className="text-base font-semibold mb-2">Type:</div>
               <SelectField
                 recordList={typeOptions}
                 value={typeFilter}
@@ -289,7 +289,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
               />
             </div>
             <div className="md:w-1/5 w-[48%]">
-              <div className="text-sm font-semibold mb-2">Location:</div>
+              <div className="text-base font-semibold mb-2">Location:</div>
               <SelectField
                 recordList={locationOptions}
                 value={locationFilter}
@@ -298,7 +298,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
               />
             </div>
             <div className="md:w-1/5 w-[48%] md:hidden block">
-              <div className="text-sm font-semibold mb-2">Recency:</div>
+              <div className="text-base font-semibold mb-2">Recency:</div>
               <SelectField
                 recordList={recencyOptions}
                 value={recencyFilter}
@@ -307,33 +307,33 @@ export default function Listings({ listings }: { listings: Listing[] }) {
               />
             </div>
             <div className="md:w-2/6">
-              <div className="text-sm font-semibold mb-2">Price Range:</div>
+              <div className="text-base font-semibold mb-2">Price Range:</div>
               <div className="p-1 flex flex-row items-center justify-between w-full rounded-full bg-[#F6F8FA]">
-                <div className="flex flex-row items-center w-[45%] gap-2 text-sm text-[#36394A] bg-white rounded-full p-2">
+                <div className="flex flex-row items-center w-[45%] gap-2 text-base text-[#36394A] bg-white rounded-full p-2">
                   <span className="text-[#666D80] font-medium">Min</span>
                   <input
                     type="number"
                     value={priceMin}
                     onChange={(e) => setPriceMinAndURL(Number(e.target.value))}  // 👈 Updated
                     min={0}
-                    className="w-full text-sm font-semibold outline-none transition focus:ring-2 focus:ring-[#616D4320]"
+                    className="w-full text-base font-semibold outline-none transition focus:ring-2 focus:ring-[#616D4320]"
                   />
                 </div>
                 <span className="text-[#666D80] font-medium px-2">-</span>
-                <div className="flex flex-row items-center w-[45%] gap-2 text-sm text-[#36394A] bg-white rounded-full p-2">
+                <div className="flex flex-row items-center w-[45%] gap-2 text-base text-[#36394A] bg-white rounded-full p-2">
                   <span className="text-[#666D80] font-medium">Max</span>
                   <input
                     type="number"
                     value={priceMax}
                     onChange={(e) => setPriceMaxAndURL(Number(e.target.value))}  // 👈 Updated
                     min={0}
-                    className="w-full text-sm font-semibold outline-none transition focus:ring-2 focus:ring-[#616D4320]"
+                    className="w-full text-base font-semibold outline-none transition focus:ring-2 focus:ring-[#616D4320]"
                   />
                 </div>
               </div>
             </div>
             <div className="md:w-1/5 w-1/2 md:block hidden">
-              <div className="text-sm font-semibold mb-2">Recency:</div>
+              <div className="text-base font-semibold mb-2">Recency:</div>
               <SelectField
                 recordList={recencyOptions}
                 value={recencyFilter}
@@ -342,7 +342,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
               />
             </div>
             <div className="px-4 w-30 justify-end md:flex hidden order-6">
-              <button type="button" onClick={resetFilters} className="text-sm underline text-[#7D8B57] cursor-pointer md:mb-3">
+              <button type="button" onClick={resetFilters} className="text-base underline text-[#7D8B57] cursor-pointer md:mb-3">
                 Reset All
               </button>
             </div>
@@ -358,14 +358,14 @@ export default function Listings({ listings }: { listings: Listing[] }) {
             ]
               .filter(Boolean)
               .map((chip) => (
-                <div key={chip} className="inline-flex items-center gap-2 rounded-full border border-[#E6E8EE] bg-[#36394A] px-4 py-2 text-sm font-medium text-white">
+                <div key={chip} className="inline-flex items-center gap-2 rounded-full border border-[#E6E8EE] bg-[#36394A] px-4 py-2 text-base font-medium text-white">
                   <span>{chip}</span>
-                  <AiOutlineClose className="text-white" />
+
                 </div>
               ))}
           </div>
           <div className="px-4 border border-t-0 border-[#F7F7F8] w-full flex justify-end md:hidden cursor-pointer">
-            <div onClick={resetFilters} className="text-sm underline text-[#616D43]">
+            <div onClick={resetFilters} className="text-base underline text-[#616D43]">
               Reset All
             </div>
           </div>
@@ -380,7 +380,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
             const location = [listing.city, listing.state].filter(Boolean).join(' • ')
             return (
               <Link href={`/listings/${slug}`} key={slug} className="snap-center group shrink-0 w-full space-y-4 overflow-hidden bg-white">
-                <div className="aspect-5/6 w-full overflow-hidden rounded-[.88rem]">
+                <div className="md:aspect-5/6 aspect-video  w-full overflow-hidden rounded-[.88rem]">
                   <div
                     className="h-full w-full bg-cover bg-center transition-transform duration-300 ease-out group-hover:scale-110"
                     style={{ backgroundImage: `url(${imageUrl})` }}
@@ -389,28 +389,28 @@ export default function Listings({ listings }: { listings: Listing[] }) {
                 </div>
                 <div className="space-y-2 rounded-[.88rem] bg-[#F5F6EF]/50 p-4 transition-colors duration-300 group-hover:bg-[#F5F6EF]">
                   <div className="flex items-start justify-between gap-4">
-                    <div className="w-[64%] line-clamp-2 text-sm font-medium text-[#36394A]">
+                    <div className="w-[64%] line-clamp-2 text-base font-medium text-[#36394A]">
                       {listing.title}
                     </div>
 
-                    <div className="text-sm font-medium text-[#36394A]">
+                    <div className="text-base font-medium text-[#36394A]">
                       ₦{formatCompactNumber(listing.price)}
                       {listing.category === "for-rent" && <span className="text-[#666D80]">/YR</span>}
                     </div>
                   </div>
 
-                  <p className="text-sm font-medium text-[#666D80]">
+                  <p className="text-base font-medium text-[#666D80]">
                     {location}
                   </p>
 
-                  <div className="flex items-center gap-4 text-xs font-medium text-[#666D80]">
+                  <div className="flex items-center gap-4 text-sm font-medium text-[#666D80]">
                     <span className="inline-flex items-center gap-2">
-                      <MdBed className="text-[#36394A]" />
+                      <MdBed className="text-[#36394A] -mb-1" />
                       {listing.bedrooms} bedrooms
                     </span>
 
                     <span className="inline-flex items-center gap-2">
-                      <MdBathtub className="text-[#36394A]" />
+                      <MdBathtub className="text-[#36394A] -mb-1" />
                       {listing.baths} baths
                     </span>
                   </div>
@@ -422,7 +422,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
         {filteredListings.length === 0 &&
           <div className="w-full flex flex-col py-20 items-center space-y-5">
             <div className="text-3xl italic font-medium font-serif">No exact matches found</div>
-            <div className="text-[#666D80] text-center text-sm lg:w-[40%] md:w-[60%]">
+            <div className="text-[#666D80] text-center text-base lg:w-[40%] md:w-[60%]">
               {noResultsMessage}
             </div>
           </div>

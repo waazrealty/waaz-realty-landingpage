@@ -44,11 +44,11 @@ export default function MoreStories({portfolios}: {portfolios: Portfolio[]}) {
             return (
               <Link href={`/portfolio/${slug}`} key={slug} className="space-y-2">
                 <div className="flex flex-row items-center justify-between w-full">
-                  <div className="font-medium text-sm">0{index+1}</div>
-                  <div className="font-medium text-sm">{portfolio.listing.category === "for-sale" ? "Sale" : "Rent"}</div>
+                  <div className="font-medium text-base">0{index+1}</div>
+                  <div className="font-medium text-base">{portfolio.listing.category === "for-sale" ? "Sale" : "Rent"}</div>
                 </div>
                 <img src={portfolio.listing.gallery.asset?.url} alt={portfolio.listing.title} className="h-auto w-full object-cover" />
-                <h3 className="text-sm text-[##0D0D12] font-medium line-clamp-2">{portfolio.listing.title}</h3>
+                <h3 className="text-base text-[##0D0D12] font-medium line-clamp-2">{portfolio.listing.title}</h3>
               </Link>
             )})}
           </div>

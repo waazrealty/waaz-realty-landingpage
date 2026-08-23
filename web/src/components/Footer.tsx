@@ -14,8 +14,8 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-[#3E452F] md:p-16 py-16 px-7 space-y-9 w-full">
-      <div className="mx-auto flex md:w-11/12 flex-col md:gap-6 gap-10 text-white lg:flex-row md:items-start md:justify-between">
+    <footer className="bg-[#3E452F] md:p-16 py-16 space-y-9 w-full">
+      <div className="mx-auto flex w-11/12 flex-col md:gap-6 gap-10 text-white lg:flex-row md:items-start md:justify-between">
         <img src="/assets/images/logoAlt.png" alt="Waaz Realty Logo" className="h-15 w-15 md:hidden block" />
         <div className="space-y-6 lg:w-3/5">
           <div className="text-5xl italic font-serif text-white leading-13 md:block hidden">Begin Your Property <br/> Journey.</div>
@@ -25,9 +25,9 @@ export default function Footer() {
           </PrimaryButton>
         </div>
         <div className="flex md:flex-row flex-col gap-5 space-x-14 text-sm lg:w-2/5">
-          <div className="space-y-3 text-sm font-medium tracking-tight">
+          <div className="space-y-3 text-base font-medium tracking-tight">
             <div>Quick Links</div>
-            <div className="space-y-3 text-xs text-[#9AA675] flex flex-col">
+            <div className="space-y-3 md:text-xs text-base text-[#9AA675] flex flex-col">
               <Link href="/about">About</Link>
               <Link href="/portfolio">Portfolio</Link>
               <Link href="/listings">Listings</Link>
@@ -35,9 +35,9 @@ export default function Footer() {
               <Link href="/sale">Sale</Link>
             </div>
           </div>
-          <div className="space-y-3 text-sm font-medium tracking-tight">
+          <div className="space-y-3 text-base font-medium tracking-tight">
             <div>Properties</div>
-            <div className="space-y-3 text-xs text-[#9AA675]">
+            <div className="space-y-3 md:text-xs text-base text-[#9AA675]">
               <div>Flats & Apartments</div>
               <div>Warehouse</div>
               <div>Lands</div>
@@ -49,9 +49,9 @@ export default function Footer() {
               <div>Duplex</div>
             </div>
           </div>
-          <div className="space-y-3 text-sm font-medium tracking-tight">
+          <div className="space-y-3 text-base font-medium tracking-tight">
             <div>Contact</div>
-            <div className="space-y-3 text-xs text-[#9AA675] flex flex-col">
+            <div className="space-y-3 md:text-xs text-base text-[#9AA675] flex flex-col">
               <Link href="/contact">Contact</Link>
               <Link href="/portfolio">Portfolio</Link>
               <Link href="/listings">Listings</Link>
@@ -59,7 +59,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className="relative">
+      <div className="relative w-11/12">
         <button
           type="button"
           onClick={scrollToTop}
@@ -70,16 +70,16 @@ export default function Footer() {
         </button>
 
       </div>
-      <div className="md:mx-auto flex w-11/12 flex-col gap-6 text-white md:flex-row md:items-center md:justify-between">
+      <div className="mx-auto flex w-11/12 flex-col gap-6 text-white md:flex-row items-center md:justify-between">
         <img src="/assets/images/logoAlt.png" alt="Waaz Realty Logo" className="h-15 w-15 md:block hidden" />
-        <div className="flex flex-row md:space-x-7 justify-between text-xs font-medium tracking-tight">
+        <div className="flex flex-row md:space-x-7 md:w-80 w-full justify-between md:text-xs text-base font-medium tracking-tight">
           <div>Cookies</div>
           <div>Term & Conditions</div>
           <div>Privacy Policy</div>
         </div>
       </div>
-      <div className="flex items-center justify-between gap-4 w-11/12 md:mx-auto">
-        <div className="text-xs text-white font-medium tracking-tight">
+      <div className="flex items-center justify-between gap-4 w-11/12 mx-auto">
+        <div className="md:text-sm text-base text-white font-medium tracking-tight">
           <div>© {new Date().getFullYear()} Waaz Realty. All rights reserved.</div>
         </div>
       </div>
