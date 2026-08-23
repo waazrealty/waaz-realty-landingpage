@@ -388,7 +388,7 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
       keywords={['listings', 'real estate', 'property', 'Waaz Realty']}
     >
       <section className="flex flex-col md:w-10/12 w-11/12 lg:mt-15 mt-25">
-        <div className="flex flex-row lg:items-center md:text-[3.5rem] text-4xl md:leading-14 leading-10 font-medium font-serif italic md:mb-10">
+        <div className="flex flex-row lg:items-center md:text-[3.5rem] text-4xl md:leading-14 leading-10 font-medium font-serif italic md:mb-10 -mb-10">
           <span onClick={() => router.back()} className="pr-5 text-[#666D80] cursor-pointer md:text-3xl text-2xl"><LuCornerUpLeft/></span> <span>{listing.title}</span>
         </div>
       </section>
