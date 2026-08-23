@@ -1,11 +1,10 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router' // 👈 Added for URL persistence
 import { GetStaticProps } from 'next'
 import Link from 'next/link'
 import { BasicLayout } from '@/components/Layout/BasicLayout'
 import { MdBed, MdBathtub } from 'react-icons/md'
 import { FiChevronRight } from 'react-icons/fi'
-import { AiOutlineClose } from 'react-icons/ai'
 import { sanityClient } from '@/lib/sanity'
 import { formatCompactNumber } from '@/lib/common'
 import SelectField from '@/components/Select'
@@ -24,8 +23,8 @@ type Listing = {
   gallery?: { asset?: { url?: string } }
 }
 
-const tabOptions = ['All', 'For Sale', 'For Rent']
-const recencyOptions = ['All', 'Last 7 days', 'Last 30 days']
+const tabOptions = ['All', 'For Sale', 'For Rent', 'Shortlet']
+const recencyOptions = ['All', 'Last 7 days', 'Last 30 days', 'Last 60 days', 'Last 90 days', 'Last 120 days']
 
 const formatLabel = (value: string) =>
   value
@@ -153,7 +152,9 @@ export default function Listings({ listings }: { listings: Listing[] }) {
   // --- Filtered listings ---
   const categoryFilter =
     selectedTab === 'For Sale'
-      ? 'for-sale'
+      ? 'for-sale' :
+      selectedTab === 'Shortlet'
+      ? 'shortlet'
       : selectedTab === 'For Rent'
       ? 'for-rent'
       : undefined
@@ -181,6 +182,9 @@ export default function Listings({ listings }: { listings: Listing[] }) {
         const updatedAt = new Date(listing._updatedAt).getTime()
         if (recencyFilter === 'Last 7 days') return updatedAt >= cutoff(7)
         if (recencyFilter === 'Last 30 days') return updatedAt >= cutoff(30)
+        if (recencyFilter === 'Last 60 days') return updatedAt >= cutoff(60)
+        if (recencyFilter === 'Last 90 days') return updatedAt >= cutoff(90)
+        if (recencyFilter === 'Last 120 days') return updatedAt >= cutoff(120)
         return true
       })
   }, [loadedListings, categoryFilter, roomsFilter, typeFilter, locationFilter, recencyFilter, priceMin, priceMax])
@@ -230,6 +234,22 @@ export default function Listings({ listings }: { listings: Listing[] }) {
       ? "We couldn't find any properties. Try broadening your search criteria."
       : `We couldn't find any ${activeFilters.join(' ')}. Try broadening your property type or exploring nearby locations.`
 
+
+  useEffect(() => {
+    if (!router.isReady) return
+
+    setSelectedTab(getQueryParam('tab', 'All'))
+    setRoomsFilter(getQueryParam('rooms', 'All'))
+    setTypeFilter(getQueryParam('type', 'All'))
+    setLocationFilter(getQueryParam('location', 'All'))
+    setRecencyFilter(getQueryParam('recency', 'All'))
+
+    const rawPriceMin = getQueryParam('priceMin', '0')
+    const rawPriceMax = getQueryParam('priceMax', '1000000000')
+
+    setPriceMin(Number(rawPriceMin) || 0)
+    setPriceMax(Number(rawPriceMax) || 1000000000)
+  }, [router.isReady, router.query])
   return (
     <BasicLayout
       title="Listings | Waaz Realty"
@@ -243,7 +263,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
         <div className="lg:text-[4rem] md:text-[3.5rem] text-[3rem] md:text-left text-center font-serif italic lg:leading-24 leading-14">
           Available Properties in Lagos
         </div>
-        <div className="text-[#666D80] md:w-155 md:text-left text-center text-[1rem] leading-7">
+        <div className="text-[#666D80] md:w-155 md:text-left text-center text-[1rem] leading-7 mt-5">
           Each property in our portfolio is selected for its quality, value, and potential to become the foundation for your future. Whether you are looking to buy or rent, your journey towards an elevated lifestyle begins here. Use the filters below to refine your search.
         </div>
       </section>
@@ -251,7 +271,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
       <section className="md:w-10/12 w-11/12 mx-auto">
         <div className="w-full">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div className="flex flex-wrap md items-center md:w-auto w-8/12 gap-3 border-2 border-b-0 border-[#F7F7F8] px-2">
+            <div className="flex flex-wrap md items-center md:w-auto w-11/12 gap-3 border-2 border-b-0 border-[#F7F7F8] px-2">
               {tabOptions.map((option) => (
                 <button
                   key={option}
@@ -342,7 +362,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
               />
             </div>
             <div className="px-4 w-30 justify-end md:flex hidden order-6">
-              <button type="button" onClick={resetFilters} className="text-base underline text-[#7D8B57] cursor-pointer md:mb-3">
+              <button type="button" onClick={resetFilters} className="text-sm underline text-[#7D8B57] cursor-pointer md:mb-3">
                 Reset All
               </button>
             </div>
@@ -365,7 +385,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
               ))}
           </div>
           <div className="px-4 border border-t-0 border-[#F7F7F8] w-full flex justify-end md:hidden cursor-pointer">
-            <div onClick={resetFilters} className="text-base underline text-[#616D43]">
+            <div onClick={resetFilters} className="text-sm underline text-[#616D43]">
               Reset All
             </div>
           </div>
@@ -388,7 +408,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
                   />
                 </div>
                 <div className="space-y-2 rounded-[.88rem] bg-[#F5F6EF]/50 p-4 transition-colors duration-300 group-hover:bg-[#F5F6EF]">
-                  <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-start justify-between gap-2">
                     <div className="w-[64%] line-clamp-2 text-base font-medium text-[#36394A]">
                       {listing.title}
                     </div>
@@ -396,6 +416,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
                     <div className="text-base font-medium text-[#36394A]">
                       ₦{formatCompactNumber(listing.price)}
                       {listing.category === "for-rent" && <span className="text-[#666D80]">/YR</span>}
+                      {listing.category === "shortlet" && <span className="text-[#666D80]">/NT</span>}
                     </div>
                   </div>
 

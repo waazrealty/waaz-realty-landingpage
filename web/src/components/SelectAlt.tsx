@@ -74,7 +74,7 @@ const SelectAltField: React.FC<SelectProps> = ({
         <MdKeyboardArrowUp className={`text-xl ${show ? 'block' : 'hidden'}`} />
       </div>
       {show && (
-        <div className="flex flex-col bg-black/80 shadow-2xl w-full max-h-40 overflow-auto absolute top-14 z-10 scrollbar-none rounded-2xl">
+        <div className="flex flex-col bg-black/80 shadow-2xl w-full min-h-28 overflow-auto absolute top-14 z-10 scrollbar-none rounded-2xl">
           {recordList && recordList.length === 0 ? (
             <div className="text-center text-gray-500 py-2">No options</div>
           ) : (

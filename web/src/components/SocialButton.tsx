@@ -15,10 +15,10 @@ export default function SocialButton({ socialType, textColor, bgColor }: SocialB
           <FaWhatsapp size={21} className="text-white"/>
         )}
       </div>
-      <div className={`flex items-center gap-2 font-medium capitalize px-6 py-[.77rem] text-${textColor} text-sm tracking-tight font-medium font-serifTwo captialize transition bg-[#74C56B] border border-white`}>
+      {/* <div className={`flex items-center gap-2 font-medium capitalize px-6 py-[.77rem] text-${textColor} text-sm tracking-tight font-medium font-serifTwo captialize transition bg-[#74C56B] border border-white`}>
         <span>Send Message</span>
         <VscChevronRight size={14} className="text-white"/>
-      </div>
+      </div> */}
     </div>
   )
 }

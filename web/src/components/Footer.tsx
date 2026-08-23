@@ -24,7 +24,7 @@ export default function Footer() {
             Speak with an Advisor
           </PrimaryButton>
         </div>
-        <div className="flex md:flex-row flex-col gap-5 space-x-14 text-sm lg:w-2/5">
+        <div className="flex md:flex-row flex-col gap-5 space-x-14 text-sm lg:w-1/2">
           <div className="space-y-3 text-base font-medium tracking-tight">
             <div>Quick Links</div>
             <div className="space-y-3 md:text-xs text-base text-[#9AA675] flex flex-col">
@@ -37,16 +37,16 @@ export default function Footer() {
           </div>
           <div className="space-y-3 text-base font-medium tracking-tight">
             <div>Properties</div>
-            <div className="space-y-3 md:text-xs text-base text-[#9AA675]">
-              <div>Flats & Apartments</div>
-              <div>Warehouse</div>
-              <div>Lands</div>
-              <div>Mini Flats</div>
-              <div>Detached duplex</div>
-              <div>Terraced duplex</div>
-              <div>Commercial</div>
-              <div>Bungalow</div>
-              <div>Duplex</div>
+            <div className="space-y-3 md:text-xs text-base text-[#9AA675] flex flex-col">
+              <Link href="/listings?type=flats-apartments">Flats & Apartments</Link>
+              <Link href="/listings?type=warehouse">Warehouse</Link>
+              <Link href="/listings?type=lands">Lands</Link>
+              <Link href="/listings?type=mini-flats">Mini Flats</Link>
+              <Link href="/listings?type=detached-duplex">Detached duplex</Link>
+              <Link href="/listings?type=terraced-duplex">Terraced duplex</Link>
+              <Link href="/listings?type=commercial">Commercial</Link>
+              <Link href="/listings?type=bungalow">Bungalow</Link>
+              <Link href="/listings?type=duplex">Duplex</Link>
             </div>
           </div>
           <div className="space-y-3 text-base font-medium tracking-tight">
@@ -55,6 +55,26 @@ export default function Footer() {
               <Link href="/contact">Contact</Link>
               <Link href="/portfolio">Portfolio</Link>
               <Link href="/listings">Listings</Link>
+            </div>
+          </div>
+          <div className="space-y-3 text-base font-medium tracking-tight">
+            <div>Socials</div>
+            <div className="lg:space-y-3 lg:space-x-0 space-x-3 md:text-xs text-base text-[#9AA675] flex lg:flex-col">
+              <Link href="/contact">
+                <img src="/assets/images/x.svg" alt="social media icon" className="lg:h-5 h-10 lg:w-5 w-10 lg:rounded-sm rounded-lg" />
+              </Link>
+              <Link href="/contact">
+                <img src="/assets/images/instagram.svg" alt="social media icon" className="lg:h-5 h-10 lg:w-5 w-10 lg:rounded-sm rounded-lg" />
+              </Link>
+              <Link href="/contact">
+                <img src="/assets/images/facebook.svg" alt="social media icon" className="lg:h-5 h-10 lg:w-5 w-10 lg:rounded-sm rounded-lg" />
+              </Link>
+              <Link href="/contact">
+                <img src="/assets/images/linkedIn.svg" alt="social media icon" className="lg:h-5 h-10 lg:w-5 w-10 lg:rounded-sm rounded-lg" />
+              </Link>
+              <Link href="/contact">
+                <img src="/assets/images/tiktok.svg" alt="social media icon" className="lg:h-5 h-10 lg:w-5 w-10 lg:rounded-sm rounded-lg" />
+              </Link>
             </div>
           </div>
         </div>

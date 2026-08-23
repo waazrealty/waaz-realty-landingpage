@@ -23,6 +23,7 @@ import {
   MdHandshake,
   MdBalance,
   MdOutlineDocumentScanner,
+  MdDomainVerification,
   MdElectricalServices,
   MdReceipt,
   MdWaterDrop,
@@ -157,6 +158,7 @@ export const iconMap = {
   handshake: MdHandshake,
   balance: MdBalance,
   contract: MdOutlineDocumentScanner,
+  building_approval: MdDomainVerification,
 
   // Utilities
   electric_meter: MdElectricalServices,

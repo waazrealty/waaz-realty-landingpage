@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
+import { MdPlayCircleOutline } from 'react-icons/md'
 
 const defaultImages = [
   '/assets/images/bg-home.png',
@@ -7,7 +8,7 @@ const defaultImages = [
   '/assets/images/bg-portfolio.png',
 ]
 
-export default function Carousel({ images }: { images?: string[] }) {
+export default function Carousel({ images, videoUrl }: { images?: string[], videoUrl?: string }) {
   const sliderRef = useRef<HTMLDivElement | null>(null)
   const items = images && images.length > 0 ? images : defaultImages
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -65,7 +66,15 @@ export default function Carousel({ images }: { images?: string[] }) {
 
   return (
     <section className="lg:w-10/12 w-11/12 md:-mt-10">
-      <div className="grid lg:col-span-2 gap-6 overflow-hidden w-full">
+      <div className="grid lg:col-span-2 gap-6 overflow-hidden w-full relative">
+        {videoUrl &&
+          <a href={videoUrl} target="_blank" rel="noopener noreferrer" className="absolute z-10 top-5 left-5">
+            <div className="flex bg-[#4D6741]/60 hover:bg-[#466F33]/80 border border-[#7D8B57] hover:border-[#515B3A] backdrop-blur-lg items-center gap-2 rounded-full font-medium px-6 py-3 text-base text-white w-max cursor-pointer">
+              <MdPlayCircleOutline />
+              Take a Video Tour
+            </div>
+          </a>
+        }
         <div className="relative overflow-hidden">
           <div
             ref={sliderRef}
