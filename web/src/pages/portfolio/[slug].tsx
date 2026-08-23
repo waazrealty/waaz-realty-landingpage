@@ -6,6 +6,7 @@ import PrimaryButton from '@/components/PrimaryButton'
 import { sanityClient } from '@/lib/sanity'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Link from 'next/link'
+import { LuCornerUpLeft } from 'react-icons/lu'
 
 type PortfolioFeedback = {
   name: string
@@ -82,7 +83,7 @@ export default function PortfolioDetails({portfolio, portfolios}: {portfolio:Por
       keywords={['blog', 'real estate', 'property', 'Waaz Realty']}
     >
       <section className="flex flex-col lg:mt-15 mt-25 md:w-10/12 w-11/12 md:mb-20">
-        <Link href="/portfolio" className="md:text-[2rem] text-[1.5rem] md:leading-12 leading-7 font-medium font-serif italic"><span className="px-1 text-[#666D80]">Portfolio</span>/ {portfolio.listing.title}</Link>
+        <Link href="/portfolio" className="flex flex-row items-center md:text-[2rem] text-[1.5rem] leading-12 font-medium font-serif italic"><span className="lg:pr-5 text-[#666D80] cursor-pointer md:text-3xl text-2xl"><LuCornerUpLeft/></span>{portfolio.listing.title}</Link>
         <div className="md:text-[3.5rem] text-4xl md:leading-14 leading-10 font-serif italic md:mt-10 md:mb-5 my-5">
           {portfolio.listing.title}
         </div>

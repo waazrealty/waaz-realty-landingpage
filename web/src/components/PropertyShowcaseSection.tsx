@@ -67,7 +67,7 @@ export default function PropertyShowcaseSection({ listings, rentalListings }: { 
 
               {/* Details */}
               <div className="space-y-2 rounded-[.88rem] bg-[#F5F6EF]/50 p-4 transition-colors duration-300 group-hover:bg-[#F5F6EF]">
-                <div className="flex items-start justify-between gap-4">
+                <div className="flex items-start justify-between gap-2">
                   <div className="w-[64%] line-clamp-2 text-base font-medium text-[#36394A]">
                     {listing.title}
                   </div>
@@ -97,7 +97,7 @@ export default function PropertyShowcaseSection({ listings, rentalListings }: { 
           )})}
         </div>
 
-        <div className="grid gap-10 lg:grid-cols-3 items-center lg:mt-25 mt-10">
+        <div className="grid gap-10 lg:grid-cols-3 items-center lg:mt-25 mt-15">
           <div className="space-y-8">
             <h2 className="md:text-[3.5rem] text-5xl md:leading-[3.8rem] italic font-serif text-[#131313]">Discover Your Next Rental Home</h2>
             <div className="">
@@ -118,7 +118,7 @@ export default function PropertyShowcaseSection({ listings, rentalListings }: { 
                     <Link
                       href={`/listings/${slug}`}
                       key={slug}
-                      className="group w-80 min-w-80 space-y-4 md:w-full md:min-w-0 md:max-w-75"
+                      className="group w-90 min-w-90 space-y-4 md:w-full md:min-w-0 md:max-w-75"
                     >
                       {/* Image */}
                       <div className="md:aspect-5/6 aspect-video  w-full overflow-hidden rounded-[.88rem]">
@@ -131,7 +131,7 @@ export default function PropertyShowcaseSection({ listings, rentalListings }: { 
 
                       {/* Details */}
                       <div className="space-y-2 rounded-[.88rem] bg-[#F5F6EF]/50 p-4 transition-colors duration-300 group-hover:bg-[#F5F6EF]">
-                        <div className="flex items-start justify-between gap-4">
+                        <div className="flex items-start justify-between gap-2">
                           <div className="w-[64%] line-clamp-2 text-base font-medium text-[#36394A]">
                             {listing.title}
                           </div>

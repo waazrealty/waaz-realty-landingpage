@@ -124,6 +124,7 @@ import {
   MdWindow,
   MdRecycling,
   MdThermostatAuto,
+  MdDomainVerification,
 } from 'react-icons/md'
 
 export default defineType({
@@ -190,6 +191,7 @@ export default defineType({
         list: [
           {title: 'For Sale', value: 'for-sale'},
           {title: 'For Rent', value: 'for-rent'},
+          {title: 'Shortlet', value: 'shortlet'},
         ],
         layout: 'dropdown',
       },
@@ -244,6 +246,11 @@ export default defineType({
       title: 'Baths',
       type: 'string',
       description: 'Example: 2 Baths',
+    }),
+    defineField({
+      name: 'videoUrl',
+      title: 'Video Tour Link',
+      type: 'string',
     }),
     defineField({
       name: 'gallery',
@@ -303,6 +310,7 @@ export default defineType({
           {title: 'Contract of Sale', value: 'handshake', icon: MdHandshake},
           {title: 'Court Judgment', value: 'balance', icon: MdBalance},
           {title: 'Tenancy Agreement', value: 'contract', icon: MdOutlineDocumentScanner },
+          {title: 'Building Approval', value: 'building_approval', icon: MdDomainVerification },
         ],
       },
     }),

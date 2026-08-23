@@ -30,7 +30,7 @@ export const BasicLayout = ({
         {/* Top navigation */}
         <SiteNav />
         {/* Main Content */}
-        <main className="flex flex-col w-full items-center md:space-y-20 space-y-10 overflow-auto">{children}</main>
+        <main className="flex flex-col w-full items-center md:space-y-20 space-y-15 overflow-auto">{children}</main>
         <div className="z-50 fixed bottom-10 lg:right-10 right-3">
           <SocialButton socialType="whatsapp" textColor="white" bgColor="[#74C56B]" />
         </div>

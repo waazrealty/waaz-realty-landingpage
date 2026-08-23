@@ -5,6 +5,7 @@ import { sanityClient } from '@/lib/sanity'
 import { getFormattedDate } from '@/lib/common'
 import Link from 'next/dist/client/link'
 import { FiChevronRight } from 'react-icons/fi'
+import { LuCornerUpLeft } from 'react-icons/lu'
 
 type BlogPost = {
   title: string
@@ -44,7 +45,7 @@ export default function BlogDetails({ post }: { post: BlogPost }) {
       keywords={['blog', 'real estate', 'property', 'Waaz Realty']}
     >
       <section className="flex flex-col md:w-10/12 w-11/12 lg:mt-5 mt-25">
-        <Link href="/blog" className="md:text-[2rem] text-[1.5rem] leading-12 font-medium font-serif italic"><span className="px-1 text-[#666D80]">Blog</span>/ {post.tag}</Link>
+        <Link href="/blog" className="flex flex-row items-center md:text-[2rem] text-[1.5rem] leading-12 font-medium font-serif italic"><span className="lg:pr-5 text-[#666D80] cursor-pointer md:text-3xl text-2xl"><LuCornerUpLeft/></span>{post.tag}</Link>
         <div className="md:text-[3rem] text-[2rem] md:leading-14 leading-10 font-serif italic md:my-10 my-5 md:w-2/3">
           {post.title}
         </div>
@@ -63,6 +64,8 @@ export default function BlogDetails({ post }: { post: BlogPost }) {
           <img src="/assets/images/x.svg" alt="social media icon" className="h-10 w-10" />
           <img src="/assets/images/instagram.svg" alt="social media icon" className="h-10 w-10" />
           <img src="/assets/images/facebook.svg" alt="social media icon" className="h-10 w-10" />
+          <img src="/assets/images/linkedIn.svg" alt="social media icon" className="h-10 w-10" />
+          <img src="/assets/images/tiktok.svg" alt="social media icon" className="h-10 w-10" />
         </div>
       </section>
       <section className="relative md:aspect-video aspect-2/3 lg:w-10/12 w-full overflow-hidden md:mb-20 mb-5">

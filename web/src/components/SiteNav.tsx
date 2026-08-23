@@ -7,7 +7,7 @@ import { MdSegment } from 'react-icons/md'
 const desktopLinkBase = 'leading-2 font-medium transition hover:text-[#1B1F14] inline-flex items-center justify-center pb-1'
 const desktopLinkActive = 'relative text-[#1B1F14] font-medium inline-flex items-center justify-center after:-mb-0.5 after:absolute after:rounded-full after:left-1/2 after:-bottom-0 after:block after:h-[2px] after:w-3 after:-translate-x-1/3 after:bg-[#1B1F14]'
 const mobileLinkBase = 'block rounded-2xl py-2 transition hover:bg-[#F5F5F5] hover:text-[#363C2B] px-4'
-const mobileLinkActive = 'relative text-[#1B1F14] font-semibold pb-1 after:absolute after:rounded-full after:left-0/3 after:-bottom-1 after:block after:h-[4px] after:w-50 after:-translate-x-1/2 after:bg-[#1B1F14]'
+const mobileLinkActive = 'relative text-[#7D8B57] font-semibold pb-1 after:absolute after:rounded-full after:left-0/3 after:-bottom-1 after:block after:h-[4px] after:w-50 after:-translate-x-1/2 after:bg-[#7D8B57]'
 
 const navItemsLeft = [
   { label: 'About', href: '/about' },
@@ -27,7 +27,7 @@ export default function SiteNav() {
   const [menuOpen, setMenuOpen] = useState(false)
   const { pathname } = useRouter()
   const getDesktopLinkClass = (href: string) => pathname.includes(href) ? desktopLinkActive : desktopLinkBase
-  const getMobileLinkClass = (href: string) => `${mobileLinkBase} ${pathname.includes(href) ? mobileLinkActive : 'text-[#1B1F14]'}`
+  const getMobileLinkClass = (href: string) => `${mobileLinkBase} ${pathname.includes(href) ? mobileLinkActive : 'text-white'}`
 
   return (
     <nav className="w-full md:px-6 px-3 md:py-10 py-2 relative flex flex-col items-center">
@@ -75,8 +75,8 @@ export default function SiteNav() {
 
       {menuOpen && (
         <div className="fixed inset-0 w-full z-50">
-          <div className="w-full h-full bg-white/50 p-2">
-            <div className="flex flex-col gap-3 rounded-3xl bg-[#D2D8BE]/80 p-5 pb-15 text-sm text-white font-medium shadow-sm max-h-full overflow-auto">
+          <div onClick={() => setMenuOpen((prev) => !prev)} className="w-full h-full bg-white/50 p-2 relative">
+            <div className="absolute bottom-2 flex flex-col gap-3 rounded-3xl bg-black/90 p-5 pb-15 text-base text-white font-medium shadow-sm max-h-full w-[96%] overflow-auto">
               <div className="flex items-center justify-between mb-5">
                 <Link href="/" onClick={() => setMenuOpen(false)}>
                   <img src="/assets/images/logo.png" alt="Waaz Realty Logo" className="h-15 w-15" />
@@ -86,7 +86,7 @@ export default function SiteNav() {
                   aria-expanded={menuOpen}
                   aria-label="Toggle navigation menu"
                   onClick={() => setMenuOpen((prev) => !prev)}
-                  className="text-[#36394A] transition hover:bg-[#F5F5F5]"
+                  className="text-white transition hover:bg-[#F5F5F5]"
                 >
                   <AiOutlineClose size={20} />
                 </button>

@@ -15,6 +15,7 @@ import { IoLogoWhatsapp } from 'react-icons/io'
 import { getIcon, IconKey } from '@/lib/icons'
 import { useAlert } from '@/lib/notification/alertcontext'
 import { ERROR_EMAIL_INVALID, inspectionErrorMessageMap, InspectionErrorTypes } from '@/lib/errors'
+import { LuCornerUpLeft } from 'react-icons/lu'
 
 type FeatureItem = string | { _key?: string; feature?: string }
 
@@ -26,6 +27,7 @@ type ListingDetail = {
   city?: string
   state?: string
   bedrooms?: string
+  videoUrl?: string
   baths?: string
   propertyType?: string
   category?: string
@@ -386,11 +388,11 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
       keywords={['listings', 'real estate', 'property', 'Waaz Realty']}
     >
       <section className="flex flex-col md:w-10/12 w-11/12 lg:mt-15 mt-25">
-        <div className="md:text-[3.5rem] text-4xl md:leading-14 leading-10 font-medium font-serif italic md:mb-10">
-          <span onClick={() => router.back()} className="px-1 text-[#666D80] cursor-pointer">Listings</span>/ {listing.title}
+        <div className="flex flex-row lg:items-center md:text-[3.5rem] text-4xl md:leading-14 leading-10 font-medium font-serif italic md:mb-10 -mb-10">
+          <span onClick={() => router.back()} className="pr-5 text-[#666D80] cursor-pointer md:text-3xl text-2xl"><LuCornerUpLeft/></span> <span>{listing.title}</span>
         </div>
       </section>
-      <Carousel images={listing.gallery?.map((item) => item.asset?.url).filter(Boolean) as string[] | undefined} />
+      <Carousel videoUrl={listing.videoUrl} images={listing.gallery?.map((item) => item.asset?.url).filter(Boolean) as string[] | undefined} />
       <section className="md:w-10/12 flex flex-col lg:flex-row md:gap-25 gap-5 md:pt-12 px-4 lg:px-0 md:-mt-10">
         <div className="lg:w-[60%] space-y-8">
           <div className="flex flex-col gap-4">
@@ -547,7 +549,7 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
             </div>
             <div className="w-full">
               <div className="flex items-center space-x-2 px-5 py-2 bg-[#F5F6EF] text-[#3E452F] rounded-t-2xl max-w-max">
-                <MdError className="text-[#36394A] text-lg" />
+                <MdError/>
                 <div className="text-base font-medium">Key Property Details</div>
               </div>
               <div className="flex flex-row flex-wrap md:gap-7 gap-5 w-full border border-[#C1C7D0]/50 rounded-b-2xl rounded-tr-2xl p-5 text-[#666D80]">
@@ -578,7 +580,7 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
             </div>
             <div className="w-full">
               <div className="flex items-center space-x-2 px-5 py-2 bg-[#F5F6EF] text-[#3E452F] rounded-t-2xl max-w-max">
-                <MdReceipt className="text-[#36394A] text-lg" />
+                <MdReceipt />
                 <div className="text-base font-medium">Move-In Cost Overview</div>
               </div>
               <div className="flex flex-col w-full gap-5 border border-[#C1C7D0]/50 rounded-b-2xl rounded-tr-2xl p-5 text-base text-[#36394A]">
@@ -754,6 +756,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       title,
       slug,
       price,
+      videoUrl,
       city,
       state,
       bedrooms,

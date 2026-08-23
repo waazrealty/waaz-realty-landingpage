@@ -270,7 +270,7 @@ export default function Rent({ listings, totalCount }: { listings: Listing[], to
               <SelectField recordList={recencyOptions} value={recencyFilter} onChangeText={(value) => setRecencyFilterAndURL(value)} placeholder="Select recency" />
             </div>
             <div className="px-4 w-30 justify-end md:flex hidden order-6">
-              <button type="button" onClick={resetFilters} className="text-base underline text-[#7D8B57] cursor-pointer md:mb-3">
+              <button type="button" onClick={resetFilters} className="text-sm underline text-[#7D8B57] cursor-pointer md:mb-3">
                 Reset All
               </button>
             </div>
@@ -291,7 +291,7 @@ export default function Rent({ listings, totalCount }: { listings: Listing[], to
               ))}
           </div>
           <div className="px-4 border border-t-0 border-[#F7F7F8] w-full flex justify-end md:hidden cursor-pointer">
-            <div onClick={resetFilters} className="text-base underline text-[#616D43]">
+            <div onClick={resetFilters} className="text-sm underline text-[#616D43]">
               Reset All
             </div>
           </div>
@@ -313,7 +313,7 @@ export default function Rent({ listings, totalCount }: { listings: Listing[], to
                   />
                 </div>
                 <div className="space-y-2 rounded-[.88rem] bg-[#F5F6EF]/50 p-4 transition-colors duration-300 group-hover:bg-[#F5F6EF]">
-                  <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-start justify-between gap-2">
                     <div className="w-[64%] line-clamp-2 text-base font-medium text-[#36394A]">
                       {listing.title}
                     </div>
