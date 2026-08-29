@@ -198,11 +198,11 @@ export default defineType({
             value: 'qualifying',
           },
           {
-            title: 'Viewing Scheduled',
+            title: 'Inspection Scheduled',
             value: 'viewing-scheduled',
           },
           {
-            title: 'Property Viewed',
+            title: 'Inspection Completed',
             value: 'viewing-completed',
           },
           {
@@ -210,7 +210,7 @@ export default defineType({
             value: 'offer-negotiation',
           },
           {
-            title: 'Due Diligence',
+            title: 'Due Diligence / Verification & Documentation',
             value: 'due-diligence',
           },
           {

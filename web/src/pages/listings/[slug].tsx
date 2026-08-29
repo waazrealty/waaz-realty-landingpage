@@ -24,6 +24,7 @@ type ListingDetail = {
   title: string
   slug: { current: string }
   price?: number
+  unit?: number
   city?: string
   state?: string
   bedrooms?: string
@@ -406,7 +407,7 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
                 <div className="bg-[#293417CC] border border-[#B5BF97] py-1.5 px-3 text-white text-xs rounded-full">FEATURED</div>
                 |
               </div>}
-              <div className="text-base text-[#666D80] font-medium">{listing.category?.includes("for-sale") && "For Sale | " } {listing.category?.includes("for-rent") && "For Rent | " } {listing.category?.includes("shortlet") && "Shortlet | " } {location} </div>
+              <div className="text-base text-[#666D80] font-medium">{listing.category?.includes("for-sale") && "For Sale | " } {listing.category?.includes("for-rent") && "For Rent | " } {listing.category?.includes("shortlet") && "Shortlet | " } {location}  | {`${listing.unit} Units`}</div>
             </div>
             <div className="flex flex-col gap-2 md:gap-4 font-serif font-medium italic text-4xl">
               <div className="leading-tight">{listing.title}</div>
@@ -773,6 +774,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       state,
       bedrooms,
       baths,
+      unit,
       propertyType,
       category,
       gallery[]{asset->{url}},
