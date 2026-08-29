@@ -124,6 +124,12 @@ import {
   MdWindow,
   MdRecycling,
   MdThermostatAuto,
+  MdSportsEsports,
+  MdTheaters,
+  MdSportsHockey,
+  MdLocalPlay,
+  MdSmartDisplay,
+  MdConnectedTv,
 } from 'react-icons/md'
 
 export const iconMap = {
@@ -218,6 +224,10 @@ export const iconMap = {
   wine_bar: MdWineBar,
   local_bar: MdLocalBar,
   sports_tennis: MdSportsTennis,
+  sports_hockey: MdSportsHockey,
+  local_play: MdLocalPlay,
+  smart_display: MdSmartDisplay,
+  connected_tv: MdConnectedTv,
   sports_basketball: MdSportsBasketball,
   fitness_center: MdFitnessCenter,
   golf_course: MdGolfCourse,
@@ -269,12 +279,12 @@ export const iconMap = {
 
   // Specialized Rooms
   cottage: MdHome,
-  theaters: MdChair,
+  theaters: MdTheaters,
   desk: MdDeck,
   place_of_worship: MdChurch,
   local_laundry_service: MdCleaningServices,
   foundation: MdHome,
-  sports_esports: MdChair,
+  sports_esports: MdSportsEsports,
   mic: MdMic,
   menu_book: MdMenuBook,
   wb_sunny: MdWbSunny,

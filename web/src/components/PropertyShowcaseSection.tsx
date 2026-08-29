@@ -68,7 +68,7 @@ export default function PropertyShowcaseSection({ listings, rentalListings }: { 
               {/* Details */}
               <div className="space-y-2 rounded-[.88rem] bg-[#F5F6EF]/50 p-4 transition-colors duration-300 group-hover:bg-[#F5F6EF]">
                 <div className="flex items-start justify-between gap-2">
-                  <div className="w-[64%] line-clamp-2 text-base font-medium text-[#36394A]">
+                  <div className="w-[64%] line-clamp-1 text-base font-medium text-[#36394A]">
                     {listing.title}
                   </div>
 
@@ -118,7 +118,7 @@ export default function PropertyShowcaseSection({ listings, rentalListings }: { 
                     <Link
                       href={`/listings/${slug}`}
                       key={slug}
-                      className="group w-90 min-w-90 space-y-4 md:w-full md:min-w-0 md:max-w-75"
+                      className="group w-90 min-w-90 space-y-4 md:w-full md:min-w-0 md:max-w-85"
                     >
                       {/* Image */}
                       <div className="md:aspect-5/6 aspect-video  w-full overflow-hidden rounded-[.88rem]">
@@ -132,7 +132,7 @@ export default function PropertyShowcaseSection({ listings, rentalListings }: { 
                       {/* Details */}
                       <div className="space-y-2 rounded-[.88rem] bg-[#F5F6EF]/50 p-4 transition-colors duration-300 group-hover:bg-[#F5F6EF]">
                         <div className="flex items-start justify-between gap-2">
-                          <div className="w-[64%] line-clamp-2 text-base font-medium text-[#36394A]">
+                          <div className="w-[64%] line-clamp-1 text-base font-medium text-[#36394A]">
                             {listing.title}
                           </div>
 

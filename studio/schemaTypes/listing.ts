@@ -125,6 +125,12 @@ import {
   MdRecycling,
   MdThermostatAuto,
   MdDomainVerification,
+  MdSportsEsports,
+  MdTheaters,
+  MdSportsHockey,
+  MdLocalPlay,
+  MdSmartDisplay,
+  MdConnectedTv,
 } from 'react-icons/md'
 
 export default defineType({
@@ -165,8 +171,8 @@ export default defineType({
       title: 'Slug',
       type: 'slug',
       options: {
-        source: 'title',
-        maxLength: 96,
+        source: (doc) => `${doc?.title ?? ''}-${doc?.listingCode ?? ''}`,
+        maxLength: 120,
       },
       validation: (Rule) => Rule.required(),
     }),
@@ -186,14 +192,14 @@ export default defineType({
     defineField({
       name: 'category',
       title: 'Category',
-      type: 'string',
+      type: 'array',
+      of: [defineArrayMember({type: 'string'})],
       options: {
         list: [
           {title: 'For Sale', value: 'for-sale'},
           {title: 'For Rent', value: 'for-rent'},
           {title: 'Shortlet', value: 'shortlet'},
         ],
-        layout: 'dropdown',
       },
     }),
     defineField({
@@ -262,6 +268,16 @@ export default defineType({
       name: 'description',
       title: 'Description',
       type: 'blockContent',
+    }),
+    defineField({
+      name: 'unit',
+      title: 'Unit Available',
+      type: 'number',
+    }),
+    defineField({
+      name: 'featured',
+      title: 'Flag Property as featured',
+      type: 'boolean',
     }),
 
     // Property Features & Rooms
@@ -411,16 +427,20 @@ export default defineType({
           {title: 'Sauna / Steam Room', value: 'spa', icon: MdSpa},
           {title: 'Wine Cellar', value: 'wine_bar', icon: MdWineBar},
           {title: 'Lounge / Bar Area', value: 'local_bar', icon: MdLocalBar},
-          {title: 'Tennis Court', value: 'sports_tennis', icon: MdSportsTennis},
+          {title: 'Tennis Court / Table Tennis', value: 'sports_tennis', icon: MdSportsTennis},
           {title: 'Basketball Court', value: 'sports_basketball', icon: MdSportsBasketball},
           {title: 'Gym / Fitness Center', value: 'fitness_center', icon: MdFitnessCenter},
+          {title: 'Air Hockey', value: 'sports_hockey', icon: MdSportsHockey},
           {title: 'Golf / Mini-Golf', value: 'golf_course', icon: MdGolfCourse},
+          {title: 'Snooker', value: 'local_play', icon: MdLocalPlay},
           {title: 'Helipad', value: 'flight_takeoff', icon: MdFlightTakeoff},
           {title: 'Private Boat Dock / Jetty', value: 'directions_boat', icon: MdDirectionsBoat},
           {title: 'Rooftop Lounge', value: 'roofing', icon: MdDeck},
           {title: 'Squash Court', value: 'sports_score', icon: MdSportsScore},
           {title: 'Cigar Lounge', value: 'smoking_rooms', icon: MdSmokingRooms},
           {title: 'Indoor Pool', value: 'water', icon: MdWaterDrop},
+          {title: 'NetFlix', value: 'smart_display', icon: MdSmartDisplay},
+          {title: 'Dstv (Cable/Satelite)', value: 'connected_tv', icon: MdConnectedTv},
         ],
       },
     }),
@@ -513,13 +533,13 @@ export default defineType({
       options: {
         list: [
           {title: 'Boys Quarters (BQ) / Maids Room', value: 'cottage', icon: MdHome},
-          {title: 'Home Cinema / Theater', value: 'theaters', icon: MdChair},
+          {title: 'Home Cinema / Theater', value: 'theaters', icon: MdTheaters},
           {title: 'Study Room / Home Office', value: 'desk', icon: MdDeck},
           {title: 'Prayer Room / Mosque / Chapel', value: 'place_of_worship', icon: MdChurch},
           {title: 'Laundry Room', value: 'local_laundry_service', icon: MdCleaningServices},
           {title: 'Mudroom / Foyer', value: 'meeting_room', icon: MdMeetingRoom},
           {title: 'Underground Basement', value: 'foundation', icon: MdHome},
-          {title: 'Gaming Room', value: 'sports_esports', icon: MdChair},
+          {title: 'Gaming Room', value: 'sports_esports', icon: MdSportsEsports },
           {title: 'Music / Recording Studio', value: 'mic', icon: MdMic},
           {title: 'Private Library', value: 'menu_book', icon: MdMenuBook},
           {title: 'Sunroom / Conservatory', value: 'wb_sunny', icon: MdWbSunny},

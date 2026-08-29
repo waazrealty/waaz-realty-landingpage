@@ -29,8 +29,9 @@ type ListingDetail = {
   bedrooms?: string
   videoUrl?: string
   baths?: string
+  featured?: boolean
   propertyType?: string
-  category?: string
+  category?: string[]
   gallery?: Array<{ asset?: { url?: string } }>
   description?: any[]
   propertyFeatures?: FeatureItem[]
@@ -94,7 +95,9 @@ const featureTitles: Record<string, string> = {
   spa: 'Sauna / Steam Room',
   wine_bar: 'Wine Cellar',
   local_bar: 'Lounge / Bar Area',
-  sports_tennis: 'Tennis Court',
+  sports_tennis: 'Tennis Court / Table Tennis',
+  sports_hockey: 'Air Hockey',
+  local_play: 'Snooker',
   sports_basketball: 'Basketball Court',
   fitness_center: 'Gym / Fitness Center',
   golf_course: 'Golf / Mini-Golf',
@@ -120,6 +123,8 @@ const featureTitles: Record<string, string> = {
   door_front: 'Security / Bulletproof Doors',
   grid_3x3: 'Burglary Proof / Window Guards',
   blinds: 'Automated Blinds / Curtains',
+  smart_display: 'NetFlix',
+  connected_tv: 'Dstv (Cable/Satelite)',
 }
 
 const getFeatureTitle = (featureKey?: string) => {
@@ -396,7 +401,13 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
       <section className="md:w-10/12 flex flex-col lg:flex-row md:gap-25 gap-5 md:pt-12 px-4 lg:px-0 md:-mt-10">
         <div className="lg:w-[60%] space-y-8">
           <div className="flex flex-col gap-4">
-            <div className="text-base text-[#666D80] font-medium">{listing.category === "for-sale" ? "For Sale" : "For Rent" } | {location}</div>
+            <div className="flex flex-row items-center">
+              {listing.featured && <div className="inline-flex items-center text-base text-[#666D80] font-medium gap-1 mr-1">
+                <div className="bg-[#293417CC] border border-[#B5BF97] py-1.5 px-3 text-white text-xs rounded-full">FEATURED</div>
+                |
+              </div>}
+              <div className="text-base text-[#666D80] font-medium">{listing.category?.includes("for-sale") && "For Sale | " } {listing.category?.includes("for-rent") && "For Rent | " } {listing.category?.includes("shortlet") && "Shortlet | " } {location} </div>
+            </div>
             <div className="flex flex-col gap-2 md:gap-4 font-serif font-medium italic text-4xl">
               <div className="leading-tight">{listing.title}</div>
               <div>
@@ -641,7 +652,7 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
                     <IoLogoWhatsapp size={26} className="mb-[-0.1rem] text-[#58B04E]" />
                   </div>
                   <div className="flex flex-1 items-center gap-2 capitalize px-6 py-[.77rem] text-base bg-white justify-between font-medium">
-                    Send {getFirstWord(agent.name) || 'Agent'} a Message
+                    <span className="line-clamp-1"> Send {getFirstWord(agent.name) || 'Agent'} a Message</span>
                     <VscChevronRight size={14} />
                   </div>
                 </a>
@@ -757,6 +768,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       slug,
       price,
       videoUrl,
+      featured,
       city,
       state,
       bedrooms,

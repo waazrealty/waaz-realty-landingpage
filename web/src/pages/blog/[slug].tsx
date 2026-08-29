@@ -60,12 +60,12 @@ export default function BlogDetails({ post }: { post: BlogPost }) {
         <div className="prose prose-slate">
           <PortableText value={post.body || []} />
         </div>
-        <div className="flex items-center justify-center gap-2 my-10">
-          <img src="/assets/images/x.svg" alt="social media icon" className="h-10 w-10" />
+        <div className="flex items-center justify-center gap-5 my-15">
           <img src="/assets/images/instagram.svg" alt="social media icon" className="h-10 w-10" />
           <img src="/assets/images/facebook.svg" alt="social media icon" className="h-10 w-10" />
-          <img src="/assets/images/linkedIn.svg" alt="social media icon" className="h-10 w-10" />
           <img src="/assets/images/tiktok.svg" alt="social media icon" className="h-10 w-10" />
+          <img src="/assets/images/linkedIn.svg" alt="social media icon" className="h-10 w-10" />
+          <img src="/assets/images/x.svg" alt="social media icon" className="h-10 w-10" />
         </div>
       </section>
       <section className="relative md:aspect-video aspect-2/3 lg:w-10/12 w-full overflow-hidden md:mb-20 mb-5">

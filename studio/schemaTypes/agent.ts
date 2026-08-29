@@ -32,8 +32,58 @@ export default defineType({
       title: 'Bio',
       type: 'text',
     }),
+    defineField({
+      name: 'status',
+      title: 'Status',
+      type: 'string',
+      options: {
+        list: [
+          {title: 'Active', value: 'active'},
+          {title: 'Inactive', value: 'inactive'},
+        ],
+        layout: 'radio',
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'role',
+      title: 'Role',
+      type: 'string',
+      options: {
+        list: [
+          {title: 'Internal', value: 'internal'},
+          {title: 'External', value: 'external'},
+        ],
+        layout: 'dropdown',
+      },
+    }),
+    defineField({
+      name: 'company',
+      title: 'Company',
+      type: 'string',
+      validation: (Rule) =>
+        Rule.custom((value, context) => {
+          const role = (context.document as { role?: string })?.role
+
+          if (role === 'external' && !value?.trim()) {
+            return 'Company is required for external roles'
+          }
+
+          return true
+        }),
+    }),
   ],
   preview: {
-    select: {title: 'name', media: 'photo'},
+    select: {
+      title: 'name',
+      role: 'role',
+    },
+    prepare({title, role}) {
+      const subtitle = `${(role)} agent`
+      return {
+        title,
+        subtitle,
+      }
+    },
   },
 })
