@@ -102,7 +102,17 @@ export default function Rent({ listings, totalCount }: { listings: Listing[], to
   }
 
   const roomOptions = useMemo(
-    () => ['All', ...Array.from(new Set(loadedListings.map((listing) => listing.bedrooms).filter(Boolean) as string[]))],
+    () => [
+      'All',
+      ...Array.from(
+        new Set(
+          loadedListings
+            .map((listing) => listing.bedrooms)
+            .filter((bedroom) => bedroom !== undefined && bedroom !== null)
+            .map(String)
+        )
+      ).sort((a, b) => Number(a) - Number(b)),
+    ],
     [loadedListings]
   )
 
@@ -314,7 +324,7 @@ export default function Rent({ listings, totalCount }: { listings: Listing[], to
                 </div>
                 <div className="space-y-2 rounded-[.88rem] bg-[#F5F6EF]/50 p-4 transition-colors duration-300 group-hover:bg-[#F5F6EF]">
                   <div className="flex items-start justify-between gap-2">
-                    <div className="w-[64%] line-clamp-2 text-base font-medium text-[#36394A]">
+                    <div className="w-[64%] line-clamp-1 text-base font-medium text-[#36394A]">
                       {listing.title}
                     </div>
 
@@ -390,8 +400,8 @@ export default function Rent({ listings, totalCount }: { listings: Listing[], to
 
 export const getStaticProps: GetStaticProps = async () => {
   const PAGE_SIZE = 12
-  const totalCount = await sanityClient.fetch(`count(*[_type == "listing" && category == "for-rent" && status == "active"])`)
-  const listings = await sanityClient.fetch(`*[_type == "listing" && category == "for-rent" && status == "active"] | order(_updatedAt desc)[0...${PAGE_SIZE}]{
+  const totalCount = await sanityClient.fetch(`count(*[_type == "listing" && "for-rent" in category && status == "active"])`)
+  const listings = await sanityClient.fetch(`*[_type == "listing" && "for-rent" in category && status == "active"] | order(_updatedAt desc)[0...${PAGE_SIZE}]{
     title,
     slug,
     price,

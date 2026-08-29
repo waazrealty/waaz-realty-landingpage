@@ -18,7 +18,7 @@ type Listing = {
   bedrooms?: string
   baths?: string
   propertyType?: string
-  category?: string
+  category?: string[]
   _updatedAt?: string
   gallery?: { asset?: { url?: string } }
 }
@@ -126,7 +126,17 @@ export default function Listings({ listings }: { listings: Listing[] }) {
 
   // --- Derived data (room/type/location options from loaded listings) ---
   const roomOptions = useMemo(
-    () => ['All', ...Array.from(new Set(loadedListings.map((listing) => listing.bedrooms).filter(Boolean) as string[]))],
+    () => [
+      'All',
+      ...Array.from(
+        new Set(
+          loadedListings
+            .map((listing) => listing.bedrooms)
+            .filter((bedroom) => bedroom !== undefined && bedroom !== null)
+            .map(String)
+        )
+      ).sort((a, b) => Number(a) - Number(b)),
+    ],
     [loadedListings]
   )
 
@@ -163,7 +173,7 @@ export default function Listings({ listings }: { listings: Listing[] }) {
     const cutoff = (days: number) => Date.now() - days * 24 * 60 * 60 * 1000
 
     return loadedListings
-      .filter((listing) => !categoryFilter || listing.category === categoryFilter)
+      .filter((listing) => !categoryFilter || listing.category?.includes(categoryFilter))
       .filter((listing) => !roomsFilter || roomsFilter === 'All' || listing.bedrooms === roomsFilter)
       .filter((listing) => !typeFilter || typeFilter === 'All' || listing.propertyType === typeFilter)
       .filter(
@@ -409,14 +419,14 @@ export default function Listings({ listings }: { listings: Listing[] }) {
                 </div>
                 <div className="space-y-2 rounded-[.88rem] bg-[#F5F6EF]/50 p-4 transition-colors duration-300 group-hover:bg-[#F5F6EF]">
                   <div className="flex items-start justify-between gap-2">
-                    <div className="w-[64%] line-clamp-2 text-base font-medium text-[#36394A]">
+                    <div className="w-[64%] line-clamp-1 text-base font-medium text-[#36394A]">
                       {listing.title}
                     </div>
 
                     <div className="text-base font-medium text-[#36394A]">
                       ₦{formatCompactNumber(listing.price)}
-                      {listing.category === "for-rent" && <span className="text-[#666D80]">/YR</span>}
-                      {listing.category === "shortlet" && <span className="text-[#666D80]">/NT</span>}
+                      {selectedTab === "for-rent" && <span className="text-[#666D80]">/YR</span>}
+                      {selectedTab === "shortlet" && <span className="text-[#666D80]">/NT</span>}
                     </div>
                   </div>
 

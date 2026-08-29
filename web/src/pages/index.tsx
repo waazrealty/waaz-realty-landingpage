@@ -272,7 +272,7 @@ export const getStaticProps: GetStaticProps = async () => {
   )
 
   const rentalListings = await sanityClient.fetch(
-    `*[_type == "listing" && status == "active"  && category == "for-rent"]{
+    `*[_type == "listing" && status == "active"  && "for-rent" in category]{
       title,
       slug,
       price,

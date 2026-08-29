@@ -41,7 +41,7 @@ export default function MoreListings({ listings }: { listings: Listing[] }) {
                   </div>
                   <div className="space-y-2 rounded-[.88rem] bg-[#F5F6EF]/50 p-4 transition-colors duration-300 group-hover:bg-[#F5F6EF]">
                     <div className="flex items-start justify-between gap-2">
-                      <div className="w-[64%] line-clamp-2 text-base font-medium text-[#36394A]">
+                      <div className="w-[64%] line-clamp-1 text-base font-medium text-[#36394A]">
                         {listing.title}
                       </div>
 
