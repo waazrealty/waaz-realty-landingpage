@@ -1,3 +1,4 @@
+import faq from './faq'
 import blog from './blog'
 import blockContent from './blockContent'
 import listing from './listing'
@@ -12,4 +13,4 @@ import inspection from './inspection'
 import testimonal from './testimonal'
 import youtube from './youtube'
 
-export const schemaTypes = [blog, blockContent, client, deal, listing, listingForm, agent, team, contact, portfolio, inspection, testimonal, youtube]
+export const schemaTypes = [faq, blog, blockContent, client, deal, listing, listingForm, agent, team, contact, portfolio, inspection, testimonal, youtube]
