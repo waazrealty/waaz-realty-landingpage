@@ -55,6 +55,7 @@ export default function Footer() {
               <Link href="/contact">Contact</Link>
               <Link href="/portfolio">Portfolio</Link>
               <Link href="/listings">Listings</Link>
+              <Link href="/faq">FAQs</Link>
             </div>
           </div>
           <div className="space-y-3 text-base font-medium tracking-tight">
