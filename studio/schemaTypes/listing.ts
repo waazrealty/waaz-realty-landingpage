@@ -280,6 +280,77 @@ export default defineType({
       type: 'boolean',
     }),
 
+    defineField({
+      name: 'pocHistory',
+      title: 'Point of Contact History',
+      type: 'array',
+      description:
+        'All Point of Contact history for this listing will be recorded here',
+
+      of: [
+        defineArrayMember({
+          type: 'object',
+          title: 'point of contact',
+
+          fields: [
+            defineField({
+              name: 'fullName',
+              title: 'Full Name',
+              type: 'string',
+              validation: (Rule) => Rule.required().error('Full name is required'),
+            }),
+            defineField({
+              name: 'phoneNumber',
+              title: 'Phone Number',
+              type: 'string',
+              validation: (Rule) => Rule.required().error('Phone number is required'),
+            }),
+            defineField({
+              name: 'emailAddress',
+              title: 'Email Address',
+              type: 'string',
+              // optional, but if provided, we can validate as email
+              validation: (Rule) => Rule.email().warning('Must be a valid email address'),
+            }),
+            defineField({
+              name: 'role',
+              title: 'Role',
+              type: 'string',
+              validation: (Rule) => Rule.required().error('Role is required'),
+            }),
+          ],
+
+          preview: {
+            select: {
+              fullName: 'fullName',
+              phoneNumber: 'phoneNumber',
+              emailAddress: 'emailAddress',
+              role: 'role',
+            },
+
+            prepare({
+              fullName,
+              phoneNumber,
+              emailAddress,
+              role,
+            }) {
+              return {
+                title: `
+                ${
+                  `${fullName} • ${phoneNumber} • ${emailAddress}`
+                }`,
+
+                subtitle: `${status
+                } • ${
+                  role
+                }`,
+              }
+            },
+          },
+        }),
+      ],
+    }),
+
     // Property Features & Rooms
     defineField({
       name: 'propertyFeatures',

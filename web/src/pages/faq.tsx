@@ -14,6 +14,7 @@ import { BasicLayout } from '@/components/Layout/BasicLayout'
 import { sanityClient } from '@/lib/sanity'
 
 type Faq = {
+  category: string
   question: string
   slug: {
     current: string
@@ -22,18 +23,18 @@ type Faq = {
   _updatedAt?: string
 }
 
-type BlogProps = {
+type FaqProps = {
   faqs: Faq[]
   totalCount: number
 }
 
-export default function Blog({ faqs, totalCount }: BlogProps) {
+export default function Faq({ faqs, totalCount }: FaqProps) {
   const PAGE_SIZE = 12
 
   const siteUrl =
     process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
 
-  const canonical = `${siteUrl}/blog`
+  const canonical = `${siteUrl}/faq`
 
   const [page, setPage] = useState(0)
   const [loadedFaqs, setLoadedFaqs] = useState<Faq[]>(faqs)
@@ -57,6 +58,7 @@ export default function Blog({ faqs, totalCount }: BlogProps) {
         `*[_type == "faq"] | order(_updatedAt desc)[${start}...${end}]{
           question,
           answer,
+          category,
           slug,
           _updatedAt
         }`,
@@ -119,31 +121,38 @@ export default function Blog({ faqs, totalCount }: BlogProps) {
                       isOpen ? 'bg-[#F5F6EF]/50' : 'bg-white'
                     }`}
                   >
-                    <button
-                      type="button"
-                      onClick={() => handleToggleFaq(slug)}
-                      aria-expanded={isOpen}
-                      aria-controls={`faq-answer-${slug}`}
-                      className="flex w-full cursor-pointer items-center gap-5 px-5 py-5 text-left transition hover:bg-[#F5F6EF]/50 md:px-7 md:py-6"
-                    >
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F5F6EF] text-sm font-medium text-[#616D43]">
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
-
-                      <span className="flex-1 text-sm font-medium leading-6 text-[#0D0D12] md:text-base">
-                        {faq.question}
-                      </span>
-
-                      <span
-                        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-all duration-300 ${
-                          isOpen
-                            ? 'rotate-180 bg-[#616D43] text-white'
-                            : 'bg-[#F5F6EF] text-[#616D43]'
-                        }`}
+                    <div>
+                      {faq.category && (
+                        <span className="inline-block bg-[#D2D8BE] px-3 py-1 text-xs font-medium">
+                          {faq.category}
+                        </span>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => handleToggleFaq(slug)}
+                        aria-expanded={isOpen}
+                        aria-controls={`faq-answer-${slug}`}
+                        className="flex w-full cursor-pointer items-center gap-5 px-5 py-5 text-left transition hover:bg-[#F5F6EF]/50 md:px-7 md:py-6"
                       >
-                        <FiChevronDown size={18} />
-                      </span>
-                    </button>
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F5F6EF] text-sm font-medium text-[#616D43]">
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+
+                        <span className="flex-1 text-sm font-medium leading-6 text-[#0D0D12] md:text-base">
+                          {faq.question}
+                        </span>
+
+                        <span
+                          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-all duration-300 ${
+                            isOpen
+                              ? 'rotate-180 bg-[#616D43] text-white'
+                              : 'bg-[#F5F6EF] text-[#616D43]'
+                          }`}
+                        >
+                          <FiChevronDown size={18} />
+                        </span>
+                      </button>
+                    </div>
 
                     <div
                       id={`faq-answer-${slug}`}
@@ -260,6 +269,7 @@ export const getStaticProps: GetStaticProps = async () => {
     `*[_type == "faq"] | order(_updatedAt desc)[0...${PAGE_SIZE}]{
       question,
       answer,
+      category,
       slug,
       _updatedAt
     }`,
