@@ -16,6 +16,20 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'category',
+      title: 'Category',
+      type: 'string',
+      options: {
+        list: [
+          {title: 'General & Browsing', value: 'General & Browsing'},
+          {title: 'Buying & Renting', value: 'Buying & Renting'},
+          {title: 'Premium Short-Lets', value: 'Premium Short-Lets'},
+          {title: 'Listing & Managing Properties', value: 'Listing & Managing Properties'},
+        ],
+        layout: 'dropdown',
+      },
+    }),
+    defineField({
       name: 'question',
       title: 'Question',
       type: 'string',
