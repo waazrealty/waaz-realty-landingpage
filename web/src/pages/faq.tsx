@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { GetStaticProps } from 'next'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { PortableText } from '@portabletext/react'
 import {
   FiChevronDown,
@@ -28,6 +28,8 @@ type FaqProps = {
   totalCount: number
 }
 
+const tabOptions = ['All', 'General & Browsing', 'Buying & Renting', 'Premium Short-Lets', 'Listing & Managing Properties']
+
 export default function Faq({ faqs, totalCount }: FaqProps) {
   const PAGE_SIZE = 12
 
@@ -37,6 +39,7 @@ export default function Faq({ faqs, totalCount }: FaqProps) {
   const canonical = `${siteUrl}/faq`
 
   const [page, setPage] = useState(0)
+  const [selectedTab, setSelectedTab] = useState(('All'))
   const [loadedFaqs, setLoadedFaqs] = useState<Faq[]>(faqs)
   const [loadingMore, setLoadingMore] = useState(false)
   const [openFaq, setOpenFaq] = useState<string | null>(null)
@@ -75,6 +78,12 @@ export default function Faq({ faqs, totalCount }: FaqProps) {
     }
   }
 
+  const filteredFaqs = useMemo(() => {  
+      return loadedFaqs.filter(
+        (faq) => selectedTab === 'All' || faq.category === selectedTab,
+      )
+    }, [loadedFaqs, selectedTab])
+
   return (
     <BasicLayout
       title="FAQs | Waaz Realty"
@@ -103,11 +112,27 @@ export default function Faq({ faqs, totalCount }: FaqProps) {
           </p>
         </div>
       </section>
-      <section className="mt-14 w-11/12 md:mt-20 md:w-10/12">
-        {loadedFaqs.length > 0 ? (
+      <div className="flex flex-wrap items-center justify-center-safe mx-auto max-w-4xl gap-3">
+        {tabOptions.map((option) => (
+          <button
+            key={option}
+            type="button"
+            onClick={() => setSelectedTab(option)}  // 👈 Updated
+            className={`p-2.5 text-sm font-medium transition px-7 rounded-full cursor-pointer ${
+              selectedTab === option
+                ? 'bg-[#3E452F] text-white'
+                : 'text-black bg-[#D2D8BE] hover:bg-[#3E452F] hover:text-white'
+            }`}
+          >
+            {option}
+          </button>
+        ))}
+      </div>
+      <section className="mt-10 w-11/12 md:w-10/12">
+        {filteredFaqs.length > 0 ? (
           <div className="mx-auto max-w-4xl">
             <div className="divide-y divide-[#E6E8DE] overflow-hidden rounded-[1.25rem] border border-[#E6E8DE] bg-white">
-              {loadedFaqs.map((faq, index) => {
+              {filteredFaqs.map((faq, index) => {
                 const slug = faq.slug?.current
 
                 if (!slug) return null
@@ -121,38 +146,31 @@ export default function Faq({ faqs, totalCount }: FaqProps) {
                       isOpen ? 'bg-[#F5F6EF]/50' : 'bg-white'
                     }`}
                   >
-                    <div>
-                      {faq.category && (
-                        <span className="inline-block bg-[#D2D8BE] px-3 py-1 text-xs font-medium">
-                          {faq.category}
-                        </span>
-                      )}
-                      <button
-                        type="button"
-                        onClick={() => handleToggleFaq(slug)}
-                        aria-expanded={isOpen}
-                        aria-controls={`faq-answer-${slug}`}
-                        className="flex w-full cursor-pointer items-center gap-5 px-5 py-5 text-left transition hover:bg-[#F5F6EF]/50 md:px-7 md:py-6"
+                    <button
+                      type="button"
+                      onClick={() => handleToggleFaq(slug)}
+                      aria-expanded={isOpen}
+                      aria-controls={`faq-answer-${slug}`}
+                      className="flex w-full cursor-pointer items-center gap-5 px-5 py-5 text-left transition hover:bg-[#F5F6EF]/50 md:px-7 md:py-6"
+                    >
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F5F6EF] text-sm font-medium text-[#616D43]">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+
+                      <span className="flex-1 text-sm font-medium leading-6 text-[#0D0D12] md:text-base">
+                        {faq.question}
+                      </span>
+
+                      <span
+                        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-all duration-300 ${
+                          isOpen
+                            ? 'rotate-180 bg-[#616D43] text-white'
+                            : 'bg-[#F5F6EF] text-[#616D43]'
+                        }`}
                       >
-                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F5F6EF] text-sm font-medium text-[#616D43]">
-                          {String(index + 1).padStart(2, '0')}
-                        </span>
-
-                        <span className="flex-1 text-sm font-medium leading-6 text-[#0D0D12] md:text-base">
-                          {faq.question}
-                        </span>
-
-                        <span
-                          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-all duration-300 ${
-                            isOpen
-                              ? 'rotate-180 bg-[#616D43] text-white'
-                              : 'bg-[#F5F6EF] text-[#616D43]'
-                          }`}
-                        >
-                          <FiChevronDown size={18} />
-                        </span>
-                      </button>
-                    </div>
+                        <FiChevronDown size={18} />
+                      </span>
+                    </button>
 
                     <div
                       id={`faq-answer-${slug}`}
