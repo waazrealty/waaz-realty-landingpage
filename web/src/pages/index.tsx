@@ -57,7 +57,7 @@ export default function Home({ listings, rentalListings, testimonals }: { listin
   return (
     <BasicLayout
       title="Waaz Realty"
-      description="A starter Next.js site with TypeScript, Tailwind CSS, reusable components, fonts, and SEO."
+      description="At Waaz Realty, we believe your property journey should be seamless and rewarding. We combine trust with a diverse portfolio, offering everything from luxurious estates to truly affordable homes."
     >
       <section className="flex flex-col lg:w-10/12 w-11/12 lg:mt-15 mt-20 lg:mb-20 md:space-y-10 space-y-12">
         <div className="lg:text-[5rem] text-[4rem] font-serif italic lg:leading-24 leading-18 md:w-[70%]">
