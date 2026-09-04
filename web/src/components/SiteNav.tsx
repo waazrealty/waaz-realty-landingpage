@@ -28,6 +28,7 @@ const navItemsRight = [
   { label: 'For Rent', href: '/rent' },
   { label: 'Contact', href: '/contact' },
   { label: 'Blog', href: '/blog' },
+  { label: 'FAQ', href: '/faq' },
 ]
 
 export default function SiteNav() {
