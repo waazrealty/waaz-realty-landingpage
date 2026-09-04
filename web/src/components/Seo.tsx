@@ -12,7 +12,7 @@ type SeoProps = {
 const defaultMeta = {
   title: 'Waaz Realty Web App',
   description: 'Your Foundation for Elevated Living in Lagos.',
-  url: 'https://waaz-realty-landingpage.vercel.app',
+  url: 'https://www.waazrealty.com',
   image: '/assets/seo-preview.png',
   keywords: ['landed properties', 'real estate', 'components'],
 }

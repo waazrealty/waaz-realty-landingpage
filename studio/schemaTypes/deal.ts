@@ -7,6 +7,9 @@ import {
 
 import AutoAskingPriceInput from './components/AutoAskingPriceInput'
 import AutoDocumentNameInput from './components/AutoDocumentNameInput'
+import CalculatedAmountPaidInput from './components/CalculatedAmountPaidInput'
+import CalculatedRemainingAmountInput from './components/CalculatedRemainingAmountInput'
+import PaymentSummaryInput from './components/PaymentSummaryInput'
 
 /**
  * Returns true when the deal has been closed
@@ -684,82 +687,102 @@ export default defineType({
 
     defineField({
       name: 'commissionHistory',
-      title: 'Commission History',
+      title: 'Payments & Commission',
       type: 'array',
       of: [
         defineArrayMember({
           type: 'object',
-          title: 'Commission',
+          title: 'Payment Arrangement',
 
           fields: [
+            defineField({
+              name: 'paymentDirection',
+              title: 'Payment Direction',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Money In', value: 'money-in' },
+                  { title: 'Money Out', value: 'money-out' },
+                ],
+                layout: 'radio',
+              },
+              validation: (Rule) => Rule.required(),
+            }),
             defineField({
               name: 'paidBy',
               title: 'Paid By',
               type: 'string',
+              hidden: ({ parent }) => parent?.paymentDirection !== 'money-in',
               options: {
                 list: [
-                  {
-                    title: 'Client',
-                    value: 'client',
-                  },
-                  {
-                    title: 'Developer',
-                    value: 'developer',
-                  },
-                  {
-                    title: 'External Agent',
-                    value: 'external-agent',
-                  },
-                  {
-                    title: 'Client & Developer',
-                    value: 'client-developer',
-                  },
-                  {
-                    title: 'Client & Developer',
-                    value: 'client-developer',
-                  },
-                  {
-                    title: 'Client, Developer & External Agent',
-                    value: 'client-developer-external-agent',
-                  },
+                  { title: 'External Agent', value: 'external-agent' },
+                  { title: 'Referral Partner', value: 'referral-partner' },
+                  { title: 'Property Owner / Developer', value: 'developer' },
+                  { title: 'Company / Business', value: 'company' },
+                  { title: 'Client', value: 'client' },
+                  { title: 'Other', value: 'other' },
                 ],
                 layout: 'dropdown',
               },
-              validation: (Rule) => Rule.required(),
+              validation: (Rule) => Rule.custom((value, context) => {
+                const parent = context.parent as { paymentDirection?: string }
+                return parent?.paymentDirection === 'money-in' && !value
+                  ? 'Paid By is required for money in.'
+                  : true
+              }),
             }),
             defineField({
               name: 'paidTo',
-              title: 'Paid By',
+              title: 'Paid To',
               type: 'string',
+              hidden: ({ parent }) => parent?.paymentDirection !== 'money-out',
               options: {
                 list: [
-                  {
-                    title: 'Internal',
-                    value: 'internal',
-                  },
-                  {
-                    title: 'External',
-                    value: 'external',
-                  }
+                  { title: 'Internal Agent', value: 'internal-agent' },
+                  { title: 'Internal Staff', value: 'internal-staff' },
+                  { title: 'External Agent', value: 'external-agent' },
+                  { title: 'Referral Partner', value: 'referral-partner' },
+                  { title: 'Property Owner / Developer', value: 'developer' },
+                  { title: 'Vendor / Service Provider', value: 'vendor' },
+                  { title: 'Company / Business', value: 'company' },
+                  { title: 'Client', value: 'client' },
+                  { title: 'Other', value: 'other' },
                 ],
                 layout: 'dropdown',
               },
-              validation: (Rule) => Rule.required(),
+              validation: (Rule) => Rule.custom((value, context) => {
+                const parent = context.parent as { paymentDirection?: string }
+                return parent?.paymentDirection === 'money-out' && !value
+                  ? 'Paid To is required for money out.'
+                  : true
+              }),
             }),
             defineField({
-              name: 'title',
-              title: 'Title',
+              name: 'reason',
+              title: 'Payment Reason',
               type: 'string',
               options: {
                 list: [
-                  {
-                    title: 'Internal Commission',
-                    value: 'internal-commission',
-                  },
-                  {
-                    title: 'External Commission',
-                    value: 'external-commission',
-                  }
+                  { title: 'Brokerage Commission', value: 'brokerage-commission' },
+                  { title: 'Agency Fee', value: 'agency-fee' },
+                  { title: 'Property Marketing Fee', value: 'property-marketing-fee' },
+                  { title: 'Service Fee', value: 'service-fee' },
+                  { title: 'Referral Fee', value: 'referral-fee' },
+                  { title: 'Collaboration Fee', value: 'collaboration-fee' },
+                  { title: 'Inspection / Viewing Fee', value: 'inspection-viewing-fee' },
+                  { title: 'Management Fee', value: 'management-fee' },
+                  { title: 'Internal Commission', value: 'internal-commission' },
+                  { title: 'External Agent Commission', value: 'external-agent-commission' },
+                  { title: 'Closing Assistance', value: 'closing-assistance' },
+                  { title: 'Negotiation Assistance', value: 'negotiation-assistance' },
+                  { title: 'Inspection / Viewing Assistance', value: 'inspection-viewing-assistance' },
+                  { title: 'Marketing Assistance', value: 'marketing-assistance' },
+                  { title: 'Appreciation / Thank You', value: 'appreciation-thank-you' },
+                  { title: 'Balance', value: 'balance' },
+                  { title: 'Bonus', value: 'bonus' },
+                  { title: 'Refund', value: 'refund' },
+                  { title: 'Expense', value: 'expense' },
+                  { title: 'Other', value: 'other' },
                 ],
                 layout: 'dropdown',
               },
@@ -767,24 +790,181 @@ export default defineType({
             }),
             defineField({
               name: 'percentage',
-              title: 'Percentage',
+              title: 'Percentage (%)',
               type: 'number',
-              validation: (Rule) =>
-                Rule.required(),
             }),
             defineField({
-              name: 'amount',
-              title: 'Amount',
+              name: 'expectedAmount',
+              title: 'Expected Amount',
               type: 'number',
-              validation: (Rule) =>
-                Rule.required(),
+              validation: (Rule) => Rule.required().min(0),
             }),
             defineField({
-              name: 'datetime',
-              title: 'Date & Time',
+              name: 'amountPaid',
+              title: 'Amount Paid',
+              type: 'number',
+              initialValue: 0,
+              readOnly: true,
+              components: {
+                input: CalculatedAmountPaidInput,
+              },
+              validation: (Rule) => Rule.required().min(0),
+            }),
+            defineField({
+              name: 'remainingAmount',
+              title: 'Remaining Amount',
+              type: 'number',
+              readOnly: true,
+              description: 'Calculated automatically as Expected Amount minus Amount Paid.',
+              components: {
+                input: CalculatedRemainingAmountInput,
+              },
+              validation: (Rule) => Rule.min(0),
+            }),
+            defineField({
+              name: 'paymentTransactions',
+              title: 'Payment Transactions',
+              type: 'array',
+              description: 'Add each partial or complete payment here. The Expected Amount above is counted only once.',
+              of: [
+                defineArrayMember({
+                  type: 'object',
+                  title: 'Payment Transaction',
+                  fields: [
+                    defineField({
+                      name: 'amount',
+                      title: 'Amount Paid',
+                      type: 'number',
+                      validation: (Rule) => Rule.required().min(0),
+                    }),
+                    defineField({
+                      name: 'paymentDate',
+                      title: 'Payment Date',
+                      type: 'datetime',
+                    }),
+                    defineField({
+                      name: 'paymentMethod',
+                      title: 'Payment Method',
+                      type: 'string',
+                      options: {
+                        list: [
+                          { title: 'Bank Transfer', value: 'bank-transfer' },
+                          { title: 'Cash', value: 'cash' },
+                          { title: 'POS', value: 'pos' },
+                          { title: 'Cheque', value: 'cheque' },
+                          { title: 'Online Payment', value: 'online-payment' },
+                          { title: 'Direct Bank Deposit', value: 'direct-bank-deposit' },
+                          { title: 'Other', value: 'other' },
+                        ],
+                        layout: 'dropdown',
+                      },
+                    }),
+                    defineField({
+                      name: 'paymentMethodName',
+                      title: 'Payment Method Name',
+                      type: 'string',
+                      hidden: ({ parent }) => parent?.paymentMethod !== 'other',
+                    }),
+                    defineField({
+                      name: 'paymentReference',
+                      title: 'Payment Reference',
+                      type: 'string',
+                    }),
+                    defineField({
+                      name: 'note',
+                      title: 'Note',
+                      type: 'text',
+                      rows: 3,
+                    }),
+                  ],
+                  preview: {
+                    select: {
+                      amount: 'amount',
+                      paymentDate: 'paymentDate',
+                      paymentMethod: 'paymentMethod',
+                    },
+                    prepare({ amount, paymentDate, paymentMethod }) {
+                      return {
+                        title: `${amount ?? 0} ${paymentMethod || ''}`,
+                        subtitle: paymentDate ? new Date(paymentDate).toLocaleString() : 'Payment date not entered',
+                      }
+                    },
+                  },
+                }),
+              ],
+            }),
+            defineField({
+              name: 'status',
+              title: 'Payment Status',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Expected', value: 'expected' },
+                  { title: 'Pending', value: 'pending' },
+                  { title: 'Partially Paid', value: 'partially-paid' },
+                  { title: 'Paid', value: 'paid' },
+                  { title: 'Cancelled', value: 'cancelled' },
+                  { title: 'Refunded', value: 'refunded' },
+                ],
+                layout: 'dropdown',
+              },
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'currency',
+              title: 'Currency',
+              type: 'string',
+              initialValue: 'NGN',
+              options: {
+                list: [
+                  { title: 'NGN - Nigerian Naira', value: 'NGN' },
+                  { title: 'USD - US Dollar', value: 'USD' },
+                  { title: 'GBP - British Pound', value: 'GBP' },
+                  { title: 'EUR - Euro', value: 'EUR' },
+                  { title: 'Other', value: 'OTHER' },
+                ],
+                layout: 'dropdown',
+              },
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'currencyName',
+              title: 'Currency Name',
+              type: 'string',
+              hidden: ({ parent }) => parent?.currency !== 'OTHER',
+            }),
+            defineField({
+              name: 'paymentDate',
+              title: 'Payment Date',
               type: 'datetime',
-              validation: (Rule) =>
-                Rule.required(),
+            }),
+            defineField({
+              name: 'paymentMethod',
+              title: 'Payment Method',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Bank Transfer', value: 'bank-transfer' },
+                  { title: 'Cash', value: 'cash' },
+                  { title: 'POS', value: 'pos' },
+                  { title: 'Cheque', value: 'cheque' },
+                  { title: 'Online Payment', value: 'online-payment' },
+                  { title: 'Direct Bank Deposit', value: 'direct-bank-deposit' },
+                  { title: 'Other', value: 'other' },
+                ],
+                layout: 'dropdown',
+              },
+            }),
+            defineField({
+              name: 'paymentMethodName',
+              title: 'Payment Method Name',
+              type: 'string',
+              hidden: ({ parent }) => parent?.paymentMethod !== 'other',
+            }),
+            defineField({
+              name: 'paymentReference',
+              title: 'Payment Reference',
+              type: 'string',
             }),
             defineField({
               name: 'note',
@@ -795,42 +975,41 @@ export default defineType({
 
           preview: {
             select: {
-              percentage: 'percentage',
-              amount: 'amount',
-              paidBy: 'paidBy',
-              title: 'title',
-              datetime: 'datetime',
+              direction: 'paymentDirection',
+              reason: 'reason',
+              expectedAmount: 'expectedAmount',
+              amountPaid: 'amountPaid',
+              currency: 'currency',
             },
 
-            prepare({
-              title,
-              paidBy,
-              percentage,
-              amount,
-              datetime,
-            }) {
+            prepare({ direction, reason, expectedAmount, amountPaid, currency }) {
               return {
-                title: title === "internal-commission" ? "Internal commission" : "External Commission",
-
-                subtitle: `${
-                  `${amount} in`
-                } ${
-                  `${percentage} %`
-                } •${
-                  `paid by ${paidBy} on`
-                } • ${
-                  datetime
-                    ? new Date(
-                        datetime,
-                      ).toLocaleString()
-                    : ''
-                }`,
+                title: `${direction === 'money-out' ? 'Money Out' : 'Money In'}: ${reason || 'Payment'}`,
+                subtitle: `${amountPaid ?? 0} / ${expectedAmount ?? 0} ${currency || ''}`,
               }
             },
           },
         }),
       ],
       fieldset: 'financials',
+    }),
+
+    defineField({
+      name: 'paymentSummary',
+      title: 'Automatic Payment Summary',
+      type: 'object',
+      description: 'Calculated automatically from Payments & Commission.',
+      components: {
+        input: PaymentSummaryInput,
+      },
+      fieldset: 'financials',
+      fields: [
+        defineField({ name: 'totalDue', title: 'Total Due', type: 'number', readOnly: true }),
+        defineField({ name: 'totalReceived', title: 'Total Received', type: 'number', readOnly: true }),
+        defineField({ name: 'totalStillDue', title: 'Total Still Due', type: 'number', readOnly: true }),
+        defineField({ name: 'totalPaidOut', title: 'Total Paid Out', type: 'number', readOnly: true }),
+        defineField({ name: 'remaining', title: 'Remaining', type: 'number', readOnly: true }),
+      ],
     }),
 
     // ---------------------------------------------------------

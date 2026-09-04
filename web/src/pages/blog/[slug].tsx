@@ -60,12 +60,47 @@ export default function BlogDetails({ post }: { post: BlogPost }) {
         <div className="prose prose-slate">
           <PortableText value={post.body || []} />
         </div>
-        <div className="flex items-center justify-center gap-5 my-15">
-          <img src="/assets/images/instagram.svg" alt="social media icon" className="h-10 w-10" />
-          <img src="/assets/images/facebook.svg" alt="social media icon" className="h-10 w-10" />
-          <img src="/assets/images/tiktok.svg" alt="social media icon" className="h-10 w-10" />
-          <img src="/assets/images/linkedIn.svg" alt="social media icon" className="h-10 w-10" />
-          <img src="/assets/images/x.svg" alt="social media icon" className="h-10 w-10" />
+        <div className="flex items-center justify-center gap-5 md:my-15 my-6">
+          <a
+            href="https://www.instagram.com/waazrealty?igsi=MWxjcTE4c2U1ZXIxcg%3D%3D&utm_source=qr"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="outline-0"
+          >
+            <img src="/assets/images/instagram.svg" alt="social media icon" className="h-10 w-10" />
+          </a>
+          <a
+            href="https://www.facebook.com/share/1S8gQk6QjR/?mibextid=wwXIfr"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="outline-0"
+          >
+            <img src="/assets/images/facebook.svg" alt="social media icon" className="h-10 w-10" />
+          </a>
+          <a
+            href="https://www.tiktok.com/@waazrealty"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="outline-0"
+          >
+            <img src="/assets/images/tiktok.svg" alt="social media icon" className="h-10 w-10" />
+          </a>
+          <a
+            href="https://www.linkedin.com/company/waaz-realty-ltd/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="outline-0"
+          >
+            <img src="/assets/images/linkedIn.svg" alt="social media icon" className="h-10 w-10" />
+          </a>
+          <a
+            href="https://twitter.com/waazrealty"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="outline-0"
+          >
+            <img src="/assets/images/x.svg" alt="social media icon" className="h-10 w-10" />
+          </a>
         </div>
       </section>
       <section className="relative md:aspect-video aspect-2/3 lg:w-10/12 w-full overflow-hidden md:mb-20 mb-5">

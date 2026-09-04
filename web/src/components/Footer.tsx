@@ -61,21 +61,46 @@ export default function Footer() {
           <div className="space-y-3 text-base font-medium tracking-tight">
             <div>Socials</div>
             <div className="lg:space-y-3 lg:space-x-0 space-x-3 md:text-xs text-base text-[#9AA675] flex lg:flex-col">
-              <Link href="/contact">
-                <img src="/assets/images/x.svg" alt="social media icon" className="lg:h-5 h-10 lg:w-5 w-10 lg:rounded-sm rounded-lg" />
-              </Link>
-              <Link href="/contact">
+              <a
+                href="https://www.instagram.com/waazrealty?igsi=MWxjcTE4c2U1ZXIxcg%3D%3D&utm_source=qr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="outline-0"
+              >
                 <img src="/assets/images/instagram.svg" alt="social media icon" className="lg:h-5 h-10 lg:w-5 w-10 lg:rounded-sm rounded-lg" />
-              </Link>
-              <Link href="/contact">
+              </a>
+              <a
+                href="https://www.facebook.com/share/1S8gQk6QjR/?mibextid=wwXIfr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="outline-0"
+              >
                 <img src="/assets/images/facebook.svg" alt="social media icon" className="lg:h-5 h-10 lg:w-5 w-10 lg:rounded-sm rounded-lg" />
-              </Link>
-              <Link href="/contact">
-                <img src="/assets/images/linkedIn.svg" alt="social media icon" className="lg:h-5 h-10 lg:w-5 w-10 lg:rounded-sm rounded-lg" />
-              </Link>
-              <Link href="/contact">
+              </a>
+              <a
+                href="https://www.tiktok.com/@waazrealty"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="outline-0"
+              >
                 <img src="/assets/images/tiktok.svg" alt="social media icon" className="lg:h-5 h-10 lg:w-5 w-10 lg:rounded-sm rounded-lg" />
-              </Link>
+              </a>
+              <a
+                href="https://www.linkedin.com/company/waaz-realty-ltd/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="outline-0"
+              >
+                <img src="/assets/images/linkedIn.svg" alt="social media icon" className="lg:h-5 h-10 lg:w-5 w-10 lg:rounded-sm rounded-lg" />
+              </a>
+              <a
+                href="https://twitter.com/waazrealty"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="outline-0"
+              >
+                <img src="/assets/images/x.svg" alt="social media icon" className="lg:h-5 h-10 lg:w-5 w-10 lg:rounded-sm rounded-lg" />
+              </a>
             </div>
           </div>
         </div>

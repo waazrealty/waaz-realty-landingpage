@@ -117,7 +117,7 @@ export default function Contact() {
       </section>
       <section className="md:h-75 h-25"></section>
       <section
-        className="w-full flex flex-col items-center justify-between md:px-20 space-y-8"
+        className="md:w-10/12 w-11/12 flex flex-col items-center justify-between space-y-8"
       >
         <div className="lg:w-lg w-11/12">
           <div className="lg:text-6xl text-5xl text-center leading-16 italic font-serif text-black">Pick your channel</div>
@@ -127,8 +127,8 @@ export default function Contact() {
           Whether you need instant answers or want to schedule a sit-down consultation, our team is available across multiple platforms to serve you.
         </div>
 
-        <div className="w-11/12 grid md:grid-cols-3 items-center justify-center gap-10 mt-10">
-          <div className="flex md:w-100 w-full flex-col gap-5 bg-[##F5F6EF] rounded-4xl border border-[#D2D8BE]">
+        <div className="w-full grid md:grid-cols-2 lg:grid-cols-3 items-center justify-center gap-10 mt-10">
+          <div className="w-full gap-5 bg-[##F5F6EF] rounded-4xl border border-[#D2D8BE]">
             <div className="relative flex justify-center my-10">
               <img
                 src="/assets/images/email.svg"
@@ -151,7 +151,7 @@ export default function Contact() {
               </div> 
             </div>
           </div>
-          <div className="flex md:w-100 w-full flex-col gap-5 bg-[##F5F6EF] rounded-4xl border border-[#D2D8BE]">
+          <div className="w-full gap-5 bg-[##F5F6EF] rounded-4xl border border-[#D2D8BE]">
             <div className="relative flex justify-center my-10">
               <img
                 src="/assets/images/phone.svg"
@@ -165,21 +165,21 @@ export default function Contact() {
               <div className="p-7 md:w-full w-11/12">
                 <div className="text-3xl italic font-serif text-white leading-13">Call Our Experts</div>
                 <div className="text-sm text-[#E8EADD] pt-2 pb-7">Prefer to hear a voice? Speak directly with our real estate experts. We are available Monday to Saturday, 9am - 6pm.</div>
-                <div className="flex flex-row gap-3">
+                <div className="inline-flex gap-3">
                   <div
                     className="flex items-center gap-2 rounded-full bg-white capitalize px-6 py-2 text-xs tracking-tight transition hover:opacity-90 w-max cursor-pointer"
                   >
                     <span>Give Us A Call</span>
                     <VscChevronRight size={14} className="-mb-1" />
                   </div>
-                  <div className="flex items-center gap-1 font-medium capitalize p-3 bg-[#74C56B] rounded-full border border-white">
-                    <FaWhatsapp size={21} className="text-white"/>
+                  <div className="flex items-center gap-1 font-medium capitalize p-2 bg-[#74C56B] rounded-full border border-white">
+                    <FaWhatsapp size={14} className="text-white"/>
                   </div>
                 </div>
               </div> 
             </div>
           </div>
-          <div className="flex md:w-100 w-full flex-col gap-5 bg-[##F5F6EF] rounded-4xl border border-[#D2D8BE]">
+          <div className="w-full gap-5 bg-[##F5F6EF] rounded-4xl border border-[#D2D8BE]">
             <div className="relative flex justify-center my-10">
               <img
                 src="/assets/images/store.svg"
@@ -205,11 +205,46 @@ export default function Contact() {
         </div>
 
         <div className="flex items-center justify-center gap-5 md:my-15">
-          <img src="/assets/images/instagram.svg" alt="social media icon" className="h-10 w-10" />
-          <img src="/assets/images/facebook.svg" alt="social media icon" className="h-10 w-10" />
-          <img src="/assets/images/tiktok.svg" alt="social media icon" className="h-10 w-10" />
-          <img src="/assets/images/linkedIn.svg" alt="social media icon" className="h-10 w-10" />
-          <img src="/assets/images/x.svg" alt="social media icon" className="h-10 w-10" />
+          <a
+            href="https://www.instagram.com/waazrealty?igsi=MWxjcTE4c2U1ZXIxcg%3D%3D&utm_source=qr"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="outline-0"
+          >
+            <img src="/assets/images/instagram.svg" alt="social media icon" className="h-10 w-10" />
+          </a>
+          <a
+            href="https://www.facebook.com/share/1S8gQk6QjR/?mibextid=wwXIfr"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="outline-0"
+          >
+            <img src="/assets/images/facebook.svg" alt="social media icon" className="h-10 w-10" />
+          </a>
+          <a
+            href="https://www.tiktok.com/@waazrealty"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="outline-0"
+          >
+            <img src="/assets/images/tiktok.svg" alt="social media icon" className="h-10 w-10" />
+          </a>
+          <a
+            href="https://www.linkedin.com/company/waaz-realty-ltd/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="outline-0"
+          >
+            <img src="/assets/images/linkedIn.svg" alt="social media icon" className="h-10 w-10" />
+          </a>
+          <a
+            href="https://twitter.com/waazrealty"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="outline-0"
+          >
+            <img src="/assets/images/x.svg" alt="social media icon" className="h-10 w-10" />
+          </a>
         </div>
       </section>
       <section className="relative md:aspect-video aspect-2/3 lg:w-10/12 w-full overflow-hidden mb-20">

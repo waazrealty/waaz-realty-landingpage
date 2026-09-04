@@ -111,24 +111,24 @@ export default function Faq({ faqs, totalCount }: FaqProps) {
             properties and services.
           </p>
         </div>
+        <div className="flex flex-wrap items-center justify-center-safe mx-auto max-w-4xl gap-3 mt-6">
+          {tabOptions.map((option) => (
+            <button
+              key={option}
+              type="button"
+              onClick={() => setSelectedTab(option)}  // 👈 Updated
+              className={`p-2.5 text-sm text-black font-medium transition px-4 rounded-full cursor-pointer ${
+                selectedTab === option
+                  ? 'bg-[#D2D8BE]'
+                  : 'bg-[#F5F6EF]/50 hover:bg-[#D2D8BE]'
+              }`}
+            >
+              {option}
+            </button>
+          ))}
+        </div>
       </section>
-      <div className="flex flex-wrap items-center justify-center-safe mx-auto max-w-4xl gap-3">
-        {tabOptions.map((option) => (
-          <button
-            key={option}
-            type="button"
-            onClick={() => setSelectedTab(option)}  // 👈 Updated
-            className={`p-2.5 text-sm font-medium transition px-7 rounded-full cursor-pointer ${
-              selectedTab === option
-                ? 'bg-[#3E452F] text-white'
-                : 'text-black bg-[#D2D8BE] hover:bg-[#3E452F] hover:text-white'
-            }`}
-          >
-            {option}
-          </button>
-        ))}
-      </div>
-      <section className="mt-10 w-11/12 md:w-10/12">
+      <section className="w-11/12 md:w-10/12">
         {filteredFaqs.length > 0 ? (
           <div className="mx-auto max-w-4xl">
             <div className="divide-y divide-[#E6E8DE] overflow-hidden rounded-[1.25rem] border border-[#E6E8DE] bg-white">
