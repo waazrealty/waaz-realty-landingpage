@@ -412,7 +412,7 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
             <div className="flex flex-col gap-2 md:gap-4 font-serif font-medium italic text-4xl">
               <div className="leading-tight">{listing.title}</div>
               <div>
-                {formatPrice(listing.price)} <span className="text-[#666D80]">Yearly</span>
+                {formatPrice(listing.price)} {listing.category?.includes("for-rent") && <span className="text-[#666D80]">Yearly</span> } {listing.category?.includes("shortlet") && <span className="text-[#666D80]">Per Night</span> }
               </div>
             </div>
           </div>
