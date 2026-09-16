@@ -46,7 +46,7 @@ type ListingDetail = {
   ecoFeatures?: FeatureItem[]
   propertyRules?: FeatureItem[]
   utilities?: FeatureItem[]
-  moveInCosts?: Array<{ item: string; detail: string; amount: number }>
+  moveInCosts: Array<{ item: string; detail: string; amount: number }>
   agent: { name: string; phone?: string }
   _updatedAt?: string
 }
@@ -383,7 +383,7 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
       setIsSubmittingInspection(false);
     }
   }; 
-
+  
   return (
     <BasicLayout
       title={listing.title}
@@ -407,7 +407,7 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
                 <div className="bg-[#293417CC] border border-[#B5BF97] py-1.5 px-3 text-white text-xs rounded-full">FEATURED</div>
                 |
               </div>}
-              <div className="text-base text-[#666D80] font-medium">{listing.category?.includes("for-sale") && "For Sale | " } {listing.category?.includes("for-rent") && "For Rent | " } {listing.category?.includes("shortlet") && "Shortlet | " } {location}  | {listing.unit && `| ${listing.unit} Units` }</div>
+              <div className="text-base text-[#666D80] font-medium">{listing.category?.includes("for-sale") && "For Sale | " } {listing.category?.includes("for-rent") && "For Rent | " } {listing.category?.includes("shortlet") && "Shortlet | " } {location}  {listing.unit && `| ${listing.unit} Unit(s)` }</div>
             </div>
             <div className="flex flex-col gap-2 md:gap-4 font-serif font-medium italic text-4xl">
               <div className="leading-tight">{listing.title}</div>
@@ -590,27 +590,29 @@ export default function ListingDetails({ listing, listings }: { listing: Listing
                 })}
               </div>
             </div>
-            <div className="w-full">
-              <div className="flex items-center space-x-2 px-5 py-2 bg-[#F5F6EF] text-[#3E452F] rounded-t-2xl max-w-max">
-                <MdReceipt />
-                <div className="text-base font-medium">Move-In Cost Overview</div>
-              </div>
-              <div className="flex flex-col w-full gap-5 border border-[#C1C7D0]/50 rounded-b-2xl rounded-tr-2xl p-5 text-base text-[#36394A]">
-                <div className="flex flex-col w-full gap-2.5">
-                  {listing.moveInCosts && listing.moveInCosts.length > 0 && listing.moveInCosts.map((cost) => (
-                    <div key={cost.item} className="flex items-start ">
-                      <div className="w-1/3">{cost.item}</div>
-                      <div className="w-1/3 text-center">{cost.detail || '-'}</div>
-                      <div className="w-1/3 text-right">{cost.amount ? new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(cost.amount) : '-'}</div>
-                    </div>
-                  ))}
+            {listing.moveInCosts && listing.moveInCosts.length !== 0 &&
+              <div className="w-full">
+                <div className="flex items-center space-x-2 px-5 py-2 bg-[#F5F6EF] text-[#3E452F] rounded-t-2xl max-w-max">
+                  <MdReceipt />
+                  <div className="text-base font-medium">Move-In Cost Overview</div>
                 </div>
-                <div className="border-t border-[#C1C7D0]/50 pt-4 flex items-center justify-between w-full">
-                  <div className="text-base font-semibold">Total :</div>
-                  <div className="text-base font-semibold text-right">₦ {totalPackageCost}</div>
+                <div className="flex flex-col w-full gap-5 border border-[#C1C7D0]/50 rounded-b-2xl rounded-tr-2xl p-5 text-base text-[#36394A]">
+                  <div className="flex flex-col w-full gap-2.5">
+                    {listing.moveInCosts && listing.moveInCosts.length !== 0 && listing.moveInCosts.map((cost) => (
+                      <div key={cost.item} className="flex items-start ">
+                        <div className="w-1/3">{cost.item}</div>
+                        <div className="w-1/3 text-center">{cost.detail || '-'}</div>
+                        <div className="w-1/3 text-right">{cost.amount ? new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(cost.amount) : '-'}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="border-t border-[#C1C7D0]/50 pt-4 flex items-center justify-between w-full">
+                    <div className="text-base font-semibold">Total :</div>
+                    <div className="text-base font-semibold text-right">₦ {totalPackageCost}</div>
+                  </div>
                 </div>
               </div>
-            </div>
+            }
           </div>
         </div>
 
@@ -761,9 +763,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const slug = params?.slug
+  const slug = Array.isArray(params?.slug) ? params.slug[0] : params?.slug
+
+  if (!slug) {
+    return { notFound: true }
+  }
+
   const listing = await sanityClient.fetch(
-    `*[_type == "listing" && status == "active" && slug.current == $slug][0]{
+    `*[_type == "listing" && slug.current == $slug][0]{
       _id,
       title,
       slug,
