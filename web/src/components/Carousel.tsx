@@ -16,25 +16,36 @@ export default function Carousel({ images, videoUrl }: { images?: string[], vide
   const scrollToIndex = useCallback((index: number) => {
     if (!sliderRef.current) return
     const container = sliderRef.current
-    const slideWidth = container.clientWidth
-    // calculate scrollLeft to center the slide (or snap to start)
-    const scrollLeft = index * slideWidth
-    container.scrollTo({ left: scrollLeft, behavior: 'smooth' })
-    setCurrentIndex(index)
+    const slide = container.children[index] as HTMLElement | undefined
+    if (!slide) return
+
+    const targetScrollLeft = slide.offsetLeft - (container.clientWidth - slide.offsetWidth) / 2
+    const maxScrollLeft = container.scrollWidth - container.clientWidth
+
+    container.scrollTo({
+      left: Math.max(0, Math.min(targetScrollLeft, maxScrollLeft)),
+      behavior: 'smooth',
+    })
   }, [])
 
   const handleScroll = useCallback(() => {
     if (!sliderRef.current) return
     const container = sliderRef.current
-    const { scrollLeft, clientWidth } = container
-    if (clientWidth === 0) return
-    const index = Math.round(scrollLeft / clientWidth)
-    // clamp index
-    const clampedIndex = Math.min(Math.max(index, 0), items.length - 1)
-    if (clampedIndex !== currentIndex) {
-      setCurrentIndex(clampedIndex)
+    const viewportCenter = container.scrollLeft + container.clientWidth / 2
+    const closestIndex = Array.from(container.children).reduce(
+      (closest, child, index) => {
+        const slide = child as HTMLElement
+        const slideCenter = slide.offsetLeft + slide.offsetWidth / 2
+        const distance = Math.abs(slideCenter - viewportCenter)
+        return distance < closest.distance ? { index, distance } : closest
+      },
+      { index: 0, distance: Number.POSITIVE_INFINITY }
+    ).index
+
+    if (closestIndex !== currentIndex) {
+      setCurrentIndex(closestIndex)
     }
-  }, [currentIndex, items.length])
+  }, [currentIndex])
 
   useEffect(() => {
     const container = sliderRef.current
@@ -85,12 +96,11 @@ export default function Carousel({ images, videoUrl }: { images?: string[], vide
               <div
                 key={index}
                 className="snap-center shrink-0 overflow-hidden bg-white rounded-3xl"
-                style={{ width: '100%', flex: '0 0 100%' }}
               >
                 <img
                   src={image}
                   alt={`Carousel-image-${index}`}
-                  className="md:h-150 h-110 w-full object-cover"
+                  className="md:h-150 h-110 w-full object-contain"
                 />
               </div>
             ))}
