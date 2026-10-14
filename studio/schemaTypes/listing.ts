@@ -131,11 +131,12 @@ import {
   MdLocalPlay,
   MdSmartDisplay,
   MdConnectedTv,
-} from 'react-icons/md'
+} from 'react-icons/md';
+import PriceInWordsInput from './components/PriceInWordsInput'
 
 export default defineType({
   name: 'listing',
-  title: 'Listing',
+  title: 'Property Listing',
   type: 'document',
   initialValue: () => {
     // Use crypto.randomUUID() if available (modern browsers), otherwise fallback
@@ -228,8 +229,23 @@ export default defineType({
       name: 'price',
       title: 'Price',
       type: 'number',
-      description: '250000000',
-      validation: (Rule) => Rule.integer().positive(),
+      description: 'Enter the property price in Naira. Example: 250000000',
+      validation: (Rule) =>
+        Rule.required()
+          .integer()
+          .positive()
+          .error('Price must be a positive whole number'),
+    }),
+
+    defineField({
+      name: 'priceInWords',
+      title: 'Price in Words',
+      type: 'string',
+      readOnly: true,
+      components: {
+        input: PriceInWordsInput,
+      },
+      description: 'Automatically generated from the Price field.',
     }),
     defineField({
       name: 'city',
@@ -262,7 +278,15 @@ export default defineType({
       name: 'gallery',
       title: 'Gallery',
       type: 'array',
-      of: [defineArrayMember({type: 'image', options: {hotspot: true}})],
+      of: [
+        defineArrayMember({
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+        }),
+      ],
+      description: 'Drag-and-drop or click to upload multiple images. Click each image to set focal point.',
     }),
     defineField({
       name: 'description',

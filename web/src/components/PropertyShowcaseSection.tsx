@@ -77,7 +77,7 @@ export default function PropertyShowcaseSection({ listings, rentalListings }: { 
                   </div>
                 </div>
 
-                <p className="text-base font-medium text-[#666D80]">
+                <p className="text-base font-medium text-[#666D80] line-clamp-1">
                   {location}
                 </p>
 

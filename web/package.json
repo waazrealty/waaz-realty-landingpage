@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "ts-node scripts/generate-sitemap.ts && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sitemap": "ts-node scripts/generate-sitemap.ts"
   },
   "dependencies": {
     "@portabletext/react": "^7.0.1",

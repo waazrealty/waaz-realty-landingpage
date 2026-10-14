@@ -2,7 +2,7 @@ import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'contact',
-  title: 'Contact',
+  title: 'Website Contact Enquires',
   type: 'document',
   fields: [
     defineField({
@@ -19,6 +19,23 @@ export default defineType({
       name: 'mobile',
       title: 'Phone Number',
       type: 'string',
+    }),
+    defineField({
+      name: 'status',
+      title: 'Status',
+      type: 'string',
+      initialValue: 'new',
+      options: {
+        list: [
+          {title: 'New', value: 'new'},
+          {title: 'Contacted', value: 'contacted'},
+          {title: 'In Progress', value: 'in-progress'},
+          {title: 'Resolved', value: 'resolved'},
+          {title: 'Spam', value: 'spam'},
+        ],
+        layout: 'radio',
+      },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'discussion',

@@ -7,6 +7,7 @@ type SeoProps = {
   image?: string
   keywords?: string[]
   canonical?: string
+  schema?: Record<string, any>
 }
 
 const defaultMeta = {
@@ -24,6 +25,7 @@ export default function Seo({
   image = defaultMeta.image,
   keywords = defaultMeta.keywords,
   canonical,
+  schema,
 }: SeoProps) {
   return (
     <Head>
@@ -50,6 +52,13 @@ export default function Seo({
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
+
+      {schema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      )}
     </Head>
   )
 }

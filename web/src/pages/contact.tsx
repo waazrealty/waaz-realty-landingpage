@@ -68,6 +68,11 @@ export default function Contact() {
     }
   };
 
+  const supportPhone = '+2347062878967'
+  const supportPhoneFormatted = supportPhone.replace(/\D/g, '')
+  const whatsappUrl = `https://api.whatsapp.com/send?phone=${supportPhoneFormatted}`
+  const telUrl = `tel:${supportPhoneFormatted}`
+
   return (
     <BasicLayout title="Contact | Waaz Realty" description="Get in touch with Waaz Realty for property inquiries and support." canonical={canonical} url={canonical} image="/assets/contact-preview.png">
       <section className="flex flex-col md:w-10/12 w-11/12 lg:mt-15 mt-25 space-y-5 items-center">
@@ -152,7 +157,7 @@ export default function Contact() {
             </div>
           </div>
           <div className="w-full gap-5 bg-[##F5F6EF] rounded-4xl border border-[#D2D8BE]">
-            <div className="relative flex justify-center my-10">
+            <div className="relative flex justify-center my-10 outline-0">
               <img
                 src="/assets/images/phone.svg"
                 alt="Mail icon"
@@ -166,15 +171,16 @@ export default function Contact() {
                 <div className="text-3xl italic font-serif text-white leading-13">Call Our Experts</div>
                 <div className="text-sm text-[#E8EADD] pt-2 pb-7">Prefer to hear a voice? Speak directly with our real estate experts. We are available Monday to Saturday, 9am - 6pm.</div>
                 <div className="inline-flex gap-3">
-                  <div
-                    className="flex items-center gap-2 rounded-full bg-white capitalize px-6 py-2 text-xs tracking-tight transition hover:opacity-90 w-max cursor-pointer"
-                  >
+                  <a href={telUrl} className="flex items-center gap-2 rounded-full bg-white capitalize px-6 py-2 text-xs tracking-tight transition hover:opacity-90 w-max cursor-pointer outline-0">
                     <span>Give Us A Call</span>
                     <VscChevronRight size={14} className="-mb-1" />
-                  </div>
-                  <div className="flex items-center gap-1 font-medium capitalize p-2 bg-[#74C56B] rounded-full border border-white">
+                  </a>
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer" className="flex items-center gap-1 font-medium capitalize p-2 bg-[#74C56B] rounded-full border border-white outline">
                     <FaWhatsapp size={14} className="text-white"/>
-                  </div>
+                  </a>
                 </div>
               </div> 
             </div>

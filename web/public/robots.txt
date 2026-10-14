@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /studio/
+
+Crawl-delay: 1
+
+Sitemap: https://www.waazrealty.com/sitemap.xml
